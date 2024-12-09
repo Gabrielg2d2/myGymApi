@@ -4,3 +4,4 @@ db/*.db
 .env
 .env.test
 coverage/
+package-lock.json
