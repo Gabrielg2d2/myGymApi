@@ -31,4 +31,4 @@ MyGymAPI
 - [] A senha do usuário precisa estar criptografadas;
 - [] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
 - [] Todas listas de dados, precisam estar paginadas com 20 itens por página;
-- [] O usuário de ser identificado por um (JWT Token);
+- [] O usuário deve ser identificado por um (JWT Token);
