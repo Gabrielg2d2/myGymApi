@@ -1,0 +1,14 @@
+#  docker run --name api-mygym-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apimygym -p 5432:5432 bitnami/postgresql:latest
+
+version: "3.7"
+
+services:
+  api-mygym-pg:
+    image: bitnami/postgresql:latest
+    container_name: api-mygym-pg
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=apimygym
+    ports:
+      - "5432:5432"
