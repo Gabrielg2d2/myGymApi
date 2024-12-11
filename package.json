@@ -10,7 +10,8 @@
     "test": "vitest",
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "test:ci": "vitest --run"
+    "test:ci": "vitest --run",
+    "prisma:studio": "npx prisma studio"
   },
   "keywords": [],
   "author": "",
