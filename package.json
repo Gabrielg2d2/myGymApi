@@ -12,7 +12,9 @@
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:ci": "vitest --run",
-    "prisma:studio": "npx prisma studio"
+    "prisma:studio": "npx prisma studio",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
