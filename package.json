@@ -4,10 +4,9 @@
   "description": "MyGymAPI",
   "main": "index.js",
   "scripts": {
-    "start:dev": "docker compose up -d && tsx watch src/server.ts",
-    "stop": "docker compose stop",
     "dev": "tsx watch src/server.ts",
-    "start": "node build/server.js",
+    "start:dev": "docker compose up -d && npm run dev",
+    "stop": "docker compose stop",
     "build": "tsup src --out-dir build",
     "test": "vitest",
     "test:cov": "vitest run --coverage",
