@@ -1,5 +1,4 @@
-import { prisma } from "@/lib/prisma";
-import { hash } from "bcryptjs";
+import { createUserUseCase } from "@/use-cases/create-user";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -15,19 +14,15 @@ export async function createUserController(
 
   const { name, email, password } = registerBodySchema.parse(request.body);
 
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (user) {
+  try {
+    await createUserUseCase({
+      name,
+      email,
+      password,
+    });
+  } catch (error) {
     return reply.status(409).send();
   }
-
-  const password_hash = await hash(password, 6);
-
-  await prisma.user.create({
-    data: { name, email, password_hash },
-  });
 
   return reply.status(201).send();
 }
