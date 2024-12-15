@@ -7,18 +7,16 @@ type ICreateUserUseCase = {
   password: string;
 };
 
-export async function createUserUseCase({
-  name,
-  email,
-  password,
-}: ICreateUserUseCase) {
-  const password_hash = await hash(password, 6);
+export class CreateUserUseCase {
+  constructor(private readonly usersRepository = new UsersRepository()) {}
 
-  const usersRepository = new UsersRepository();
+  async execute({ name, email, password }: ICreateUserUseCase) {
+    const password_hash = await hash(password, 6);
 
-  await usersRepository.create({
-    name,
-    email,
-    password_hash,
-  });
+    await this.usersRepository.create({
+      name,
+      email,
+      password_hash,
+    });
+  }
 }
