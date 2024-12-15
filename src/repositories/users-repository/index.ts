@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { IDataCreate, IUsersRepository } from "./interface-users";
+import { IDataCreate, IUsersRepository } from "./interface";
 
 export class UsersRepository implements IUsersRepository {
   constructor(private readonly db = prisma) {}
