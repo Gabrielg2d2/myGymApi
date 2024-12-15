@@ -1,4 +1,4 @@
-import { CreateUserUseCase } from "@/use-cases/create-user";
+import { UsersDomain } from "@/domain/users/main";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -14,10 +14,10 @@ export async function createUserController(
 
   const { name, email, password } = registerBodySchema.parse(request.body);
 
-  const createUserUseCase = new CreateUserUseCase();
+  const usersDomain = new UsersDomain();
 
   try {
-    await createUserUseCase.execute({ name, email, password });
+    await usersDomain.createUser({ name, email, password });
   } catch (error) {
     console.error(error);
     return reply.status(409).send();
