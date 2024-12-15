@@ -19,6 +19,7 @@ export async function createUserController(
   try {
     await createUserUseCase.execute({ name, email, password });
   } catch (error) {
+    console.error(error);
     return reply.status(409).send();
   }
 

@@ -1,9 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { IDataCreate, IUsersRepository } from "./interface-users";
 
-type IDataCreate = Prisma.UserCreateInput;
-
-export class UsersRepository {
+export class UsersRepository implements IUsersRepository {
   constructor(private readonly db = prisma) {}
 
   async create(data: IDataCreate) {
