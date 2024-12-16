@@ -1,7 +1,12 @@
 import { env } from "@/env";
 import { Prisma, PrismaClient } from "@prisma/client";
 
-export class PrismaAdapter {
+interface IAdapterRepository {
+  userCreate(data: Prisma.UserCreateInput): Promise<Prisma.UserCreateInput>;
+  userFindUnique(email: string): Promise<Prisma.UserCreateInput | null>;
+}
+
+export class PrismaAdapter implements IAdapterRepository {
   constructor(
     private readonly db = new PrismaClient({
       log:
