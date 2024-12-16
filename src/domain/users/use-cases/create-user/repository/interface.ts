@@ -9,6 +9,6 @@ type IUser = {
   created_at: Date;
 };
 
-export interface IUsersRepository {
+export interface IUsersCreateRepository {
   create(data: IDataCreate): Promise<IUser>;
 }
