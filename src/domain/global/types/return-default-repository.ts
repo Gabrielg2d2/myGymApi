@@ -7,4 +7,5 @@ export type IReturnDefaultRepository<D> = Promise<{
     pt: string;
   };
   typeMessage: ITypeMessageGlobal;
+  statusCode: number;
 }>;
