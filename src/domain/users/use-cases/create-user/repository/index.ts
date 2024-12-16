@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { IDataCreate, IUsersRepository } from "./interface";
+import { IDataCreate, IUsersCreateRepository } from "./interface";
 
-export class Repository implements IUsersRepository {
+export class Repository implements IUsersCreateRepository {
   constructor(private readonly dbAdapter = prisma) {}
 
   async create(data: IDataCreate) {
