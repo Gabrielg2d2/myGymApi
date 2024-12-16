@@ -1,6 +1,7 @@
 import { IReturnDefaultRepository } from "@/domain/global/types/return-default-repository";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { prisma } from "@/lib/prisma";
+// import { prisma } from "@/lib/prisma";
+import { PrismaAdapter } from "@/domain/adapters/prisma";
 import { Prisma } from "@prisma/client";
 import { ErrorsCreateUser } from "./errors";
 
@@ -15,21 +16,17 @@ type IDataUser = {
 };
 
 export class RepositoryCreateUser {
-  constructor(private readonly dbAdapter = prisma) {}
+  constructor(private readonly dbAdapter = new PrismaAdapter()) {}
 
   async execute(data: IDataCreate): IReturnDefaultRepository<IDataUser | null> {
     try {
-      const user = await this.dbAdapter.user.findUnique({
-        where: { email: data.email },
-      });
+      const user = await this.dbAdapter.userFindUnique(data.email);
 
       if (user) {
         throw new Error("Error: User already exists");
       }
 
-      const newUser = await this.dbAdapter.user.create({
-        data,
-      });
+      const newUser = await this.dbAdapter.userCreate(data);
 
       return {
         data: newUser,
