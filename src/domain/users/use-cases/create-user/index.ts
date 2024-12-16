@@ -1,30 +1,22 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { hash } from "bcryptjs";
-import { z } from "zod";
 import { RepositoryCreateUser } from "./repository";
+import { ServiceValidationDataUser } from "./services/validation-data-user";
 
-export type ICreateUserUseCase =
-  | {
-      name: string;
-      email: string;
-      password: string;
-    }
-  | unknown;
+export type ICreateUserUseCase = {
+  name: string;
+  email: string;
+  password: string;
+};
 export class CreateUserUseCase {
   constructor(
     private readonly repositoryCreateUser = new RepositoryCreateUser()
   ) {}
 
   async execute(body: ICreateUserUseCase) {
-    const registerBodySchema = z.object({
-      name: z.string().min(3),
-      email: z.string().email(),
-      password: z.string().min(6),
-    });
+    const isBodyValid = await new ServiceValidationDataUser().execute(body);
 
-    const isBodyValid = registerBodySchema.safeParse(body);
-
-    if (!isBodyValid.success) {
+    if (!isBodyValid) {
       const dataDefault = {
         data: null,
         message: {
@@ -38,7 +30,7 @@ export class CreateUserUseCase {
       return dataDefault;
     }
 
-    const { name, email, password } = isBodyValid.data;
+    const { name, email, password } = body;
 
     const password_hash = await hash(password, 6);
 
