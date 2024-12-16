@@ -2,10 +2,10 @@ import { prisma } from "@/lib/prisma";
 import { IDataCreate, IUsersRepository } from "./interface";
 
 export class Repository implements IUsersRepository {
-  constructor(private readonly db = prisma) {}
+  constructor(private readonly dbAdapter = prisma) {}
 
   async create(data: IDataCreate) {
-    const user = await this.db.user.findUnique({
+    const user = await this.dbAdapter.user.findUnique({
       where: { email: data.email },
     });
 
@@ -13,7 +13,7 @@ export class Repository implements IUsersRepository {
       throw new Error("E-mail already exists");
     }
 
-    const newUser = await this.db.user.create({
+    const newUser = await this.dbAdapter.user.create({
       data,
     });
 
