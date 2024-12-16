@@ -2,7 +2,10 @@ import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
 export class ErrorsCreateUser extends Error {
   execute(error: Error | unknown) {
-    if (error instanceof Error && error.message === "User already exists") {
+    if (
+      error instanceof Error &&
+      error.message === "Error: User already exists"
+    ) {
       return {
         data: null,
         message: {

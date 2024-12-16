@@ -15,7 +15,7 @@ export class CreateUserUseCase {
   async execute({ name, email, password }: ICreateUserUseCase) {
     const password_hash = await hash(password, 6);
 
-    await this.repositoryCreateUser.execute({
+    return await this.repositoryCreateUser.execute({
       name,
       email,
       password_hash,

@@ -16,12 +16,7 @@ export async function createUserController(
 
   const usersDomain = new UsersDomain();
 
-  try {
-    await usersDomain.createUser({ name, email, password });
-  } catch (error) {
-    console.error(error);
-    return reply.status(409).send();
-  }
+  const result = await usersDomain.createUser({ name, email, password });
 
-  return reply.status(201).send();
+  return reply.status(result.statusCode).send(result);
 }

@@ -24,7 +24,7 @@ export class RepositoryCreateUser {
       });
 
       if (user) {
-        throw new Error("User already exists");
+        throw new Error("Error: User already exists");
       }
 
       const newUser = await this.dbAdapter.user.create({
