@@ -1,10 +1,20 @@
 import { prisma } from "@/lib/prisma";
-import { IDataCreate, IUsersCreateRepository } from "./interface";
+import { Prisma } from "@prisma/client";
 
-export class Repository implements IUsersCreateRepository {
+type IDataCreate = Prisma.UserCreateInput;
+
+type IUser = {
+  id: string;
+  name: string;
+  email: string;
+  password_hash: string;
+  created_at: Date;
+};
+
+export class RepositoryCreateUser {
   constructor(private readonly dbAdapter = prisma) {}
 
-  async create(data: IDataCreate) {
+  async execute(data: IDataCreate): Promise<IUser> {
     const user = await this.dbAdapter.user.findUnique({
       where: { email: data.email },
     });

@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { Repository } from "./repository";
+import { RepositoryCreateUser } from "./repository";
 
 export type ICreateUserUseCase = {
   name: string;
@@ -8,12 +8,14 @@ export type ICreateUserUseCase = {
 };
 
 export class CreateUserUseCase {
-  constructor(private readonly usersRepository = new Repository()) {}
+  constructor(
+    private readonly repositoryCreateUser = new RepositoryCreateUser()
+  ) {}
 
   async execute({ name, email, password }: ICreateUserUseCase) {
     const password_hash = await hash(password, 6);
 
-    await this.usersRepository.create({
+    await this.repositoryCreateUser.execute({
       name,
       email,
       password_hash,
