@@ -38,8 +38,7 @@ export class RepositoryCreateUser {
         statusCode: 201,
       };
     } catch (error: Error | unknown) {
-      const errorsCreateUser = new ErrorsCreateUser();
-      return errorsCreateUser.execute(error);
+      return new ErrorsCreateUser().execute(error);
     }
   }
 }
