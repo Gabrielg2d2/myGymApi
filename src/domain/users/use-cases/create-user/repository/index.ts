@@ -2,6 +2,7 @@ import { IReturnDefaultRepository } from "@/domain/global/types/return-default-r
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { ErrorsCreateUser } from "./errors";
 
 type IDataCreate = Prisma.UserCreateInput;
 
@@ -39,28 +40,9 @@ export class RepositoryCreateUser {
         typeMessage: ITypeMessageGlobal.SUCCESS,
         statusCode: 201,
       };
-    } catch (error) {
-      if (error instanceof Error && error.message === "User already exists") {
-        return {
-          data: null,
-          message: {
-            en: error.message,
-            pt: error.message,
-          },
-          typeMessage: ITypeMessageGlobal.ERROR,
-          statusCode: 409,
-        };
-      }
-
-      return {
-        data: null,
-        message: {
-          en: "Error creating user, try again later",
-          pt: "Erro ao criar o usuário, tente novamente mais tarde",
-        },
-        typeMessage: ITypeMessageGlobal.ERROR,
-        statusCode: 500,
-      };
+    } catch (error: Error | unknown) {
+      const errorsCreateUser = new ErrorsCreateUser();
+      return errorsCreateUser.execute(error);
     }
   }
 }
