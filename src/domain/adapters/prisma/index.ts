@@ -17,14 +17,22 @@ export class PrismaAdapter implements IAdapterRepository {
   ) {}
 
   async userCreate(data: Prisma.UserCreateInput) {
-    return await this.db.user.create({
+    const result = await this.db.user.create({
       data,
     });
+    await this.db.$disconnect();
+    return result;
   }
 
   async userFindUnique(email: string) {
-    return await this.db.user.findUnique({
+    const result = await this.db.user.findUnique({
       where: { email },
     });
+    await this.db.$disconnect();
+    return result;
+  }
+
+  async disconnect() {
+    await this.db.$disconnect();
   }
 }
