@@ -1,7 +1,13 @@
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
 import { z } from "zod";
 
-export class AdapterValidationDataUserCreate {
+interface IAdapterValidationDataUserCreate {
+  execute(body: ICreateUserUseCase): Promise<boolean>;
+}
+
+export class AdapterValidationDataUserCreate
+  implements IAdapterValidationDataUserCreate
+{
   private readonly registerBodySchema = z.object({
     name: z.string().min(3),
     email: z.string().email(),
