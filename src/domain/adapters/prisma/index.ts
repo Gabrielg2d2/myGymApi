@@ -31,8 +31,4 @@ export class PrismaAdapter implements IAdapterRepository {
     await this.db.$disconnect();
     return result;
   }
-
-  async disconnect() {
-    await this.db.$disconnect();
-  }
 }
