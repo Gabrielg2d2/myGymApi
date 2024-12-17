@@ -1,7 +1,7 @@
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
 import { z } from "zod";
 
-export class AdapterValidationDataUser {
+export class AdapterValidationDataUserCreate {
   private readonly registerBodySchema = z.object({
     name: z.string().min(3),
     email: z.string().email(),
