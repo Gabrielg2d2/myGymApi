@@ -8,4 +8,5 @@ export type IReturnDefaultDomain<D> = Promise<{
   };
   typeMessage: ITypeMessageGlobal;
   statusCode: number;
+  error: unknown;
 }>;

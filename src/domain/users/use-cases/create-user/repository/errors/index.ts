@@ -14,6 +14,7 @@ export class ErrorsCreateUser extends Error {
         },
         typeMessage: ITypeMessageGlobal.ERROR,
         statusCode: 409,
+        error,
       };
     }
 
@@ -25,6 +26,7 @@ export class ErrorsCreateUser extends Error {
       },
       typeMessage: ITypeMessageGlobal.ERROR,
       statusCode: 500,
+      error,
     };
   }
 }

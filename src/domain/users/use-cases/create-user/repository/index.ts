@@ -35,6 +35,7 @@ export class RepositoryCreateUser {
         },
         typeMessage: ITypeMessageGlobal.SUCCESS,
         statusCode: 201,
+        error: undefined,
       };
     } catch (error: Error | unknown) {
       return new ErrorsCreateUser().execute(error);

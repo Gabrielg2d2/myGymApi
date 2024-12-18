@@ -2,7 +2,10 @@ import { AdapterZod } from "@/domain/adapters/validation/zod";
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
 
 interface IAdapterValidationDataUserCreate {
-  execute(body: ICreateUserUseCase): Promise<boolean>;
+  execute(body: ICreateUserUseCase): Promise<{
+    success: boolean;
+    error: unknown;
+  }>;
 }
 
 export class AdapterValidationCreateUser
@@ -18,6 +21,12 @@ export class AdapterValidationCreateUser
 
   public async execute(body: ICreateUserUseCase) {
     const isBodyValid = this.registerBodySchema.safeParse(body);
-    return isBodyValid.success;
+
+    return {
+      success: isBodyValid.success,
+      error: isBodyValid.success
+        ? undefined
+        : isBodyValid.error?.formErrors.fieldErrors,
+    };
   }
 }

@@ -16,7 +16,7 @@ export class CreateUserUseCase {
   async execute(body: ICreateUserUseCase) {
     const isBodyValid = await new ServiceValidationCreateUser().execute(body);
 
-    if (!isBodyValid) {
+    if (!isBodyValid.success) {
       const dataDefault = {
         data: null,
         message: {
@@ -25,6 +25,7 @@ export class CreateUserUseCase {
         },
         typeMessage: ITypeMessageGlobal.ERROR,
         statusCode: 400,
+        error: isBodyValid.error,
       };
 
       return dataDefault;
