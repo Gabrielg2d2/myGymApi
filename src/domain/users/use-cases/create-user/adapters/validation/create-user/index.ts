@@ -1,11 +1,9 @@
 import { AdapterZod } from "@/domain/adapters/validation/zod";
+import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
 
 interface IAdapterValidationDataUserCreate {
-  execute(body: ICreateUserUseCase): Promise<{
-    success: boolean;
-    error: unknown;
-  }>;
+  execute(body: ICreateUserUseCase): void;
 }
 
 export class AdapterValidationCreateUser
@@ -22,11 +20,21 @@ export class AdapterValidationCreateUser
   public async execute(body: ICreateUserUseCase) {
     const isBodyValid = this.registerBodySchema.safeParse(body);
 
-    return {
-      success: isBodyValid.success,
-      error: isBodyValid.success
-        ? undefined
-        : isBodyValid.error?.formErrors.fieldErrors,
-    };
+    if (!isBodyValid.success) {
+      const dataDefault = {
+        data: null,
+        message: {
+          en: "Invalid content",
+          pt: "Conteúdo inválido",
+        },
+        typeMessage: ITypeMessageGlobal.ERROR,
+        statusCode: 400,
+        error: isBodyValid.success
+          ? undefined
+          : isBodyValid.error?.formErrors.fieldErrors,
+      };
+
+      throw dataDefault;
+    }
   }
 }
