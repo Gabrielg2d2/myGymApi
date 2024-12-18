@@ -6,7 +6,7 @@ import { ErrorsCreateUser } from "./errors";
 
 type IDataCreate = Prisma.UserCreateInput;
 
-type IDataUser = {
+export type IDataUser = {
   id: string;
   name: string;
   email: string;
