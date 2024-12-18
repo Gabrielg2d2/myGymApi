@@ -1,3 +1,4 @@
+import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { hash } from "bcryptjs";
 import { RepositoryCreateUser } from "./repository";
 import { ServiceValidationCreateUser } from "./services/validation-create-user";
@@ -13,7 +14,22 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(body: ICreateUserUseCase) {
-    await new ServiceValidationCreateUser().execute(body);
+    const isBodyValid = await new ServiceValidationCreateUser().execute(body);
+
+    if (!isBodyValid.success) {
+      const dataDefault = {
+        data: null,
+        message: {
+          en: "Invalid content",
+          pt: "Conteúdo inválido",
+        },
+        typeMessage: ITypeMessageGlobal.ERROR,
+        statusCode: 400,
+        error: isBodyValid.error,
+      };
+
+      return dataDefault;
+    }
 
     const { name, email, password } = body;
 
