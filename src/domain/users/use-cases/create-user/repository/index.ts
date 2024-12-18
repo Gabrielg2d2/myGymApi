@@ -1,4 +1,4 @@
-import { IReturnDefaultRepository } from "@/domain/global/types/return-default-repository";
+import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { Prisma } from "@prisma/client";
 import { AdapterRepositoryCreateUser } from "../adapters/repository";
@@ -17,7 +17,7 @@ export type IDataUser = {
 export class RepositoryCreateUser {
   constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
 
-  async execute(data: IDataCreate): IReturnDefaultRepository<IDataUser | null> {
+  async execute(data: IDataCreate): IReturnDefaultDomain<IDataUser> {
     try {
       const user = await this.dbAdapter.userFindUnique(data.email);
 

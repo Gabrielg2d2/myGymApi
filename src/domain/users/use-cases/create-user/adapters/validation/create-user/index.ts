@@ -1,5 +1,5 @@
+import { AdapterZod } from "@/domain/adapters/validation/zod";
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
-import { z } from "zod";
 
 interface IAdapterValidationDataUserCreate {
   execute(body: ICreateUserUseCase): Promise<boolean>;
@@ -8,10 +8,12 @@ interface IAdapterValidationDataUserCreate {
 export class AdapterValidationCreateUser
   implements IAdapterValidationDataUserCreate
 {
-  private readonly registerBodySchema = z.object({
-    name: z.string().min(3),
-    email: z.string().email(),
-    password: z.string().min(6),
+  constructor(private readonly adapterValidation = new AdapterZod()) {}
+
+  private readonly registerBodySchema = this.adapterValidation.zod.object({
+    name: this.adapterValidation.zod.string().min(3),
+    email: this.adapterValidation.zod.string().email(),
+    password: this.adapterValidation.zod.string().min(6),
   });
 
   public async execute(body: ICreateUserUseCase) {

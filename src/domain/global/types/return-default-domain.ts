@@ -1,7 +1,7 @@
 import { ITypeMessageGlobal } from "./type-message";
 
-export type IReturnDefaultRepository<D> = Promise<{
-  data: D;
+export type IReturnDefaultDomain<D> = Promise<{
+  data: D | null;
   message: {
     en: string;
     pt: string;
