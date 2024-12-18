@@ -1,12 +1,7 @@
 import { env } from "@/env";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-interface IAdapterRepository {
-  userCreate(data: Prisma.UserCreateInput): Promise<Prisma.UserCreateInput>;
-  userFindUnique(email: string): Promise<Prisma.UserCreateInput | null>;
-}
-
-export class PrismaAdapter implements IAdapterRepository {
+export class PrismaAdapter {
   constructor(
     private readonly db = new PrismaClient({
       log:
@@ -16,19 +11,7 @@ export class PrismaAdapter implements IAdapterRepository {
     })
   ) {}
 
-  async userCreate(data: Prisma.UserCreateInput) {
-    const result = await this.db.user.create({
-      data,
-    });
-    await this.db.$disconnect();
-    return result;
-  }
-
-  async userFindUnique(email: string) {
-    const result = await this.db.user.findUnique({
-      where: { email },
-    });
-    await this.db.$disconnect();
-    return result;
+  get prisma() {
+    return this.db;
   }
 }
