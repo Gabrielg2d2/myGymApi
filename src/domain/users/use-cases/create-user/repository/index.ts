@@ -1,8 +1,5 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { Prisma } from "@prisma/client";
 import { AdapterRepositoryCreateUser } from "../adapters/repository";
-import { ErrorsCreateUser } from "./errors";
 
 type IDataCreate = Prisma.UserCreateInput;
 
@@ -17,7 +14,7 @@ export type IDataUser = {
 export class RepositoryCreateUser {
   constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
 
-  async execute(data: IDataCreate): IReturnDefaultDomain<IDataUser> {
+  async execute(data: IDataCreate) {
     try {
       const user = await this.dbAdapter.userFindUnique(data.email);
 
@@ -27,18 +24,10 @@ export class RepositoryCreateUser {
 
       const newUser = await this.dbAdapter.userCreate(data);
 
-      return {
-        data: newUser,
-        message: {
-          en: "User created successfully",
-          pt: "Usuário criado com sucesso",
-        },
-        typeMessage: ITypeMessageGlobal.SUCCESS,
-        statusCode: 201,
-        error: undefined,
-      };
-    } catch (error: Error | unknown) {
-      return new ErrorsCreateUser().execute(error);
+      return newUser;
+    } catch (error) {
+      // TODO: Analisar a necessidade de desconectar o prisma
+      throw new Error(error.message);
     }
   }
 }

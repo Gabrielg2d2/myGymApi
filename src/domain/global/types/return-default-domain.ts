@@ -1,6 +1,6 @@
 import { ITypeMessageGlobal } from "./type-message";
 
-export type IReturnDefaultDomain<D> = Promise<{
+export type IReturnDefaultDomain<D> = {
   data: D | null;
   message: {
     en: string;
@@ -9,4 +9,4 @@ export type IReturnDefaultDomain<D> = Promise<{
   typeMessage: ITypeMessageGlobal;
   statusCode: number;
   error: unknown;
-}>;
+};

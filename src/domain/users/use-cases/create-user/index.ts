@@ -1,5 +1,8 @@
+import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
+import { IDataCreate } from "@/repositories/users-repository/interface";
 import { hash } from "bcryptjs";
+import { ErrorsCreateUser } from "./errors";
 import { RepositoryCreateUser } from "./repository";
 import { ServiceValidationCreateUser } from "./services/validation-create-user";
 
@@ -13,32 +16,34 @@ export class CreateUserUseCase {
     private readonly repositoryCreateUser = new RepositoryCreateUser()
   ) {}
 
-  async execute(body: ICreateUserUseCase) {
-    const isBodyValid = await new ServiceValidationCreateUser().execute(body);
+  async execute(
+    body: ICreateUserUseCase
+  ): Promise<IReturnDefaultDomain<IDataCreate | null>> {
+    try {
+      await new ServiceValidationCreateUser().execute(body);
 
-    if (!isBodyValid.success) {
-      const dataDefault = {
-        data: null,
+      const { name, email, password } = body;
+
+      const password_hash = await hash(password, 6);
+
+      const result = await this.repositoryCreateUser.execute({
+        name,
+        email,
+        password_hash,
+      });
+
+      return {
+        data: result,
         message: {
-          en: "Invalid content",
-          pt: "Conteúdo inválido",
+          en: "User created successfully",
+          pt: "Usuário criado com sucesso",
         },
-        typeMessage: ITypeMessageGlobal.ERROR,
-        statusCode: 400,
-        error: isBodyValid.error,
+        statusCode: 201,
+        typeMessage: ITypeMessageGlobal.SUCCESS,
+        error: null,
       };
-
-      return dataDefault;
+    } catch (error) {
+      return await new ErrorsCreateUser().execute(error);
     }
-
-    const { name, email, password } = body;
-
-    const password_hash = await hash(password, 6);
-
-    return await this.repositoryCreateUser.execute({
-      name,
-      email,
-      password_hash,
-    });
   }
 }
