@@ -5,6 +5,16 @@ interface IAdapterValidationDataUserCreate {
   execute(body: ICreateUserUseCase): Promise<void>;
 }
 
+class ValidationError extends Error {
+  details: any;
+
+  constructor(message: string, details: any) {
+    super(message);
+    this.name = "ValidationError";
+    this.details = details;
+  }
+}
+
 export class AdapterValidationCreateUser
   implements IAdapterValidationDataUserCreate
 {
@@ -20,7 +30,10 @@ export class AdapterValidationCreateUser
     const isBodyValid = this.registerBodySchema.safeParse(body);
 
     if (!isBodyValid.success) {
-      throw new Error("Error: Invalid content");
+      throw new ValidationError(
+        "Error: Invalid content",
+        isBodyValid.error.formErrors.fieldErrors
+      );
     }
   }
 }
