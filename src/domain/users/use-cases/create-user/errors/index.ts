@@ -39,7 +39,7 @@ export class ErrorsCreateUser extends Error {
       },
       typeMessage: ITypeMessageGlobal.FATAL,
       statusCode: 500,
-      error,
+      error: error instanceof Error ? error.message : String(error),
     };
   }
 }
