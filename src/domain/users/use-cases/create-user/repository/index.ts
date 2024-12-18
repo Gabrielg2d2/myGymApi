@@ -1,3 +1,4 @@
+import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
 import { Prisma } from "@prisma/client";
 import { AdapterRepositoryCreateUser } from "../adapters/repository";
 
@@ -19,7 +20,7 @@ export class RepositoryCreateUser {
       const user = await this.dbAdapter.userFindUnique(data.email);
 
       if (user) {
-        throw new Error("Error: User already exists");
+        throw new CustomErrorGlobal("Error: User already exists");
       }
 
       const newUser = await this.dbAdapter.userCreate(data);
@@ -27,7 +28,7 @@ export class RepositoryCreateUser {
       return newUser;
     } catch (error) {
       // TODO: Analisar a necessidade de desconectar o prisma
-      throw new Error(error.message);
+      throw new CustomErrorGlobal(error.message);
     }
   }
 }

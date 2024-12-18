@@ -1,18 +1,9 @@
 import { AdapterZod } from "@/domain/adapters/validation/zod";
+import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
 import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
 
 interface IAdapterValidationDataUserCreate {
   execute(body: ICreateUserUseCase): Promise<void>;
-}
-
-class ValidationError extends Error {
-  details: any;
-
-  constructor(message: string, details: any) {
-    super(message);
-    this.name = "ValidationError";
-    this.details = details;
-  }
 }
 
 export class AdapterValidationCreateUser
@@ -30,7 +21,7 @@ export class AdapterValidationCreateUser
     const isBodyValid = this.registerBodySchema.safeParse(body);
 
     if (!isBodyValid.success) {
-      throw new ValidationError(
+      throw new CustomErrorGlobal(
         "Error: Invalid content",
         isBodyValid.error.formErrors.fieldErrors
       );
