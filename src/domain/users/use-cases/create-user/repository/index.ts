@@ -1,7 +1,7 @@
-import { AdapterRepositoryUsers } from "@/domain/adapters/repository/prisma/users";
 import { IReturnDefaultRepository } from "@/domain/global/types/return-default-repository";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { Prisma } from "@prisma/client";
+import { AdapterRepositoryCreateUser } from "../adapters/repository";
 import { ErrorsCreateUser } from "./errors";
 
 type IDataCreate = Prisma.UserCreateInput;
@@ -15,7 +15,7 @@ type IDataUser = {
 };
 
 export class RepositoryCreateUser {
-  constructor(private readonly dbAdapter = new AdapterRepositoryUsers()) {}
+  constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
 
   async execute(data: IDataCreate): IReturnDefaultRepository<IDataUser | null> {
     try {

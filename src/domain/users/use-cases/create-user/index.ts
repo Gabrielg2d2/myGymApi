@@ -1,7 +1,7 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { hash } from "bcryptjs";
 import { RepositoryCreateUser } from "./repository";
-import { ServiceValidationDataUser } from "./services/validation-data-user";
+import { ServiceValidationCreateUser } from "./services/validation-create-user";
 
 export type ICreateUserUseCase = {
   name: string;
@@ -14,7 +14,7 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(body: ICreateUserUseCase) {
-    const isBodyValid = await new ServiceValidationDataUser().execute(body);
+    const isBodyValid = await new ServiceValidationCreateUser().execute(body);
 
     if (!isBodyValid) {
       const dataDefault = {
