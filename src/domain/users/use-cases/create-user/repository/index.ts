@@ -1,4 +1,4 @@
-import { AdapterRepository } from "@/domain/adapters/db-adapter-repository";
+import { AdapterRepository } from "@/domain/adapters/repository/adapter-repository";
 import { IReturnDefaultRepository } from "@/domain/global/types/return-default-repository";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { Prisma } from "@prisma/client";

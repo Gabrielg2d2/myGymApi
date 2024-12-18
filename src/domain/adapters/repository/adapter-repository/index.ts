@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@/domain/adapters/prisma";
+import { PrismaAdapter } from "@/domain/adapters/repository/prisma";
 
 export class AdapterRepository {
   constructor(private readonly _db = new PrismaAdapter()) {}
