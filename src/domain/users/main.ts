@@ -8,7 +8,7 @@ interface IUsersDomain {
   ): Promise<IReturnDefaultDomain<IDataUser | null>>;
 }
 
-export class UsersDomain {
+export class UsersDomain implements IUsersDomain {
   async createUser(body: ICreateUserUseCase) {
     return await new CreateUserUseCase().execute(body);
   }
