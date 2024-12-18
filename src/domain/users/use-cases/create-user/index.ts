@@ -24,6 +24,7 @@ export class CreateUserUseCase {
 
       const { name, email, password } = body;
 
+      // TODO: criar um service para validar se o email já existe
       const password_hash = await hash(password, 6);
 
       const result = await this.repositoryCreateUser.execute({
