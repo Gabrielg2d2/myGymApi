@@ -21,10 +21,10 @@ export class AdapterValidationCreateUser
     const isBodyValid = this.registerBodySchema.safeParse(body);
 
     if (!isBodyValid.success) {
-      throw new CustomErrorGlobal(
-        "Error: Invalid content",
-        isBodyValid.error.formErrors.fieldErrors
-      );
+      throw new CustomErrorGlobal({
+        message: "Error: Invalid content",
+        details: isBodyValid.error.formErrors.fieldErrors,
+      });
     }
   }
 }

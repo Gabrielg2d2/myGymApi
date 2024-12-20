@@ -11,7 +11,9 @@ export class RepositoryCreateUser {
     const user = await this.dbAdapter.userFindUnique(data.email);
 
     if (user) {
-      throw new CustomErrorGlobal("Error: User already exists");
+      throw new CustomErrorGlobal({
+        message: "Error: User already exists",
+      });
     }
 
     const newUser = await this.dbAdapter.userCreate(data);
