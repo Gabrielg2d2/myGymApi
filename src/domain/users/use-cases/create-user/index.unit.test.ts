@@ -105,5 +105,73 @@ describe("Create User", () => {
 
       expect(newUser.statusCode).toBe(409);
     });
+
+    test("Should not be able to create a new user with an invalid email", async () => {
+      const mockUserRepository = {
+        execute: vitest.fn(),
+      } as unknown as RepositoryCreateUser;
+
+      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const newUser = await createUserUseCase.execute({
+        name: "John Doe",
+        email: "john",
+        password: "123456",
+      });
+
+      expect(newUser.statusCode).toBe(400);
+      expect(newUser).toEqual({
+        data: null,
+        message: { en: "Invalid content", pt: "Conteúdo inválido" },
+        typeMessage: "error",
+        statusCode: 400,
+        error: expect.any(Error),
+      });
+    });
+
+    test("Should not be able to create a new user with an invalid name", async () => {
+      const mockUserRepository = {
+        execute: vitest.fn(),
+      } as unknown as RepositoryCreateUser;
+
+      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const newUser = await createUserUseCase.execute({
+        name: "",
+        email: "john@gmail.com",
+        password: "123456",
+      });
+
+      console.log(newUser);
+
+      expect(newUser.statusCode).toBe(400);
+      expect(newUser).toEqual({
+        data: null,
+        message: { en: "Invalid content", pt: "Conteúdo inválido" },
+        typeMessage: "error",
+        statusCode: 400,
+        error: expect.any(Error),
+      });
+    });
+
+    test("Should not be able to create a new user with an invalid password", async () => {
+      const mockUserRepository = {
+        execute: vitest.fn(),
+      } as unknown as RepositoryCreateUser;
+
+      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const newUser = await createUserUseCase.execute({
+        name: "John",
+        email: "john@gmail.com",
+        password: "",
+      });
+
+      expect(newUser.statusCode).toBe(400);
+      expect(newUser).toEqual({
+        data: null,
+        message: { en: "Invalid content", pt: "Conteúdo inválido" },
+        typeMessage: "error",
+        statusCode: 400,
+        error: expect.any(Error),
+      });
+    });
   });
 });
