@@ -89,6 +89,31 @@ describe("Create User", () => {
   });
 
   describe("Error", () => {
+    test("Should return a standard format in case of error", async () => {
+      const mockUserRepository = {
+        execute: vitest
+          .fn()
+          .mockRejectedValueOnce(new Error("Error: User already exists")),
+      } as unknown as RepositoryCreateUser;
+
+      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const newUser = await createUserUseCase.execute({
+        name: "John Doe",
+        email: "john@gmail.com",
+        password: "123456",
+      });
+
+      console.log(newUser);
+
+      expect(newUser).toEqual({
+        data: null,
+        message: { en: "User already exists", pt: "Usuário já existe" },
+        typeMessage: "error",
+        statusCode: 409,
+        error: expect.any(Error),
+      });
+    });
+
     test("Should not be able to create a new user with an email that already exists", async () => {
       const mockUserRepository = {
         execute: vitest
