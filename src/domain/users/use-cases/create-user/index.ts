@@ -1,17 +1,9 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { ErrorsCreateUser } from "./errors";
 import { RepositoryCreateUser } from "./repository";
+import { ErrorsCreateUser } from "./returns/errors";
+import { IDataCreateUser, SuccessCreateUser } from "./returns/success";
 import { ServiceCreateHashPassword } from "./services/create-hash-password";
 import { ServiceValidationCreateUser } from "./services/validation-create-user";
-
-type IDataCreateUser = {
-  name: string;
-  email: string;
-  id: string;
-  password_hash: string;
-  created_at: Date;
-};
 
 export type ICreateUserUseCase = {
   name: string;
@@ -41,16 +33,7 @@ export class CreateUserUseCase {
         password_hash,
       });
 
-      return {
-        data: result,
-        message: {
-          en: "User created successfully",
-          pt: "Usuário criado com sucesso",
-        },
-        statusCode: 201,
-        typeMessage: ITypeMessageGlobal.SUCCESS,
-        error: null,
-      };
+      return new SuccessCreateUser().execute(result);
     } catch (error) {
       return await new ErrorsCreateUser().execute(error);
     }
