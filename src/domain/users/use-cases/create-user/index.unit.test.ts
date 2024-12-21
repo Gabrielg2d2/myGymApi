@@ -93,7 +93,7 @@ describe("Create User", () => {
       const mockUserRepository = {
         execute: vitest
           .fn()
-          .mockRejectedValueOnce(new Error("Error: User already exists")),
+          .mockRejectedValueOnce(new Error("Error: unknown error")),
       } as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
@@ -103,14 +103,15 @@ describe("Create User", () => {
         password: "123456",
       });
 
-      console.log(newUser);
-
       expect(newUser).toEqual({
         data: null,
-        message: { en: "User already exists", pt: "Usuário já existe" },
-        typeMessage: "error",
-        statusCode: 409,
-        error: expect.any(Error),
+        message: {
+          en: "Service unavailable, try again later",
+          pt: "Serviço indisponível, tente novamente mais tarde",
+        },
+        typeMessage: "fatal",
+        statusCode: 500,
+        error: "Error: unknown error",
       });
     });
 
