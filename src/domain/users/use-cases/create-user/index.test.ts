@@ -25,4 +25,7 @@ describe("Create User", () => {
 
   // Não deve ser possível criar um novo usuário com uma senha inválida
   //   test("Should not be able to create a new user with an invalid password", () => {});
+
+  // A senha do usuário deve ser criptografada
+  //   test("The user's password must be encrypted", () => {});
 });
