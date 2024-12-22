@@ -150,8 +150,6 @@ describe("Create User", () => {
         password: "123456",
       });
 
-      console.log(newUser);
-
       expect(newUser.statusCode).toBe(400);
       expect(newUser).toEqual({
         data: null,
