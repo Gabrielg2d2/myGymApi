@@ -1,9 +1,8 @@
-import { UsersDomain } from "@/domain/users/main";
-import { ICreateUserUseCase } from "@/domain/users/use-cases/create-user";
+import { IDataCreateUserRequest, UsersDomain } from "@/domain/users/main";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function createUserController(
-  request: FastifyRequest<{ Body: ICreateUserUseCase }>,
+  request: FastifyRequest<{ Body: IDataCreateUserRequest }>,
   reply: FastifyReply
 ) {
   const usersDomain = new UsersDomain();
