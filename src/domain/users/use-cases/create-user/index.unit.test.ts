@@ -62,7 +62,7 @@ describe("Create User", () => {
     });
   });
 
-  describe("Error", () => {
+  describe("Errors", () => {
     test("Should return a standard format in case of error", async () => {
       const mockUserRepository = {
         execute: vitest
