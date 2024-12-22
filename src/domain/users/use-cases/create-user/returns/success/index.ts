@@ -1,16 +1,9 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-
-export type IDataCreateUser = {
-  name: string;
-  email: string;
-  id: string;
-  password_hash: string;
-  created_at: Date;
-};
+import { IDataResponse } from "../../repository";
 
 export class SuccessCreateUser extends Error {
-  execute(data: IDataCreateUser): IReturnDefaultDomain<IDataCreateUser> {
+  execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse> {
     return {
       data,
       message: {

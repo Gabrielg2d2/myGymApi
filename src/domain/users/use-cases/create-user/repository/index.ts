@@ -1,16 +1,24 @@
 import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
 import { AdapterRepositoryCreateUser } from "../adapters/repository";
 
-type IDataCreate = {
+export type IDataRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type IDataResponse = {
+  id: string;
   name: string;
   email: string;
   password_hash: string;
+  created_at: Date;
 };
 
 export class RepositoryCreateUser {
   constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
 
-  async execute(data: IDataCreate) {
+  async execute(data: IDataRequest): Promise<IDataResponse> {
     const user = await this.dbAdapter.userFindUnique(data.email);
 
     if (user) {
@@ -19,7 +27,11 @@ export class RepositoryCreateUser {
       });
     }
 
-    const newUser = await this.dbAdapter.userCreate(data);
+    const newUser = await this.dbAdapter.userCreate({
+      name: data.name,
+      email: data.email,
+      password_hash: data.password,
+    });
 
     return newUser;
   }
