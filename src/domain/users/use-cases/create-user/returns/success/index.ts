@@ -2,8 +2,12 @@ import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domai
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IDataResponse } from "../../repository";
 
-export class SuccessCreateUser extends Error {
-  execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse> {
+interface ISuccessCreateUser {
+  execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse>;
+}
+
+export class SuccessCreateUser extends Error implements ISuccessCreateUser {
+  execute(data: IDataResponse) {
     return {
       data,
       message: {
