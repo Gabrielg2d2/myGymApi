@@ -15,10 +15,14 @@ export type IDataResponse = {
   created_at: Date;
 };
 
-export class RepositoryCreateUser {
+interface IRepositoryCreateUser {
+  execute(data: IDataRequest): Promise<IDataResponse>;
+}
+
+export class RepositoryCreateUser implements IRepositoryCreateUser {
   constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
 
-  async execute(data: IDataRequest): Promise<IDataResponse> {
+  async execute(data: IDataRequest) {
     const user = await this.dbAdapter.userFindUnique(data.email);
 
     if (user) {
