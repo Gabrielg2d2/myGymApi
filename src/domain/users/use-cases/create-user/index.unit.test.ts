@@ -1,21 +1,16 @@
 import { describe, expect, test, vitest } from "vitest";
 import { CreateUserUseCase } from ".";
 import { RepositoryCreateUser } from "./repository";
+import { InMemoryRepositoryCreateUser } from "./repository/repository-test";
 
 describe("Create User", () => {
   describe("Success", () => {
     test("Should be able to create a new user ensuring the date format", async () => {
-      const mockUserRepository = {
-        execute: vitest.fn().mockReturnValue({
-          id: "1c56ads1c65a1sc65as",
-          name: "John Doe",
-          email: "john@gmail.com",
-          password_hash: expect.any(String),
-          created_at: "2024-12-12T21:33:33.001Z",
-        }),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+
       const newUser = await createUserUseCase.execute({
         name: "John Doe",
         email: "john@gmail.com",
@@ -27,11 +22,11 @@ describe("Create User", () => {
       expect(newUser.statusCode).toBe(201);
       expect(lengthData).length(5);
       expect(newUser.data).toEqual({
-        id: "1c56ads1c65a1sc65as",
+        id: expect.any(String),
         name: "John Doe",
         email: "john@gmail.com",
         password_hash: expect.any(String),
-        created_at: "2024-12-12T21:33:33.001Z",
+        created_at: expect.any(Date),
       });
     });
 
