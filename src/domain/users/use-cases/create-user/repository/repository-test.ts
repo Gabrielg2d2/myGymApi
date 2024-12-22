@@ -1,17 +1,15 @@
 import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
-import { AdapterRepositoryCreateUser } from "../adapters/repository";
 import {
   IDataRequest,
   IDataResponse,
   IRepositoryCreateUser,
 } from "./interfaces";
 
-export { IDataRequest, IDataResponse };
-export class RepositoryCreateUser implements IRepositoryCreateUser {
-  constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
+export class InMemoryRepositoryCreateUser implements IRepositoryCreateUser {
+  private users: IDataResponse[] = [];
 
   async execute(data: IDataRequest) {
-    const user = await this.dbAdapter.userFindUnique(data.email);
+    const user = this.users.find((user) => user.email === data.email);
 
     if (user) {
       throw new CustomErrorGlobal({
@@ -19,11 +17,15 @@ export class RepositoryCreateUser implements IRepositoryCreateUser {
       });
     }
 
-    const newUser = await this.dbAdapter.userCreate({
+    const newUser = {
+      id: new Date().getTime().toString(),
       name: data.name,
       email: data.email,
       password_hash: data.password,
-    });
+      created_at: new Date(),
+    };
+
+    this.users.push(newUser);
 
     return newUser;
   }
