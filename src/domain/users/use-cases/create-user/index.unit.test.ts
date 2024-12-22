@@ -4,7 +4,7 @@ import { RepositoryCreateUser } from "./repository";
 
 describe("Create User", () => {
   describe("Success", () => {
-    test("Should be able to create a new user", async () => {
+    test("Should be able to create a new user ensuring the date format", async () => {
       const mockUserRepository = {
         execute: vitest.fn().mockReturnValue({
           id: "1c56ads1c65a1sc65as",
@@ -22,7 +22,17 @@ describe("Create User", () => {
         password: "123456",
       });
 
+      const lengthData = Object.keys(newUser.data ?? {});
+
       expect(newUser.statusCode).toBe(201);
+      expect(lengthData).length(5);
+      expect(newUser.data).toEqual({
+        id: "1c56ads1c65a1sc65as",
+        name: "John Doe",
+        email: "john@gmail.com",
+        password_hash: expect.any(String),
+        created_at: "2024-12-12T21:33:33.001Z",
+      });
     });
 
     test("Should return a standard format in case of success", async () => {
