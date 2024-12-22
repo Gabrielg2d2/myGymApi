@@ -1,8 +1,11 @@
 import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
-import { Prisma } from "@prisma/client";
 import { AdapterRepositoryCreateUser } from "../adapters/repository";
 
-type IDataCreate = Prisma.UserCreateInput;
+type IDataCreate = {
+  name: string;
+  email: string;
+  password_hash: string;
+};
 
 export class RepositoryCreateUser {
   constructor(private readonly dbAdapter = new AdapterRepositoryCreateUser()) {}
