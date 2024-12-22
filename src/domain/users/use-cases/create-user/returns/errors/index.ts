@@ -1,8 +1,12 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
-export class ErrorsCreateUser extends Error {
-  async execute(error: Error | unknown): Promise<IReturnDefaultDomain<null>> {
+interface IErrorsCreateUser {
+  execute(error: Error | unknown): Promise<IReturnDefaultDomain<null>>;
+}
+
+export class ErrorsCreateUser extends Error implements IErrorsCreateUser {
+  async execute(error: Error | unknown) {
     if (error instanceof Error) {
       if (error.message === "Error: Invalid content") {
         return {
