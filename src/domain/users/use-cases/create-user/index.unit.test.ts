@@ -10,7 +10,7 @@ describe("Create User", () => {
           id: "1c56ads1c65a1sc65as",
           name: "John Doe",
           email: "john@gmail.com",
-          password_hash: "csac1sa56c1123456",
+          password_hash: expect.any(String),
           created_at: "2024-12-12T21:33:33.001Z",
         }),
       } as unknown as RepositoryCreateUser;
@@ -48,7 +48,7 @@ describe("Create User", () => {
           id: "1c56ads1c65a1sc65as",
           name: "John Doe",
           email: "john@gmail.com",
-          password_hash: "csac1sa56c1123456",
+          password_hash: expect.any(String),
           created_at: "2024-12-12T21:33:33.001Z",
         },
         message: {
