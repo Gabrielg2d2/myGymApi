@@ -31,15 +31,8 @@ describe("Create User", () => {
     });
 
     test("Should return a standard format in case of success", async () => {
-      const mockUserRepository = {
-        execute: vitest.fn().mockReturnValue({
-          id: "1c56ads1c65a1sc65as",
-          name: "John Doe",
-          email: "john@gmail.com",
-          password_hash: expect.any(String),
-          created_at: "2024-12-12T21:33:33.001Z",
-        }),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -50,11 +43,11 @@ describe("Create User", () => {
 
       expect(newUser).toEqual({
         data: {
-          id: "1c56ads1c65a1sc65as",
+          id: expect.any(String),
           name: "John Doe",
           email: "john@gmail.com",
           password_hash: expect.any(String),
-          created_at: "2024-12-12T21:33:33.001Z",
+          created_at: expect.any(Date),
         },
         message: {
           en: "User created successfully",
@@ -95,13 +88,17 @@ describe("Create User", () => {
     });
 
     test("Should not be able to create a new user with an email that already exists", async () => {
-      const mockUserRepository = {
-        execute: vitest
-          .fn()
-          .mockRejectedValueOnce(new Error("Error: User already exists")),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+
+      await createUserUseCase.execute({
+        name: "John Doe",
+        email: "john@gmail.com",
+        password: "123456",
+      });
+
       const newUser = await createUserUseCase.execute({
         name: "John Doe",
         email: "john@gmail.com",
@@ -112,9 +109,8 @@ describe("Create User", () => {
     });
 
     test("Should not be able to create a new user with an invalid email", async () => {
-      const mockUserRepository = {
-        execute: vitest.fn(),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -134,9 +130,8 @@ describe("Create User", () => {
     });
 
     test("Should not be able to create a new user with an invalid name", async () => {
-      const mockUserRepository = {
-        execute: vitest.fn(),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -156,9 +151,8 @@ describe("Create User", () => {
     });
 
     test("Should not be able to create a new user with an invalid password", async () => {
-      const mockUserRepository = {
-        execute: vitest.fn(),
-      } as unknown as RepositoryCreateUser;
+      const mockUserRepository =
+        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
