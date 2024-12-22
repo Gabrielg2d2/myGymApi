@@ -11,7 +11,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   PORT: z.coerce.number().default(3333),
   DATABASE_URL: z.string().default(""),
-  HASH_SAULT: z.coerce.number(),
+  HASH_SALT: z.coerce.number(),
 });
 
 const _env = envSchema.safeParse(process.env);
