@@ -1,9 +1,10 @@
 import { PrismaAdapter } from "@/domain/adapters/repository/prisma";
 import { Prisma } from "@prisma/client";
+import { IDataResponse } from "../../repository";
 
 interface IAdapterRepository {
-  userCreate(data: Prisma.UserCreateInput): Promise<Prisma.UserCreateInput>;
-  userFindUnique(email: string): Promise<Prisma.UserCreateInput | null>;
+  userCreate(data: IDataResponse): Promise<IDataResponse>;
+  userFindUnique(email: string): Promise<IDataResponse | null>;
 }
 
 export class AdapterRepositoryCreateUser implements IAdapterRepository {

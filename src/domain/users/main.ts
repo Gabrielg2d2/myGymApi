@@ -1,15 +1,20 @@
-import { Prisma } from "@prisma/client";
 import { IReturnDefaultDomain } from "../global/types/return-default-domain";
-import { CreateUserUseCase, ICreateUserUseCase } from "./use-cases/create-user";
+import {
+  CreateUserUseCase,
+  IDataRequest as IDataCreateUserRequest,
+  IDataResponse as IDataCreateUserResponse,
+} from "./use-cases/create-user";
+
+export type { IDataCreateUserRequest, IDataCreateUserResponse };
 
 interface IUsersDomain {
   createUser(
-    body: ICreateUserUseCase
-  ): Promise<IReturnDefaultDomain<Prisma.UserCreateInput | null>>;
+    body: IDataCreateUserRequest
+  ): Promise<IReturnDefaultDomain<IDataCreateUserResponse | null>>;
 }
 
 export class UsersDomain implements IUsersDomain {
-  async createUser(body: ICreateUserUseCase) {
+  async createUser(body: IDataCreateUserRequest) {
     return await new CreateUserUseCase().execute(body);
   }
 }

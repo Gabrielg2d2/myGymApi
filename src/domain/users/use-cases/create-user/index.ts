@@ -9,14 +9,20 @@ import { SuccessCreateUser } from "./returns/success";
 import { ServiceCreateHashPassword } from "./services/create-hash-password";
 import { ServiceValidationCreateUser } from "./services/validation-create-user";
 
-export class CreateUserUseCase {
+export type { IDataRequest, IDataResponse };
+
+interface ICreateUserUseCase {
+  execute(
+    body: IDataRequest
+  ): Promise<IReturnDefaultDomain<IDataResponse | null>>;
+}
+
+export class CreateUserUseCase implements ICreateUserUseCase {
   constructor(
     private readonly repositoryCreateUser = new RepositoryCreateUser()
   ) {}
 
-  async execute(
-    body: IDataRequest
-  ): Promise<IReturnDefaultDomain<IDataResponse | null>> {
+  async execute(body: IDataRequest) {
     try {
       await new ServiceValidationCreateUser().execute(body);
 
