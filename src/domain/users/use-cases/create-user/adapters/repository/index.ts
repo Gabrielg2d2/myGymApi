@@ -15,7 +15,6 @@ export class AdapterRepositoryCreateUser implements IAdapterRepository {
       const result = await this.db.prisma.user.create({
         data,
       });
-      await this.db.prisma.$disconnect();
       return result;
     } finally {
       await this.db.prisma.$disconnect();
@@ -27,7 +26,6 @@ export class AdapterRepositoryCreateUser implements IAdapterRepository {
       const result = await this.db.prisma.user.findUnique({
         where: { email },
       });
-      await this.db.prisma.$disconnect();
       return result;
     } finally {
       await this.db.prisma.$disconnect();
