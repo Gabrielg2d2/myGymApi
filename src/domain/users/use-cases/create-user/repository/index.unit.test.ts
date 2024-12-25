@@ -56,7 +56,22 @@ describe("RepositoryCreateUser", () => {
       ).rejects.toThrow("Error: User already exists");
     });
 
-    // deveria retornar um erro caso ocorra um erro inesperado
-    test("should return an error if an unexpected error occurs", async () => {});
+    test("should return an error if an unexpected error occurs", async () => {
+      const mockAdapter = {
+        userFindUnique: () => {
+          throw new Error("Unexpected error");
+        },
+        userCreate: () => vitest.fn(),
+      } as unknown as AdapterRepositoryCreateUser;
+      const repositoryCreateUser = new RepositoryCreateUser(mockAdapter);
+
+      await expect(
+        repositoryCreateUser.execute({
+          name: "John Doe",
+          email: "jhon@gmail.com",
+          password: "123456",
+        })
+      ).rejects.toThrow("Unexpected error");
+    });
   });
 });
