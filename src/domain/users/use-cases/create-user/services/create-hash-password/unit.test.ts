@@ -22,4 +22,11 @@ describe("ServiceCreateHashPassword", async () => {
       new ServiceCreateHashPassword().execute(passwordEmpty)
     ).rejects.toThrow("Password is required");
   });
+
+  test("should return an error 'Password must be at least 6 characters'", async () => {
+    const password = "123";
+    await expect(
+      new ServiceCreateHashPassword().execute(password)
+    ).rejects.toThrow("Password must be at least 6 characters");
+  });
 });

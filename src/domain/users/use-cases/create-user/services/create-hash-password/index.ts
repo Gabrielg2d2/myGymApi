@@ -10,6 +10,11 @@ export class ServiceCreateHashPassword implements IServiceCreateHashPassword {
     if (!password) {
       throw new Error("Password is required");
     }
+
+    if (password.length < 6) {
+      throw new Error("Password must be at least 6 characters");
+    }
+
     return await hash(password, env.HASH_SALT);
   }
 }
