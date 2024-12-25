@@ -5,7 +5,7 @@ import {
   IRepositoryCreateUser,
 } from "./interfaces";
 
-export class InMemoryRepositoryCreateUser implements IRepositoryCreateUser {
+export class RepositoryTest implements IRepositoryCreateUser {
   private users: IDataResponse[] = [];
 
   async execute(data: IDataRequest) {
