@@ -8,6 +8,10 @@ interface ISuccessCreateUser {
 
 export class SuccessCreateUser extends Error implements ISuccessCreateUser {
   execute(data: IDataResponse) {
+    if (!data) {
+      throw new Error("Data is required");
+    }
+
     return {
       data,
       message: {
