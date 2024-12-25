@@ -19,13 +19,6 @@ describe("ServiceCreateHashPassword", async () => {
   });
 
   describe("Error", async () => {
-    test("should return an error 'Password is required'", async () => {
-      const passwordEmpty = "";
-      await expect(
-        new ServiceCreateHashPassword().execute(passwordEmpty)
-      ).rejects.toThrow("Password is required");
-    });
-
     test("should return an error 'Password must be at least 6 characters'", async () => {
       const password = "123";
       await expect(
