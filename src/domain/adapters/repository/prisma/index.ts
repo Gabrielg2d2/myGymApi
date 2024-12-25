@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import { PrismaClient } from "@prisma/client";
 
-export class PrismaAdapter {
+export class AdapterPrisma {
   constructor(
     private readonly db = new PrismaClient({
       log:

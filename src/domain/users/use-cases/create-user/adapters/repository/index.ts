@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@/domain/adapters/repository/prisma";
+import { AdapterPrisma } from "@/domain/adapters/repository/prisma";
 import { Prisma } from "@prisma/client";
 import { IDataResponse } from "../../repository";
 
@@ -8,7 +8,7 @@ interface IAdapterRepository {
 }
 
 export class AdapterRepositoryCreateUser implements IAdapterRepository {
-  constructor(private readonly db = new PrismaAdapter()) {}
+  constructor(private readonly db = new AdapterPrisma()) {}
 
   async userCreate(data: Prisma.UserCreateInput) {
     try {
