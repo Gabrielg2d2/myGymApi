@@ -1,8 +1,10 @@
+import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
 import { env } from "@/env";
-import { hash } from "bcryptjs";
 
 export class AdapterCreateHash {
+  constructor(private readonly adapter = new AdapterBcryptjs()) {}
+
   async execute(password: string): Promise<string> {
-    return await hash(password, env.HASH_SALT);
+    return await this.adapter.bcryptjs.hash(password, env.HASH_SALT);
   }
 }
