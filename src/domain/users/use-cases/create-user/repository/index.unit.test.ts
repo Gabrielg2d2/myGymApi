@@ -1,10 +1,9 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vitest } from "vitest";
 import { RepositoryCreateUser } from ".";
 import { AdapterRepositoryCreateUser } from "../adapters/repository/create-user";
 
 describe("RepositoryCreateUser", () => {
   describe("Success", () => {
-    // deveria retornar um novo usuário
     test("should return a new user", async () => {
       const mockAdapter = {
         userFindUnique: () => null,
@@ -35,7 +34,29 @@ describe("RepositoryCreateUser", () => {
   });
 
   describe("Error", () => {
-    // deveria retornar um erro caso o usuário já exista
+    test("should return an error if the user already exists", async () => {
+      const mockAdapter = {
+        userFindUnique: () => ({
+          id: "123456",
+          name: "John Doe",
+          email: "jhon@gmail.com",
+          password_hash: "12c1sa981c98asc13456",
+          created_at: new Date(),
+        }),
+        userCreate: () => vitest.fn(),
+      } as unknown as AdapterRepositoryCreateUser;
+      const repositoryCreateUser = new RepositoryCreateUser(mockAdapter);
+
+      await expect(
+        repositoryCreateUser.execute({
+          name: "John Doe",
+          email: "jhon@gmail.com",
+          password: "123456",
+        })
+      ).rejects.toThrow("Error: User already exists");
+    });
+
     // deveria retornar um erro caso ocorra um erro inesperado
+    test("should return an error if an unexpected error occurs", async () => {});
   });
 });
