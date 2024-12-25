@@ -1,5 +1,5 @@
 import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
-import { AdapterRepositoryCreateUser } from "../adapters/repository";
+import { AdapterRepositoryCreateUser } from "../adapters/repository/create-user";
 import {
   IDataRequest,
   IDataResponse,

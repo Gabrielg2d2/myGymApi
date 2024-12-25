@@ -1,6 +1,6 @@
 import { AdapterPrisma } from "@/domain/adapters/repository/prisma";
 import { Prisma } from "@prisma/client";
-import { IDataResponse } from "../../repository";
+import { IDataResponse } from "../../../repository";
 
 interface IAdapterRepository {
   userCreate(data: IDataResponse): Promise<IDataResponse>;
