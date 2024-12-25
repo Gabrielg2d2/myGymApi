@@ -7,6 +7,9 @@ interface IServiceCreateHashPassword {
 
 export class ServiceCreateHashPassword implements IServiceCreateHashPassword {
   async execute(password: string) {
+    if (!password) {
+      throw new Error("Password is required");
+    }
     return await hash(password, env.HASH_SALT);
   }
 }
