@@ -1,13 +1,13 @@
 import { describe, expect, test, vitest } from "vitest";
 import { CreateUserUseCase } from ".";
 import { RepositoryCreateUser } from "./repository";
-import { InMemoryRepositoryCreateUser } from "./repository/repository-test";
+import { RepositoryTest } from "./repository/repository-test";
 
 describe("Create User", () => {
   describe("Success", () => {
     test("Should be able to create a new user ensuring the date format", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
 
@@ -32,7 +32,7 @@ describe("Create User", () => {
 
     test("Should return a standard format in case of success", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -89,7 +89,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an email that already exists", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
 
@@ -110,7 +110,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid email", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -131,7 +131,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid name", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
@@ -152,7 +152,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid password", async () => {
       const mockUserRepository =
-        new InMemoryRepositoryCreateUser() as unknown as RepositoryCreateUser;
+        new RepositoryTest() as unknown as RepositoryCreateUser;
 
       const createUserUseCase = new CreateUserUseCase(mockUserRepository);
       const newUser = await createUserUseCase.execute({
