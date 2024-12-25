@@ -1,5 +1,4 @@
-import { env } from "@/env";
-import { hash } from "bcryptjs";
+import { AdapterCreateHash } from "../../adapters/hash/create-hash";
 
 interface IServiceCreateHashPassword {
   execute(password: string): Promise<string>;
@@ -11,6 +10,6 @@ export class ServiceCreateHashPassword implements IServiceCreateHashPassword {
       throw new Error("Password must be at least 6 characters");
     }
 
-    return await hash(password, env.HASH_SALT);
+    return await new AdapterCreateHash().execute(password);
   }
 }
