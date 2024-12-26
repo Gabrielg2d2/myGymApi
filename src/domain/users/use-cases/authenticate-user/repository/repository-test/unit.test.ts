@@ -7,7 +7,7 @@ describe("RepositoryTest", () => {
       const sut = new RepositoryTest();
 
       const userData = {
-        email: "test@gmail",
+        email: "test@gmail.com",
         password: "123123",
       };
 
@@ -22,7 +22,7 @@ describe("RepositoryTest", () => {
       const sut = new RepositoryTest();
 
       const userData = {
-        email: "test2@gmail",
+        email: "test123@gmail.com",
         password: "123123",
       };
 

@@ -1,12 +1,15 @@
+import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
 import { IDataRequest, IRepositoryAuthenticateUser, IUser } from "../interface";
 
 export class RepositoryTest implements IRepositoryAuthenticateUser {
+  constructor(private readonly adapter = new AdapterBcryptjs()) {}
+
   users: IUser[] = [
     {
       id: new Date().getTime().toString(),
       name: "Test",
-      email: "test@gmail",
-      password_hash: new Date().getTime().toString(),
+      email: "test@gmail.com",
+      password_hash: "123123",
       created_at: new Date(),
     },
   ];
