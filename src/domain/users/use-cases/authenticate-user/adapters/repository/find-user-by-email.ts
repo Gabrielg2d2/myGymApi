@@ -1,7 +1,14 @@
 import { AdapterPrisma } from "@/domain/adapters/repository/prisma";
 import { IDataRequest } from "../../repository";
+import { IUser } from "../../repository/interface";
 
-export class AdapterRepositoryAuthenticateUser {
+interface IFindUserByEmail {
+  findUserByEmail(data: IDataRequest): Promise<{
+    user: IUser;
+  }>;
+}
+
+export class AdapterRepositoryAuthenticateUser implements IFindUserByEmail {
   constructor(private readonly db = new AdapterPrisma()) {}
 
   async findUserByEmail(data: IDataRequest) {
