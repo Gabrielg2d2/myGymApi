@@ -5,21 +5,19 @@ export class RepositoryTest implements IRepositoryAuthenticateUser {
     {
       id: new Date().getTime().toString(),
       name: "Test",
-      email: "jhon@gmail",
+      email: "test@gmail",
       password_hash: new Date().getTime().toString(),
       created_at: new Date(),
     },
   ];
 
-  async execute(data: IDataRequest): Promise<{ user: IUser }> {
+  async execute(data: IDataRequest) {
     const user = this.users.find((user) => user?.email === data.email);
 
-    new Promise((resolve, reject) => {
-      if (!user) {
-        reject(new Error("User not found"));
-      }
+    if (!user) {
+      return null;
+    }
 
-      resolve({ user });
-    });
+    return user;
   }
 }
