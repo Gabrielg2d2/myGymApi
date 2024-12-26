@@ -2,7 +2,7 @@ import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domai
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IUser } from "../../repository/interface";
 
-type IDataSuccess = {
+export type IDataSuccess = {
   user: IUser;
 };
 interface ISuccessAuthenticateUser {
@@ -25,11 +25,11 @@ export class SuccessAuthenticateUser
         user: data.user,
       },
       message: {
-        en: "User created successfully",
-        pt: "Usuário criado com sucesso",
+        en: "User authenticated successfully",
+        pt: "Usuário autenticado com sucesso",
       },
       typeMessage: ITypeMessageGlobal.SUCCESS,
-      statusCode: 201,
+      statusCode: 200,
       error: null,
     };
   }
