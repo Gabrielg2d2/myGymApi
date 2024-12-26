@@ -17,7 +17,7 @@ export class AuthenticateUserUseCase {
         password,
       });
 
-      new ServiceValidationAuthenticateUser().execute(user, password);
+      await new ServiceValidationAuthenticateUser().execute(user, password);
 
       return new SuccessAuthenticateUser().execute({ user });
     } catch (error) {

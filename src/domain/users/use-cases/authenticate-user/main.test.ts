@@ -33,4 +33,26 @@ describe("AuthenticateUserUseCase", () => {
       error: null,
     });
   });
+
+  test("should return error if credentials are invalid", async () => {
+    const mockRepository =
+      new RepositoryTest() as unknown as RepositoryAuthenticateUser;
+    const sut = new AuthenticateUserUseCase(mockRepository);
+
+    const result = await sut.execute({
+      email: "invalid@gmail.com",
+      password: "invalidpassword",
+    });
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "Credentials are invalid",
+        pt: "Credenciais inválidas",
+      },
+      typeMessage: "error",
+      statusCode: 401,
+      error: null,
+    });
+  });
 });

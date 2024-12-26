@@ -12,11 +12,10 @@ export class ValidatingUserAuthentication
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
   async execute(user: IUser, password: string) {
-    const customErrorGlobal = new CustomErrorGlobal({
-      message: "Error: Credentials are invalid",
-    });
-
-    if (!user || !password) throw customErrorGlobal;
+    if (!user || !password)
+      throw new CustomErrorGlobal({
+        message: "Error: Credentials are invalid",
+      });
 
     const { password_hash } = user;
 
@@ -25,6 +24,9 @@ export class ValidatingUserAuthentication
       password_hash
     );
 
-    if (!isPasswordValid) throw customErrorGlobal;
+    if (!isPasswordValid)
+      throw new CustomErrorGlobal({
+        message: "Error: Credentials are invalid",
+      });
   }
 }
