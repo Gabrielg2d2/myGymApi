@@ -9,9 +9,9 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const sut = new CreateUserUseCase(mockUserRepository);
 
-      const newUser = await createUserUseCase.execute({
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "john@gmail.com",
         password: "123456",
@@ -34,8 +34,8 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
-      const newUser = await createUserUseCase.execute({
+      const sut = new CreateUserUseCase(mockUserRepository);
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "john@gmail.com",
         password: "123456",
@@ -68,8 +68,8 @@ describe("Create User", () => {
           .mockRejectedValueOnce(new Error("Error: unknown error")),
       } as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
-      const newUser = await createUserUseCase.execute({
+      const sut = new CreateUserUseCase(mockUserRepository);
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "john@gmail.com",
         password: "123456",
@@ -91,15 +91,15 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
+      const sut = new CreateUserUseCase(mockUserRepository);
 
-      await createUserUseCase.execute({
+      await sut.execute({
         name: "John Doe",
         email: "john@gmail.com",
         password: "123456",
       });
 
-      const newUser = await createUserUseCase.execute({
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "john@gmail.com",
         password: "123456",
@@ -112,8 +112,8 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
-      const newUser = await createUserUseCase.execute({
+      const sut = new CreateUserUseCase(mockUserRepository);
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "john",
         password: "123456",
@@ -133,8 +133,8 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
-      const newUser = await createUserUseCase.execute({
+      const sut = new CreateUserUseCase(mockUserRepository);
+      const newUser = await sut.execute({
         name: "",
         email: "john@gmail.com",
         password: "123456",
@@ -154,8 +154,8 @@ describe("Create User", () => {
       const mockUserRepository =
         new RepositoryTest() as unknown as RepositoryCreateUser;
 
-      const createUserUseCase = new CreateUserUseCase(mockUserRepository);
-      const newUser = await createUserUseCase.execute({
+      const sut = new CreateUserUseCase(mockUserRepository);
+      const newUser = await sut.execute({
         name: "John",
         email: "john@gmail.com",
         password: "",
