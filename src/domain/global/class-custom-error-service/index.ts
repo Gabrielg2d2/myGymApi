@@ -1,7 +1,7 @@
 import { ITypeMessageGlobal } from "../types/type-message";
 
 export class CustomErrorService {
-  execute(error?: Error | unknown) {
+  execute(error: Error | unknown | null) {
     return {
       data: null,
       message: {

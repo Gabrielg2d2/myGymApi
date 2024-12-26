@@ -1,3 +1,4 @@
+import { CustomErrorService } from "@/domain/global/class-custom-error-service";
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
@@ -35,15 +36,6 @@ export class ErrorsCreateUser extends Error implements IErrorsCreateUser {
       }
     }
 
-    return {
-      data: null,
-      message: {
-        en: "Service unavailable, try again later",
-        pt: "Serviço indisponível, tente novamente mais tarde",
-      },
-      typeMessage: ITypeMessageGlobal.FATAL,
-      statusCode: 500,
-      error: error instanceof Error ? error.message : String(error),
-    };
+    return new CustomErrorService().execute(error);
   }
 }
