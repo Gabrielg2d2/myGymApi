@@ -14,6 +14,23 @@ describe("AuthenticateUserUseCase", () => {
       password: "123123",
     });
 
-    expect(result.statusCode).toBe(200);
+    expect(result).toEqual({
+      data: {
+        user: {
+          id: expect.any(String),
+          name: "Test",
+          email: "test@gmail.com",
+          password_hash: expect.any(String),
+          created_at: expect.any(Date),
+        },
+      },
+      message: {
+        en: "User authenticated successfully",
+        pt: "Usuário autenticado com sucesso",
+      },
+      typeMessage: "success",
+      statusCode: 200,
+      error: null,
+    });
   });
 });
