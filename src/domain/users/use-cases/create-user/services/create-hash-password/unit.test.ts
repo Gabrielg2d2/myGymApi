@@ -6,9 +6,8 @@ describe("ServiceCreateHashPassword", async () => {
   describe("Success", async () => {
     test("should return a hashed password", async () => {
       const password = "1235678";
-      const hashedPassword = await new ServiceCreateHashPassword().execute(
-        password
-      );
+      const sut = new ServiceCreateHashPassword();
+      const hashedPassword = await sut.execute(password);
 
       const isHashed = await compare(password, hashedPassword);
 
@@ -21,9 +20,11 @@ describe("ServiceCreateHashPassword", async () => {
   describe("Error", async () => {
     test("should return an error 'Password must be at least 6 characters'", async () => {
       const password = "123";
-      await expect(
-        new ServiceCreateHashPassword().execute(password)
-      ).rejects.toThrow("Password must be at least 6 characters");
+      const sut = new ServiceCreateHashPassword();
+
+      await expect(sut.execute(password)).rejects.toThrow(
+        "Password must be at least 6 characters"
+      );
     });
   });
 });
