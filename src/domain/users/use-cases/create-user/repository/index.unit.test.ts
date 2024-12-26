@@ -15,9 +15,9 @@ describe("RepositoryCreateUser", () => {
           created_at: new Date(),
         }),
       } as unknown as AdapterRepositoryCreateUser;
-      const repositoryCreateUser = new RepositoryCreateUser(mockAdapter);
+      const sut = new RepositoryCreateUser(mockAdapter);
 
-      const newUser = await repositoryCreateUser.execute({
+      const newUser = await sut.execute({
         name: "John Doe",
         email: "jhon@gmail.com",
         password: "123456",
@@ -45,10 +45,10 @@ describe("RepositoryCreateUser", () => {
         }),
         userCreate: () => vitest.fn(),
       } as unknown as AdapterRepositoryCreateUser;
-      const repositoryCreateUser = new RepositoryCreateUser(mockAdapter);
+      const sut = new RepositoryCreateUser(mockAdapter);
 
       await expect(
-        repositoryCreateUser.execute({
+        sut.execute({
           name: "John Doe",
           email: "jhon@gmail.com",
           password: "123456",
@@ -63,10 +63,10 @@ describe("RepositoryCreateUser", () => {
         },
         userCreate: () => vitest.fn(),
       } as unknown as AdapterRepositoryCreateUser;
-      const repositoryCreateUser = new RepositoryCreateUser(mockAdapter);
+      const sut = new RepositoryCreateUser(mockAdapter);
 
       await expect(
-        repositoryCreateUser.execute({
+        sut.execute({
           name: "John Doe",
           email: "jhon@gmail.com",
           password: "123456",
