@@ -4,7 +4,7 @@ import { IDataRequest } from "../../repository";
 export class AdapterRepositoryAuthenticateUser {
   constructor(private readonly db = new AdapterPrisma()) {}
 
-  async findByEmail(data: IDataRequest) {
+  async findUserByEmail(data: IDataRequest) {
     const user = await this.db.prisma.user.findUnique({
       where: { email: data.email },
     });

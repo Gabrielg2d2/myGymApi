@@ -13,7 +13,7 @@ export class RepositoryAuthenticateUser implements IRepositoryAuthenticateUser {
   ) {}
 
   async execute(data: IDataRequest) {
-    const { user } = await this.adapter.findByEmail(data);
+    const { user } = await this.adapter.findUserByEmail(data);
 
     return {
       user,
