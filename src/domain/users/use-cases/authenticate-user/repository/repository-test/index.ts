@@ -7,7 +7,7 @@ export class RepositoryTest implements IRepositoryAuthenticateUser {
 
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
-  users: IUser[] = [];
+  private users: IUser[] = [];
 
   async execute(data: IDataRequest) {
     const passwordHash = await this.adapter.bcryptjs.hash(
