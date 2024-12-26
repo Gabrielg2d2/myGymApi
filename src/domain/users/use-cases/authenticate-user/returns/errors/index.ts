@@ -8,15 +8,15 @@ interface IErrorsCreateUser {
 export class ErrorsAuthenticateUser extends Error implements IErrorsCreateUser {
   async execute(error: Error | unknown) {
     if (error instanceof Error) {
-      if (error.message === "Error: User not found") {
+      if (error.message === "Error: Credentials are invalid") {
         return {
           data: null,
           message: {
-            en: "User not found",
-            pt: "Usuário não encontrado",
+            en: "Credentials are invalid",
+            pt: "Credenciais inválidas",
           },
           typeMessage: ITypeMessageGlobal.ERROR,
-          statusCode: 404,
+          statusCode: 401,
           error, // TODO: remove in production
         };
       }

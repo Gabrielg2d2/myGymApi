@@ -1,4 +1,7 @@
-export type IDataRequest = void;
+export type IDataRequest = {
+  email: string;
+  password: string;
+};
 export type IDataResponse = void;
 
 export interface IRepositoryAuthenticateUser {

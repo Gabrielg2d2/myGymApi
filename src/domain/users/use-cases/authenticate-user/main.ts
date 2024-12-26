@@ -1,7 +1,7 @@
 import { IDataRequest, RepositoryAuthenticateUser } from "./repository";
 import { ErrorsAuthenticateUser } from "./returns/errors";
 import { SuccessAuthenticateUser } from "./returns/success";
-import { ServiceValidationAuthenticateUser } from "./services/validation-authenticate-user/index.test";
+import { ServiceValidationAuthenticateUser } from "./services/validating-user-authentication";
 
 export class AuthenticateUserUseCase {
   constructor(
