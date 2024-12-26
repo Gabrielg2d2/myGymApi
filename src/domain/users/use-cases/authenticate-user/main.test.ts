@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vitest } from "vitest";
 import { AuthenticateUserUseCase } from "./main";
 import { RepositoryAuthenticateUser } from "./repository";
 import { RepositoryTest } from "./repository/repository-test";
@@ -53,6 +53,29 @@ describe("AuthenticateUserUseCase", () => {
       typeMessage: "error",
       statusCode: 401,
       error: null,
+    });
+  });
+
+  test("should return error if repository throws", async () => {
+    const mockRepository = {
+      execute: vitest.fn().mockRejectedValue(new Error("Repository error")),
+    } as unknown as RepositoryAuthenticateUser;
+    const sut = new AuthenticateUserUseCase(mockRepository);
+
+    const result = await sut.execute({
+      email: "invalid@gmail.com",
+      password: "invalidpassword",
+    });
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "Service unavailable, try again later",
+        pt: "Serviço indisponível, tente novamente mais tarde",
+      },
+      typeMessage: "fatal",
+      statusCode: 500,
+      error: "null",
     });
   });
 });
