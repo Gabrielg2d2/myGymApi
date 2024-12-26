@@ -3,10 +3,16 @@ import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
 import { env } from "@/env";
 import { IDataRequest } from "../../repository";
 
-export class ValidatingUserAuthentication {
+interface IValidatingUserAuthentication {
+  execute(data: IDataRequest): Promise<void>;
+}
+
+export class ValidatingUserAuthentication
+  implements IValidatingUserAuthentication
+{
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
-  async execute(data: IDataRequest): Promise<boolean> {
+  async execute(data: IDataRequest) {
     const customErrorGlobal = new CustomErrorGlobal({
       message: "Error: Credentials are invalid",
     });
@@ -28,7 +34,5 @@ export class ValidatingUserAuthentication {
     );
 
     if (!isPasswordValid) throw customErrorGlobal;
-
-    return true;
   }
 }
