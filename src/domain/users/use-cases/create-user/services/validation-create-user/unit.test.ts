@@ -7,9 +7,9 @@ describe("ServiceValidationCreateUser", async () => {
     const email = "jhon@gmail.com";
     const password = "123456";
 
-    const service = new ServiceValidationCreateUser();
+    const sut = new ServiceValidationCreateUser();
 
-    await expect(service.execute({ name, email, password })).rejects.toThrow(
+    await expect(sut.execute({ name, email, password })).rejects.toThrow(
       "Error: Invalid content"
     );
   });
@@ -19,9 +19,9 @@ describe("ServiceValidationCreateUser", async () => {
     const email = "jhon.com";
     const password = "123456";
 
-    const service = new ServiceValidationCreateUser();
+    const sut = new ServiceValidationCreateUser();
 
-    await expect(service.execute({ name, email, password })).rejects.toThrow(
+    await expect(sut.execute({ name, email, password })).rejects.toThrow(
       "Error: Invalid content"
     );
   });
@@ -31,9 +31,9 @@ describe("ServiceValidationCreateUser", async () => {
     const email = "jhon.com";
     const password = "";
 
-    const service = new ServiceValidationCreateUser();
+    const sut = new ServiceValidationCreateUser();
 
-    await expect(service.execute({ name, email, password })).rejects.toThrow(
+    await expect(sut.execute({ name, email, password })).rejects.toThrow(
       "Error: Invalid content"
     );
   });
