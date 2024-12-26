@@ -13,7 +13,8 @@ describe("SuccessCreateUser", () => {
         created_at: new Date(),
       };
 
-      const newUser = new SuccessCreateUser().execute(data);
+      const sut = new SuccessCreateUser();
+      const newUser = sut.execute(data);
 
       expect(newUser.data).not.toBe(null);
     });
@@ -27,7 +28,8 @@ describe("SuccessCreateUser", () => {
         created_at: new Date(),
       };
 
-      const newUser = new SuccessCreateUser().execute(data);
+      const sut = new SuccessCreateUser();
+      const newUser = sut.execute(data);
 
       expect(newUser).toEqual({
         data: {
@@ -51,10 +53,9 @@ describe("SuccessCreateUser", () => {
   describe("Error", () => {
     test("should return an error if the data does not exist", async () => {
       const data = null as unknown as IDataResponse;
+      const sut = new SuccessCreateUser();
 
-      expect(() => new SuccessCreateUser().execute(data)).toThrow(
-        "Data is required"
-      );
+      expect(() => sut.execute(data)).toThrow("Data is required");
     });
   });
 });
