@@ -5,7 +5,8 @@ describe("ErrorsCreateUser", () => {
   describe("Error handled", () => {
     test("should handle the 'Error: Invalid content' error", async () => {
       const error = new Error("Error: Invalid content");
-      const result = await new ErrorsCreateUser().execute(error);
+      const sut = new ErrorsCreateUser();
+      const result = await sut.execute(error);
 
       expect(result).toEqual({
         data: null,
@@ -21,7 +22,8 @@ describe("ErrorsCreateUser", () => {
 
     test("should handle the 'Error: User already exists' error", async () => {
       const error = new Error("Error: User already exists");
-      const result = await new ErrorsCreateUser().execute(error);
+      const sut = new ErrorsCreateUser();
+      const result = await sut.execute(error);
 
       expect(result).toEqual({
         data: null,
@@ -39,7 +41,8 @@ describe("ErrorsCreateUser", () => {
   describe("Any error", () => {
     test("should handle unknown errors", async () => {
       const error = new Error("Unknown error");
-      const result = await new ErrorsCreateUser().execute(error);
+      const sut = new ErrorsCreateUser();
+      const result = await sut.execute(error);
 
       expect(result).toEqual({
         data: null,
