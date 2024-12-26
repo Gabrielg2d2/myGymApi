@@ -1,3 +1,4 @@
+import { CustomErrorService } from "@/domain/global/class-custom-error-service";
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
@@ -17,20 +18,11 @@ export class ErrorsAuthenticateUser extends Error implements IErrorsCreateUser {
           },
           typeMessage: ITypeMessageGlobal.ERROR,
           statusCode: 401,
-          error, // TODO: remove in production
+          error: null,
         };
       }
     }
 
-    return {
-      data: null,
-      message: {
-        en: "Service unavailable, try again later",
-        pt: "Serviço indisponível, tente novamente mais tarde",
-      },
-      typeMessage: ITypeMessageGlobal.FATAL,
-      statusCode: 500,
-      error: error instanceof Error ? error.message : String(error), // TODO: remove in production
-    };
+    return new CustomErrorService().execute(null);
   }
 }
