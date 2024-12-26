@@ -14,7 +14,5 @@ export type IDataResponse = {
 export type IUser = IDataResponse | null;
 
 export interface IRepositoryAuthenticateUser {
-  execute(data: IDataRequest): Promise<{
-    user: IUser;
-  }>;
+  execute(data: IDataRequest): Promise<IUser>;
 }

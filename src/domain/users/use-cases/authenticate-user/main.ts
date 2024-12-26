@@ -12,7 +12,7 @@ export class AuthenticateUserUseCase {
     try {
       const { email, password } = body;
 
-      const { user } = await this.repositoryAuthenticateUser.execute({
+      const user = await this.repositoryAuthenticateUser.execute({
         email,
         password,
       });
