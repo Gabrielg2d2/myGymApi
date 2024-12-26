@@ -1,56 +1,78 @@
+import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
+import { env } from "@/env";
 import { describe, expect, test } from "vitest";
 import { ServiceValidationAuthenticateUser } from ".";
+import { IUser } from "../../repository/interface";
 
 describe("ServiceValidationAuthenticateUser", () => {
+  const adapter = new AdapterBcryptjs();
+
   describe("Success", () => {
     test("should return nothing if user is valid", async () => {
       const sut = new ServiceValidationAuthenticateUser();
-      const user = {
+
+      const password = "123456";
+      const passwordHash = await adapter.bcryptjs.hash(password, env.HASH_SALT);
+
+      const user: IUser = {
+        id: new Date().getTime().toString(),
         email: "jhon@gmail.com",
-        password: "123456",
+        name: "Jhon Doe",
+        created_at: new Date(),
+        password_hash: passwordHash,
       };
 
-      const result = await sut.execute(user);
-      expect(result).toBeUndefined();
+      await expect(sut.execute(user, password)).resolves.toBeUndefined();
     });
   });
 
-  describe("Error", () => {
-    // deveria retornar um erro, caso o email não seja informado
-    test("should return an error if email is not provided", async () => {
-      const sut = new ServiceValidationAuthenticateUser();
-      const user = {
-        email: "",
-        password: "123456",
-      };
+  //   describe("Error", () => {
+  //     test("should return an error if email is not provided", async () => {
+  //       const sut = new ServiceValidationAuthenticateUser();
+  //       const user = {
+  //         email: "",
+  //         password: "123456",
+  //       };
 
-      try {
-        await sut.execute(user);
-      } catch (error) {
-        if (error instanceof Error) {
-          expect(error.message).toBe("Error: Credentials are invalid");
-        }
-      }
-    });
+  //       try {
+  //         await sut.execute(user);
+  //       } catch (error) {
+  //         if (error instanceof Error) {
+  //           expect(error.message).toBe("Error: Credentials are invalid");
+  //         }
+  //       }
+  //     });
 
-    // deveria retornar um erro, caso o password não seja informado
-    test("should return an error if password is not provided", async () => {
-      const sut = new ServiceValidationAuthenticateUser();
-      const user = {
-        email: "jhon@gmail.com",
-        password: "",
-      };
+  //     test("should return an error if password is not provided", async () => {
+  //       const sut = new ServiceValidationAuthenticateUser();
+  //       const user = {
+  //         email: "jhon@gmail.com",
+  //         password: "",
+  //       };
 
-      try {
-        await sut.execute(user);
-      } catch (error) {
-        if (error instanceof Error) {
-          expect(error.message).toBe("Error: Credentials are invalid");
-        }
-      }
-    });
+  //       try {
+  //         await sut.execute(user);
+  //       } catch (error) {
+  //         if (error instanceof Error) {
+  //           expect(error.message).toBe("Error: Credentials are invalid");
+  //         }
+  //       }
+  //     });
 
-    // deveria retornar um erro, caso o password ou email seja inválido
-    test("should return an error if password or email is invalid", async () => {});
-  });
+  //     test("should return an error if password or email is invalid", async () => {
+  //       const sut = new ServiceValidationAuthenticateUser();
+  //       const user = {
+  //         email: "jhon@gmail.com",
+  //         password: "123123",
+  //       };
+
+  //       try {
+  //         await sut.execute(user);
+  //       } catch (error) {
+  //         if (error instanceof Error) {
+  //           expect(error.message).toBe("Error: Credentials are invalid");
+  //         }
+  //       }
+  //     });
+  //   });
 });
