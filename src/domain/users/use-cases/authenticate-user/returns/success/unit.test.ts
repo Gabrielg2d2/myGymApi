@@ -40,6 +40,18 @@ describe("SuccessAuthenticateUser", () => {
   });
 
   describe("Error", () => {
-    test("Should return error when user is not authenticated", () => {});
+    test("Should return error when data is not provided", () => {
+      const sut = new SuccessAuthenticateUser();
+
+      const data: IDataSuccess = {} as IDataSuccess;
+
+      try {
+        sut.execute(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe("Data is required");
+        }
+      }
+    });
   });
 });
