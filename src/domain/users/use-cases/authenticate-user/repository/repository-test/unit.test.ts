@@ -1,9 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 import { RepositoryTest } from ".";
 
 describe("RepositoryTest", () => {
   describe("Success", () => {
-    it("should return user", async () => {
+    test("should return user", async () => {
       const sut = new RepositoryTest();
 
       const userData = {
@@ -18,7 +18,7 @@ describe("RepositoryTest", () => {
   });
 
   describe("Error", () => {
-    it("should return null", async () => {
+    test("should return null", async () => {
       const sut = new RepositoryTest();
 
       const userData = {
