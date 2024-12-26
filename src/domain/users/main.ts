@@ -3,7 +3,7 @@ import {
   CreateUserUseCase,
   IDataRequest as IDataCreateUserRequest,
   IDataResponse as IDataCreateUserResponse,
-} from "./use-cases/create-user";
+} from "./use-cases/create-user/main";
 
 export type { IDataCreateUserRequest, IDataCreateUserResponse };
 

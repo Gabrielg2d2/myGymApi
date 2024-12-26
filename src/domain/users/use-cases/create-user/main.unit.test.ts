@@ -1,5 +1,5 @@
 import { describe, expect, test, vitest } from "vitest";
-import { CreateUserUseCase } from ".";
+import { CreateUserUseCase } from "./main";
 import { RepositoryCreateUser } from "./repository";
 import { RepositoryTest } from "./repository/repository-test";
 
