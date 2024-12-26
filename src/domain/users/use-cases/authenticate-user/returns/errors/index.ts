@@ -23,8 +23,6 @@ export class ErrorsAuthenticateUser extends Error implements IErrorsCreateUser {
       }
     }
 
-    console.log("error => ", error);
-
     return new CustomErrorService().execute(null);
   }
 }
