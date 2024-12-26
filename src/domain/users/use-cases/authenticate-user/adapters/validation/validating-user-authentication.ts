@@ -16,7 +16,7 @@ export class ValidatingUserAuthentication
       message: "Error: Credentials are invalid",
     });
 
-    if (!user) throw customErrorGlobal;
+    if (!user || !password) throw customErrorGlobal;
 
     const { password_hash } = user;
 

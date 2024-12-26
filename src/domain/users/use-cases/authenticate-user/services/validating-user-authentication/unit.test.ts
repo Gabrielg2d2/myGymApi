@@ -12,7 +12,7 @@ describe("ServiceValidationAuthenticateUser", () => {
       const sut = new ServiceValidationAuthenticateUser();
 
       const password = "123456";
-      const passwordHash = await adapter.bcryptjs.hash(password, env.HASH_SALT);
+      const passwordHash = await adapter.bcryptjs.hash(password, 1);
 
       const user: IUser = {
         id: new Date().getTime().toString(),
@@ -26,53 +26,72 @@ describe("ServiceValidationAuthenticateUser", () => {
     });
   });
 
-  //   describe("Error", () => {
-  //     test("should return an error if email is not provided", async () => {
-  //       const sut = new ServiceValidationAuthenticateUser();
-  //       const user = {
-  //         email: "",
-  //         password: "123456",
-  //       };
+  describe("Error", () => {
+    test("should return an error if email is not provided", async () => {
+      const sut = new ServiceValidationAuthenticateUser();
 
-  //       try {
-  //         await sut.execute(user);
-  //       } catch (error) {
-  //         if (error instanceof Error) {
-  //           expect(error.message).toBe("Error: Credentials are invalid");
-  //         }
-  //       }
-  //     });
+      const password = "123456";
+      const passwordHash = await adapter.bcryptjs.hash(password, env.HASH_SALT);
 
-  //     test("should return an error if password is not provided", async () => {
-  //       const sut = new ServiceValidationAuthenticateUser();
-  //       const user = {
-  //         email: "jhon@gmail.com",
-  //         password: "",
-  //       };
+      const user: IUser = {
+        id: new Date().getTime().toString(),
+        email: "",
+        name: "Jhon Doe",
+        created_at: new Date(),
+        password_hash: passwordHash,
+      };
 
-  //       try {
-  //         await sut.execute(user);
-  //       } catch (error) {
-  //         if (error instanceof Error) {
-  //           expect(error.message).toBe("Error: Credentials are invalid");
-  //         }
-  //       }
-  //     });
+      try {
+        await sut.execute(user, password);
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe("Error: Credentials are invalid");
+        }
+      }
+    });
 
-  //     test("should return an error if password or email is invalid", async () => {
-  //       const sut = new ServiceValidationAuthenticateUser();
-  //       const user = {
-  //         email: "jhon@gmail.com",
-  //         password: "123123",
-  //       };
+    test("should return an error if password is not provided", async () => {
+      const sut = new ServiceValidationAuthenticateUser();
+      const password = "123456";
+      const passwordHash = await adapter.bcryptjs.hash(password, env.HASH_SALT);
 
-  //       try {
-  //         await sut.execute(user);
-  //       } catch (error) {
-  //         if (error instanceof Error) {
-  //           expect(error.message).toBe("Error: Credentials are invalid");
-  //         }
-  //       }
-  //     });
-  //   });
+      const user: IUser = {
+        id: new Date().getTime().toString(),
+        email: "jhon@gmail.com",
+        name: "Jhon Doe",
+        created_at: new Date(),
+        password_hash: passwordHash,
+      };
+
+      try {
+        await sut.execute(user, "");
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe("Error: Credentials are invalid");
+        }
+      }
+    });
+
+    test("should return an error if password or email is invalid", async () => {
+      const sut = new ServiceValidationAuthenticateUser();
+      const password = "123456";
+      const passwordHash = await adapter.bcryptjs.hash(password, env.HASH_SALT);
+
+      const user: IUser = {
+        id: new Date().getTime().toString(),
+        email: "jhon@gmail.com",
+        name: "Jhon Doe",
+        created_at: new Date(),
+        password_hash: passwordHash,
+      };
+
+      try {
+        await sut.execute(user, "12345675v1d56vs1v65");
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe("Error: Credentials are invalid");
+        }
+      }
+    });
+  });
 });
