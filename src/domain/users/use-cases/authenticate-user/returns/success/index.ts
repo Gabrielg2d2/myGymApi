@@ -1,22 +1,29 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { IDataResponse } from "../../repository";
+import { IUser } from "../../repository/interface";
 
+type IDataSuccess = {
+  user: IUser;
+};
 interface ISuccessAuthenticateUser {
-  execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse>;
+  execute(data: IDataSuccess): IReturnDefaultDomain<{
+    user: IUser;
+  }>;
 }
 
 export class SuccessAuthenticateUser
   extends Error
   implements ISuccessAuthenticateUser
 {
-  execute(data: IDataResponse) {
-    if (!data) {
+  execute(data: IDataSuccess) {
+    if (!data.user) {
       throw new Error("Data is required");
     }
 
     return {
-      data,
+      data: {
+        user: data.user,
+      },
       message: {
         en: "User created successfully",
         pt: "Usuário criado com sucesso",

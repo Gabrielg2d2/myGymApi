@@ -10,16 +10,16 @@ export class AuthenticateUserUseCase {
 
   async execute(body: IDataRequest) {
     try {
-      new ServiceValidationAuthenticateUser().execute(body);
-
       const { email, password } = body;
 
-      const user = await this.repositoryAuthenticateUser.execute({
+      const { user } = await this.repositoryAuthenticateUser.execute({
         email,
         password,
       });
 
-      return new SuccessAuthenticateUser().execute(user);
+      new ServiceValidationAuthenticateUser().execute(user, password);
+
+      return new SuccessAuthenticateUser().execute({ user });
     } catch (error) {
       return await new ErrorsAuthenticateUser().execute(error);
     }

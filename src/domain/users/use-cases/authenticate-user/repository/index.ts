@@ -1,3 +1,4 @@
+import { AdapterRepositoryAuthenticateUser } from "../adapters/repository/find-by-email";
 import {
   IDataRequest,
   IDataResponse,
@@ -7,9 +8,15 @@ import {
 export type { IDataRequest, IDataResponse };
 
 export class RepositoryAuthenticateUser implements IRepositoryAuthenticateUser {
-  constructor() {}
+  constructor(
+    private readonly adapter = new AdapterRepositoryAuthenticateUser()
+  ) {}
 
-  execute(data: IDataRequest): Promise<IDataResponse> {
-    throw new Error("Method not implemented.");
+  async execute(data: IDataRequest) {
+    const { user } = await this.adapter.findByEmail(data);
+
+    return {
+      user,
+    };
   }
 }

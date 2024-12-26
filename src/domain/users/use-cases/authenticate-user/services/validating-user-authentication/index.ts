@@ -1,14 +1,14 @@
 import { ValidatingUserAuthentication } from "../../adapters/validation/validating-user-authentication";
-import { IDataRequest } from "../../repository";
+import { IUser } from "../../repository/interface";
 
 interface IServiceValidationAuthenticateUser {
-  execute(data: IDataRequest): Promise<boolean>;
+  execute(user: IUser, password: string): Promise<void>;
 }
 
 export class ServiceValidationAuthenticateUser
   implements IServiceValidationAuthenticateUser
 {
-  async execute(data: IDataRequest) {
-    return await new ValidatingUserAuthentication().execute(data);
+  async execute(user: IUser, password: string) {
+    return await new ValidatingUserAuthentication().execute(user, password);
   }
 }

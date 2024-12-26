@@ -1,10 +1,9 @@
 import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
 import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
-import { env } from "@/env";
-import { IDataRequest } from "../../repository";
+import { IUser } from "../../repository/interface";
 
 interface IValidatingUserAuthentication {
-  execute(data: IDataRequest): Promise<void>;
+  execute(user: IUser, password: string): Promise<void>;
 }
 
 export class ValidatingUserAuthentication
@@ -12,25 +11,18 @@ export class ValidatingUserAuthentication
 {
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
-  async execute(data: IDataRequest) {
+  async execute(user: IUser, password: string) {
     const customErrorGlobal = new CustomErrorGlobal({
       message: "Error: Credentials are invalid",
     });
 
-    const { password } = data;
+    if (!user) throw customErrorGlobal;
 
-    if (!data.email || !data.password) {
-      throw customErrorGlobal;
-    }
+    const { password_hash } = user;
 
-    const passwordHash = await this.adapter.bcryptjs.hash(
+    const isPasswordValid = await this.adapter.bcryptjs.compare(
       password,
-      env.HASH_SALT
-    );
-
-    const isPasswordValid = this.adapter.bcryptjs.compare(
-      password,
-      passwordHash
+      password_hash
     );
 
     if (!isPasswordValid) throw customErrorGlobal;
