@@ -3,10 +3,10 @@ import { beforeEach, describe, expect, test } from "vitest";
 import { RepositoryTest } from "./repository-test";
 
 describe("RepositoryTest", () => {
-  let repository: RepositoryTest;
+  let sut: RepositoryTest;
 
   beforeEach(() => {
-    repository = new RepositoryTest();
+    sut = new RepositoryTest();
   });
 
   test("should create a new user", async () => {
@@ -16,7 +16,7 @@ describe("RepositoryTest", () => {
       password: "senha123",
     };
 
-    const user = await repository.execute(data);
+    const user = await sut.execute(data);
 
     expect(user).toHaveProperty("id");
     expect(user.name).toBe(data.name);
@@ -32,10 +32,8 @@ describe("RepositoryTest", () => {
       password: "senha456",
     };
 
-    await repository.execute(data);
+    await sut.execute(data);
 
-    await expect(repository.execute(data)).rejects.toBeInstanceOf(
-      CustomErrorGlobal
-    );
+    await expect(sut.execute(data)).rejects.toBeInstanceOf(CustomErrorGlobal);
   });
 });
