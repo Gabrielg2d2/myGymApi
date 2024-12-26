@@ -3,9 +3,7 @@ import { IDataRequest } from "../../repository";
 import { IUser } from "../../repository/interface";
 
 interface IFindUserByEmail {
-  findUserByEmail(data: IDataRequest): Promise<{
-    user: IUser;
-  }>;
+  findUserByEmail(data: IDataRequest): Promise<IUser>;
 }
 
 export class AdapterRepositoryAuthenticateUser implements IFindUserByEmail {
@@ -16,8 +14,6 @@ export class AdapterRepositoryAuthenticateUser implements IFindUserByEmail {
       where: { email: data.email },
     });
 
-    return {
-      user,
-    };
+    return user;
   }
 }
