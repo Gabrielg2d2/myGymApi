@@ -2,11 +2,14 @@ import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domai
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IDataResponse } from "../../repository";
 
-interface ISuccessCreateUser {
+interface ISuccessAuthenticateUser {
   execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse>;
 }
 
-export class SuccessCreateUser extends Error implements ISuccessCreateUser {
+export class SuccessAuthenticateUser
+  extends Error
+  implements ISuccessAuthenticateUser
+{
   execute(data: IDataResponse) {
     if (!data) {
       throw new Error("Data is required");
