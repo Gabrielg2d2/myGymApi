@@ -1,4 +1,4 @@
-import { AdapterRepositoryAuthenticateUser } from "../adapters/repository/find-by-email";
+import { AdapterRepositoryAuthenticateUser } from "../adapters/repository/find-user-by-email";
 import {
   IDataRequest,
   IDataResponse,
