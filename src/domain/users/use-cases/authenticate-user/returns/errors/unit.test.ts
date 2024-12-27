@@ -20,4 +20,23 @@ describe("ErrorsAuthenticateUser", () => {
       error: null,
     });
   });
+
+  test("should return a message error when the error message is unknown", async () => {
+    const sut = new ErrorsAuthenticateUser();
+
+    const error = new Error("Unknown error");
+
+    const result = await sut.execute(error);
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "Service unavailable, try again later",
+        pt: "Serviço indisponível, tente novamente mais tarde",
+      },
+      typeMessage: "fatal",
+      statusCode: 500,
+      error: "null",
+    });
+  });
 });
