@@ -17,7 +17,7 @@ export class SuccessAuthenticateUser
 {
   execute(data: IDataSuccess) {
     if (!data.user) {
-      throw new Error("Data is required");
+      throw new Error("Unexpected: Data is required");
     }
 
     return {

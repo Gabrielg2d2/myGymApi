@@ -49,7 +49,7 @@ describe("SuccessAuthenticateUser", () => {
         sut.execute(data);
       } catch (error) {
         if (error instanceof Error) {
-          expect(error.message).toBe("Data is required");
+          expect(error.message).toBe("Unexpected: Data is required");
         }
       }
     });
