@@ -22,7 +22,7 @@ export class CustomErrorService {
       },
       typeMessage: ITypeMessageGlobal.FATAL,
       statusCode: 500,
-      error: error instanceof Error ? error.message : String(error),
+      error: error instanceof Error ? error.message : error,
     };
   }
 }
