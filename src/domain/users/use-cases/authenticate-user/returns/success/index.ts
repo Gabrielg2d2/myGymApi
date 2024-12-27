@@ -18,8 +18,8 @@ export class SuccessAuthenticateUser
   implements ISuccessAuthenticateUser
 {
   async execute(data: IDataSuccess) {
-    if (!data.user) {
-      throw new Error("Unexpected: Data is required");
+    if (!data?.user) {
+      new Error("Unexpected: Data is required");
     }
 
     return {

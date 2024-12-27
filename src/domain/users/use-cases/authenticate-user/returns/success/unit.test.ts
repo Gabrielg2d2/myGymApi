@@ -3,7 +3,7 @@ import { IDataSuccess, SuccessAuthenticateUser } from ".";
 
 describe("SuccessAuthenticateUser", () => {
   describe("Success", () => {
-    test("Should return success when user is authenticated", () => {
+    test("Should return success when user is authenticated", async () => {
       const sut = new SuccessAuthenticateUser();
 
       const data: IDataSuccess = {
@@ -16,7 +16,7 @@ describe("SuccessAuthenticateUser", () => {
         },
       };
 
-      const response = sut.execute(data);
+      const response = await sut.execute(data);
 
       expect(response).toEqual({
         data: {

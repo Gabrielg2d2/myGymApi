@@ -1,9 +1,11 @@
 import { AdapterZod } from "@/domain/adapters/validation/zod";
-import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
 import { IDataRequest } from "../../../repository";
 
 interface IAdapterValidationDataUserCreate {
-  execute(body: IDataRequest): Promise<void>;
+  execute(body: IDataRequest): Promise<{
+    isBodyValid: boolean;
+    fieldErrors: Record<string, unknown>;
+  }>;
 }
 
 export class AdapterValidationCreateUser
@@ -21,10 +23,15 @@ export class AdapterValidationCreateUser
     const isBodyValid = this.registerBodySchema.safeParse(body);
 
     if (!isBodyValid.success) {
-      throw new CustomErrorGlobal({
-        message: "Error: Invalid content",
-        details: isBodyValid.error.formErrors.fieldErrors,
-      });
+      return {
+        isBodyValid: isBodyValid.success,
+        fieldErrors: isBodyValid.error.formErrors.fieldErrors,
+      };
     }
+
+    return {
+      isBodyValid: isBodyValid.success,
+      fieldErrors: {},
+    };
   }
 }

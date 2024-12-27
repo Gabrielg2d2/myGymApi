@@ -1,3 +1,4 @@
+import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
 import { AdapterValidationCreateUser } from "../../adapters/validation/create-user";
 import { IDataRequest } from "../../repository";
 
@@ -9,6 +10,14 @@ export class ServiceValidationCreateUser
   implements IServiceValidationCreateUser
 {
   public async execute(body: IDataRequest) {
-    return new AdapterValidationCreateUser().execute(body);
+    const { isBodyValid, fieldErrors } =
+      await new AdapterValidationCreateUser().execute(body);
+
+    if (!isBodyValid) {
+      throw new CustomErrorGlobal({
+        message: "Error: Invalid content",
+        details: fieldErrors,
+      });
+    }
   }
 }
