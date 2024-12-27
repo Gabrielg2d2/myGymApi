@@ -23,6 +23,21 @@ export class ErrorsAuthenticateUser extends Error implements IErrorsCreateUser {
       }
     }
 
+    if (error instanceof Error) {
+      if (error.message === "Error: Invalid content") {
+        return {
+          data: null,
+          message: {
+            en: "E-mail and password required",
+            pt: "E-mail e senha obrigatórios",
+          },
+          typeMessage: ITypeMessageGlobal.ERROR,
+          statusCode: 400,
+          error: null,
+        };
+      }
+    }
+
     return new CustomErrorService().execute(null);
   }
 }
