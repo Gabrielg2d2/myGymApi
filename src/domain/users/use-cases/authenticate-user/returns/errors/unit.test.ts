@@ -21,7 +21,7 @@ describe("ErrorsAuthenticateUser", () => {
     });
   });
 
-  test("should return a message error when the error message is unknown", async () => {
+  test('should handle the error "unknown"', async () => {
     const sut = new ErrorsAuthenticateUser();
 
     const error = new Error("Unknown error");
