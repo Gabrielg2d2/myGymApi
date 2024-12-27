@@ -1,13 +1,13 @@
 import { IDataCreateUserRequest, UsersDomain } from "@/domain/users/main";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-export async function createUserController(
+export async function authenticateUserController(
   request: FastifyRequest<{ Body: IDataCreateUserRequest }>,
   reply: FastifyReply
 ) {
   const domain = new UsersDomain();
 
-  const result = await domain.createUser(request.body);
+  const result = await domain.authenticateUser(request.body);
 
   return reply.status(result.statusCode).send(result);
 }
