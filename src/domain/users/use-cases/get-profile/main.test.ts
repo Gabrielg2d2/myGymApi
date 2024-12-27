@@ -57,7 +57,7 @@ describe("GetProfileUseCase", () => {
         pt: "Serviço indisponível, tente novamente mais tarde",
       },
       typeMessage: ITypeMessageGlobal.FATAL,
-      statusCode: 500,
+      statusCode: 501,
       error: expect.any(Error),
     });
   });
