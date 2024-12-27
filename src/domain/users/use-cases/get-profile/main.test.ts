@@ -1,6 +1,8 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { describe, expect, test } from "vitest";
 import { GetProfileUseCase } from "./main";
+import { RepositoryGetProfileUseCase } from "./repository";
+import { RepositoryTestGetProfileUseCase } from "./repository/repository-test";
 
 describe("GetProfileUseCase", () => {
   test("should return a profile", async () => {
@@ -29,7 +31,9 @@ describe("GetProfileUseCase", () => {
   });
 
   test("should return an error if the user is not found", async () => {
-    const sut = new GetProfileUseCase();
+    const mockRepository =
+      new RepositoryTestGetProfileUseCase() as unknown as RepositoryGetProfileUseCase;
+    const sut = new GetProfileUseCase(mockRepository);
 
     const result = await sut.execute("any_id");
 

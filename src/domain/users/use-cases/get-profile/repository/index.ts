@@ -1,16 +1,5 @@
 import { AdapterGetProfileRepository } from "../adapter/repository";
-
-type IUser = {
-  id: string;
-  name: string;
-  email: string;
-  password_hash: string;
-  created_at: Date;
-};
-
-interface IRepositoryGetProfileUseCase {
-  execute(userId: string): Promise<IUser | null>;
-}
+import { IRepositoryGetProfileUseCase } from "./interface";
 
 export class RepositoryGetProfileUseCase
   implements IRepositoryGetProfileUseCase
