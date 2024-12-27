@@ -1,5 +1,9 @@
 import { IReturnDefaultDomain } from "../global/types/return-default-domain";
-import { AuthenticateUserUseCase } from "./use-cases/authenticate-user/main";
+import {
+  AuthenticateUserUseCase,
+  IDataRequest as IDataAuthenticateRequest,
+  IDataResponse as IDataAuthenticateResponse,
+} from "./use-cases/authenticate-user/main";
 import {
   CreateUserUseCase,
   IDataRequest as IDataCreateUserRequest,
@@ -12,6 +16,10 @@ interface IUsersDomain {
   createUser(
     body: IDataCreateUserRequest
   ): Promise<IReturnDefaultDomain<IDataCreateUserResponse | null>>;
+
+  authenticateUser(
+    body: IDataAuthenticateRequest
+  ): Promise<IReturnDefaultDomain<IDataAuthenticateResponse | null>>;
 }
 
 export class UsersDomain implements IUsersDomain {
@@ -19,7 +27,7 @@ export class UsersDomain implements IUsersDomain {
     return await new CreateUserUseCase().execute(body);
   }
 
-  async authenticateUser(body: IDataCreateUserRequest) {
+  async authenticateUser(body: IDataAuthenticateRequest) {
     return await new AuthenticateUserUseCase().execute(body);
   }
 }

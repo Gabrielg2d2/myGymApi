@@ -1,9 +1,14 @@
-import { IDataRequest, RepositoryAuthenticateUser } from "./repository";
+import {
+  IDataRequest,
+  IDataResponse,
+  RepositoryAuthenticateUser,
+} from "./repository";
 import { ErrorsAuthenticateUser } from "./returns/errors";
 import { SuccessAuthenticateUser } from "./returns/success";
 import { ServiceValidationEmailPassword } from "./services/validating-email-password";
 import { ServiceValidationAuthenticateUser } from "./services/validating-user-authentication";
 
+export type { IDataRequest, IDataResponse };
 export class AuthenticateUserUseCase {
   constructor(
     private readonly repositoryAuthenticateUser = new RepositoryAuthenticateUser()
