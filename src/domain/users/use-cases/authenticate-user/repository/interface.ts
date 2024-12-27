@@ -9,9 +9,9 @@ export type IDataResponse = {
   email: string;
   password_hash: string;
   created_at: Date;
-};
+} | null;
 
-export type IUser = IDataResponse | null;
+export type IUser = IDataResponse;
 
 export interface IRepositoryAuthenticateUser {
   execute(data: IDataRequest): Promise<IUser>;
