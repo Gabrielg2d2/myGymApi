@@ -36,7 +36,7 @@ describe("ErrorsAuthenticateUser", () => {
       },
       typeMessage: "fatal",
       statusCode: 500,
-      error: "null",
+      error: null,
     });
   });
 });

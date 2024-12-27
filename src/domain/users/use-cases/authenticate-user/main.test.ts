@@ -75,7 +75,7 @@ describe("AuthenticateUserUseCase", () => {
       },
       typeMessage: "fatal",
       statusCode: 500,
-      error: "null",
+      error: null,
     });
   });
 });
