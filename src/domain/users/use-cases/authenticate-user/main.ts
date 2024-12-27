@@ -1,3 +1,4 @@
+import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import {
   IDataRequest,
   IDataResponse,
@@ -8,8 +9,22 @@ import { SuccessAuthenticateUser } from "./returns/success";
 import { ServiceValidationEmailPassword } from "./services/validating-email-password";
 import { ServiceValidationAuthenticateUser } from "./services/validating-user-authentication";
 
-export type { IDataRequest, IDataResponse };
-export class AuthenticateUserUseCase {
+type IReturnAuthenticateUser = Promise<
+  IReturnDefaultDomain<{
+    user: IDataResponse;
+  } | null>
+>;
+
+export type { IDataRequest, IDataResponse, IReturnAuthenticateUser };
+
+interface IAuthenticateUserUseCase {
+  execute(body: IDataRequest): Promise<
+    IReturnDefaultDomain<{
+      user: IDataResponse;
+    } | null>
+  >;
+}
+export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   constructor(
     private readonly repositoryAuthenticateUser = new RepositoryAuthenticateUser()
   ) {}
@@ -27,7 +42,7 @@ export class AuthenticateUserUseCase {
 
       await new ServiceValidationAuthenticateUser().execute(user, password);
 
-      return new SuccessAuthenticateUser().execute({ user });
+      return await new SuccessAuthenticateUser().execute({ user });
     } catch (error) {
       return await new ErrorsAuthenticateUser().execute(error);
     }

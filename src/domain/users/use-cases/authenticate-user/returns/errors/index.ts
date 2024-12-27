@@ -2,11 +2,14 @@ import { CustomErrorService } from "@/domain/global/class/errors/service";
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
-interface IErrorsCreateUser {
+interface IErrorsAuthenticateUser {
   execute(error: Error | unknown): Promise<IReturnDefaultDomain<null>>;
 }
 
-export class ErrorsAuthenticateUser extends Error implements IErrorsCreateUser {
+export class ErrorsAuthenticateUser
+  extends Error
+  implements IErrorsAuthenticateUser
+{
   async execute(error: Error | unknown) {
     if (error instanceof Error) {
       if (error.message === "Error: Credentials are invalid") {

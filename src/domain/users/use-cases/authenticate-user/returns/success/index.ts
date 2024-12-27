@@ -6,16 +6,18 @@ export type IDataSuccess = {
   user: IUser;
 };
 interface ISuccessAuthenticateUser {
-  execute(data: IDataSuccess): IReturnDefaultDomain<{
-    user: IUser;
-  }>;
+  execute(data: IDataSuccess): Promise<
+    IReturnDefaultDomain<{
+      user: IUser;
+    }>
+  >;
 }
 
 export class SuccessAuthenticateUser
   extends Error
   implements ISuccessAuthenticateUser
 {
-  execute(data: IDataSuccess) {
+  async execute(data: IDataSuccess) {
     if (!data.user) {
       throw new Error("Unexpected: Data is required");
     }
