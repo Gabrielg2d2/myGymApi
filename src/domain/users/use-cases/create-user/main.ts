@@ -9,7 +9,11 @@ import { SuccessCreateUser } from "./returns/success";
 import { ServiceCreateHashPassword } from "./services/create-hash-password";
 import { ServiceValidationCreateUser } from "./services/validation-create-user";
 
-export type { IDataRequest, IDataResponse };
+type IReturnCreateUserUseCase = Promise<
+  IReturnDefaultDomain<IDataResponse | null>
+>;
+
+export type { IDataRequest, IDataResponse, IReturnCreateUserUseCase };
 
 interface ICreateUserUseCase {
   execute(
