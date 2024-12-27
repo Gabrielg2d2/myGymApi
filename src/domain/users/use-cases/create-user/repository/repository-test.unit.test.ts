@@ -1,4 +1,4 @@
-import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
+import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
 import { beforeEach, describe, expect, test } from "vitest";
 import { RepositoryTest } from "./repository-test";
 

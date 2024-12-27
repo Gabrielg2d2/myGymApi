@@ -1,5 +1,5 @@
 import { AdapterZod } from "@/domain/adapters/validation/zod";
-import { CustomErrorGlobal } from "@/domain/global/class-custom-error";
+import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
 import { IDataRequest } from "../../../repository";
 
 interface IAdapterValidationDataUserCreate {
