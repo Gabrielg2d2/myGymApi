@@ -10,17 +10,15 @@ export class ServiceValidationAuthenticateUser
   implements IServiceValidationAuthenticateUser
 {
   async execute(user: IUser, password: string) {
-    if (!user?.password_hash || !password)
-      throw new CustomErrorGlobal({
-        message: "Error: Credentials are invalid",
-      });
+    const customError = new CustomErrorGlobal({
+      message: "Error: Credentials are invalid",
+    });
+
+    if (!user?.password_hash || !password) throw customError;
 
     const isPasswordValid =
       await new AdapterValidatingUserAuthentication().execute(user, password);
 
-    if (!isPasswordValid)
-      throw new CustomErrorGlobal({
-        message: "Error: Credentials are invalid",
-      });
+    if (!isPasswordValid) throw customError;
   }
 }
