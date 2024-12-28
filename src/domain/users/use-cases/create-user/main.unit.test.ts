@@ -53,9 +53,9 @@ describe("Create User", () => {
   });
 
   test("Should return a standard format in case of error", async () => {
-    const sut = makeSut.execute(true);
+    const sutWithError = makeSut.execute(true);
 
-    const newUser = await sut.execute({
+    const newUser = await sutWithError.execute({
       name: "John Doe",
       email: "john@gmail.com",
       password: "123456",
