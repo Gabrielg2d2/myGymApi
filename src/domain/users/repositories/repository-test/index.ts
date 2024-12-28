@@ -1,5 +1,5 @@
 import { IUserGlobal } from "@/domain/global/types/user";
-import { IRepositoryUser } from "../interface";
+import { IRepositoryUser, IRequestCreateUser } from "../interface";
 
 export class RepositoryUserTest implements IRepositoryUser {
   private users: IUserGlobal[] = [
@@ -31,8 +31,17 @@ export class RepositoryUserTest implements IRepositoryUser {
     return result;
   }
 
-  async createUser(data: IUserGlobal) {
-    this.users.push(data);
-    return data;
+  async createUser(data: IRequestCreateUser) {
+    const user: IUserGlobal = {
+      id: "123123123",
+      name: data.name,
+      email: data.email,
+      password_hash: data.password,
+      created_at: new Date(),
+    };
+
+    this.users.push(user);
+
+    return user;
   }
 }

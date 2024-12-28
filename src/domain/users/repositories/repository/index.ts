@@ -1,6 +1,5 @@
 import { AdapterPrisma } from "@/domain/adapters/repository/prisma";
-import { IUserGlobal } from "@/domain/global/types/user";
-import { IRepositoryUser } from "../interface";
+import { IRepositoryUser, IRequestCreateUser } from "../interface";
 
 export class RepositoryUser implements IRepositoryUser {
   constructor(private readonly adapter = new AdapterPrisma()) {}
@@ -27,10 +26,14 @@ export class RepositoryUser implements IRepositoryUser {
     }
   }
 
-  async createUser(data: IUserGlobal) {
+  async createUser(data: IRequestCreateUser) {
     try {
       const result = await this.adapter.prisma.user.create({
-        data,
+        data: {
+          name: data.name,
+          email: data.email,
+          password_hash: data.password,
+        },
       });
       return result;
     } finally {
