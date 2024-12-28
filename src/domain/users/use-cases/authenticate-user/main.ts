@@ -1,9 +1,6 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
-import {
-  IDataRequest,
-  IDataResponse,
-  RepositoryAuthenticateUser,
-} from "./repository";
+import { IDataRequest, IDataResponse } from "../../repositories/interface";
+import { RepositoryUser } from "../../repositories/repository";
 import { ErrorsAuthenticateUser } from "./returns/errors";
 import { SuccessAuthenticateUser } from "./returns/success";
 import { ServiceValidationEmailPassword } from "./services/validating-email-password";
@@ -25,9 +22,7 @@ interface IAuthenticateUserUseCase {
   >;
 }
 export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
-  constructor(
-    private readonly repositoryAuthenticateUser = new RepositoryAuthenticateUser()
-  ) {}
+  constructor(private readonly repository = new RepositoryUser()) {}
 
   async execute(body: IDataRequest) {
     try {
@@ -35,10 +30,7 @@ export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
 
       await new ServiceValidationEmailPassword().execute(email, password);
 
-      const user = await this.repositoryAuthenticateUser.execute({
-        email,
-        password,
-      });
+      const user = await this.repository.getUserByEmail(email);
 
       await new ServiceValidationAuthenticateUser().execute(user, password);
 

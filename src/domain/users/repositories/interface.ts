@@ -13,6 +13,8 @@ export type IDataResponse = {
 
 export type IUser = IDataResponse;
 
-export interface IRepositoryAuthenticateUser {
-  execute(data: IDataRequest): Promise<IUser>;
+export interface IRepositoryUser {
+  getUserById(id: string): Promise<IUser>;
+  getUserByEmail(email: string): Promise<IUser>;
+  createUser(data: IUser): Promise<IUser>;
 }

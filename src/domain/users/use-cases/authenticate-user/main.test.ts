@@ -1,24 +1,24 @@
-import { describe, expect, test, vitest } from "vitest";
+import { RepositoryUser } from "@/domain/users/repositories/repository";
+import { RepositoryUserTest } from "@/domain/users/repositories/repository-test";
+import { describe, expect, test } from "vitest";
 import { AuthenticateUserUseCase } from "./main";
-import { RepositoryAuthenticateUser } from "./repository";
-import { RepositoryTest } from "./repository/repository-test";
 
 describe("AuthenticateUserUseCase", () => {
   test("should authenticate user", async () => {
     const mockRepository =
-      new RepositoryTest() as unknown as RepositoryAuthenticateUser;
+      new RepositoryUserTest() as unknown as RepositoryUser;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({
       email: "test@gmail.com",
-      password: "123123",
+      password: "123456",
     });
 
     expect(result).toEqual({
       data: {
         user: {
           id: expect.any(String),
-          name: "Test",
+          name: "Test User",
           email: "test@gmail.com",
           password_hash: expect.any(String),
           created_at: expect.any(Date),
@@ -36,7 +36,7 @@ describe("AuthenticateUserUseCase", () => {
 
   test("should return error if credentials are invalid", async () => {
     const mockRepository =
-      new RepositoryTest() as unknown as RepositoryAuthenticateUser;
+      new RepositoryUserTest() as unknown as RepositoryUser;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({
@@ -58,8 +58,10 @@ describe("AuthenticateUserUseCase", () => {
 
   test("should return error if repository throws", async () => {
     const mockRepository = {
-      execute: vitest.fn().mockRejectedValue(new Error("Repository error")),
-    } as unknown as RepositoryAuthenticateUser;
+      getUserByEmail: async () => {
+        throw new Error("Server error");
+      },
+    } as unknown as RepositoryUser;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({
