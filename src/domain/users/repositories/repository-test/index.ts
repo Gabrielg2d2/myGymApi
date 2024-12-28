@@ -1,11 +1,7 @@
 import { IUserGlobal } from "@/domain/global/types/user";
 import { IRepositoryUsers, IRequestCreateUser } from "../interface";
-import { RepositoryUsers } from "../repository";
 
-export class RepositoryUserTest
-  extends RepositoryUsers
-  implements IRepositoryUsers
-{
+export class RepositoryUserTest implements IRepositoryUsers {
   private users: IUserGlobal[] = [
     {
       id: "123123123",
