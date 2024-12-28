@@ -1,21 +1,18 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { IDataResponse } from "../../repository/interface";
+import { IDataResponse, IReturnDefaultGetProfile } from "../../main";
 
 interface ISuccessGetProfileResponse {
-  execute: (
-    user: IDataResponse
-  ) => Promise<IReturnDefaultDomain<{ user: IDataResponse } | null>>;
+  execute: (data: IDataResponse) => IReturnDefaultGetProfile;
 }
 
 export class SuccessGetProfile implements ISuccessGetProfileResponse {
-  async execute(user: IDataResponse) {
-    if (!user?.id && !user?.created_at)
+  async execute(data: IDataResponse) {
+    if (!data?.user?.id && !data?.user?.created_at)
       throw new Error("Unexpected: Data is not valid");
 
     return {
       data: {
-        user,
+        user: data.user,
       },
       message: {
         en: "User found successfully",

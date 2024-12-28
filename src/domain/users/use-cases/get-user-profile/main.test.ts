@@ -1,16 +1,16 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { describe, expect, test, vitest } from "vitest";
+import { RepositoryUsers } from "../../repositories/repository";
+import { RepositoryUserTest } from "../../repositories/repository-test";
 import { GetProfileUseCase } from "./main";
-import { RepositoryGetProfileUseCase } from "./repository";
-import { RepositoryTestGetProfileUseCase } from "./repository/repository-test";
 
 describe("GetProfileUseCase", () => {
   test("should return a profile", async () => {
     const mockRepository =
-      new RepositoryTestGetProfileUseCase() as unknown as RepositoryGetProfileUseCase;
+      new RepositoryUserTest() as unknown as RepositoryUsers;
     const sut = new GetProfileUseCase(mockRepository);
 
-    const result = await sut.execute({ userId: "987654321" });
+    const result = await sut.execute({ userId: "123123123" });
 
     expect(result).toEqual({
       data: {
@@ -34,7 +34,7 @@ describe("GetProfileUseCase", () => {
 
   test("should return an error if the user is not found", async () => {
     const mockRepository =
-      new RepositoryTestGetProfileUseCase() as unknown as RepositoryGetProfileUseCase;
+      new RepositoryUserTest() as unknown as RepositoryUsers;
     const sut = new GetProfileUseCase(mockRepository);
 
     const result = await sut.execute({ userId: "any_id" });
@@ -54,7 +54,7 @@ describe("GetProfileUseCase", () => {
   test("should return an error in case of unexpected error", async () => {
     const mockRepositoryWithErrorService = {
       execute: vitest.fn().mockRejectedValue(new Error("any_error")),
-    } as unknown as RepositoryGetProfileUseCase;
+    } as unknown as RepositoryUsers;
 
     const sut = new GetProfileUseCase(mockRepositoryWithErrorService);
 
