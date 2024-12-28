@@ -1,12 +1,12 @@
-import { RepositoryUser } from "@/domain/users/repositories/repository";
 import { RepositoryUserTest } from "@/domain/users/repositories/repository-test";
 import { describe, expect, test } from "vitest";
+import { RepositoryUsers } from "../../repositories/repository";
 import { AuthenticateUserUseCase } from "./main";
 
 describe("AuthenticateUserUseCase", () => {
   test("should authenticate user", async () => {
     const mockRepository =
-      new RepositoryUserTest() as unknown as RepositoryUser;
+      new RepositoryUserTest() as unknown as RepositoryUsers;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({
@@ -36,7 +36,7 @@ describe("AuthenticateUserUseCase", () => {
 
   test("should return error if credentials are invalid", async () => {
     const mockRepository =
-      new RepositoryUserTest() as unknown as RepositoryUser;
+      new RepositoryUserTest() as unknown as RepositoryUsers;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({
@@ -61,7 +61,7 @@ describe("AuthenticateUserUseCase", () => {
       getUserByEmail: async () => {
         throw new Error("Server error");
       },
-    } as unknown as RepositoryUser;
+    } as unknown as RepositoryUsers;
     const sut = new AuthenticateUserUseCase(mockRepository);
 
     const result = await sut.execute({

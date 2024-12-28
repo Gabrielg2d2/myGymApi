@@ -17,14 +17,14 @@ export class SuccessAuthenticateUser
   extends Error
   implements ISuccessAuthenticateUser
 {
-  async execute(data: IDataSuccess) {
-    if (!data?.user) {
+  async execute({ user }: IDataSuccess) {
+    if (!user.id) {
       new Error("Unexpected: Data is required");
     }
 
     return {
       data: {
-        user: data.user,
+        user,
       },
       message: {
         en: "User authenticated successfully",
