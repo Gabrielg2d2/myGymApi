@@ -33,7 +33,7 @@ export class RepositoryUserTest implements IRepositoryUser {
 
   async createUser(data: IRequestCreateUser) {
     const user: IUserGlobal = {
-      id: "123123123",
+      id: new Date().getTime().toString(),
       name: data.name,
       email: data.email,
       password_hash: data.password,
