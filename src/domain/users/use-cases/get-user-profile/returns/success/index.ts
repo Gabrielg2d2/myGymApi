@@ -1,8 +1,17 @@
+import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { IDataResponse, IReturnDefaultGetProfile } from "../../main";
+import { IUserGlobal } from "@/domain/global/types/user";
+
+type IDataResponse = {
+  user: IUserGlobal | null;
+};
 
 interface ISuccessGetProfileResponse {
-  execute: (data: IDataResponse) => IReturnDefaultGetProfile;
+  execute: (data: IDataResponse) => Promise<
+    IReturnDefaultDomain<{
+      user: IUserGlobal;
+    }>
+  >;
 }
 
 export class SuccessGetProfile implements ISuccessGetProfileResponse {
