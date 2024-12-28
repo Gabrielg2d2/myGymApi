@@ -17,18 +17,14 @@ type IDataResponse = {
 
 type IReturnAuthenticateUser = Promise<
   IReturnDefaultDomain<{
-    user: IDataResponse;
+    user: IUserGlobal;
   } | null>
 >;
 
 export type { IDataRequest, IDataResponse, IReturnAuthenticateUser };
 
 interface IAuthenticateUserUseCase {
-  execute(body: IDataRequest): Promise<
-    IReturnDefaultDomain<{
-      user: IUserGlobal;
-    } | null>
-  >;
+  execute(body: IDataRequest): IReturnAuthenticateUser;
 }
 export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   constructor(private readonly repository = new RepositoryUsers()) {}
