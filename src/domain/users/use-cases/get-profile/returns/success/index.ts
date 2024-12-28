@@ -10,18 +10,8 @@ interface ISuccessGetProfileResponse {
 
 export class SuccessGetProfile implements ISuccessGetProfileResponse {
   async execute(user: IDataResponse) {
-    if (!user?.id && !user?.created_at) {
-      return {
-        data: null,
-        message: {
-          en: "User not found",
-          pt: "Usuário não encontrado",
-        },
-        typeMessage: ITypeMessageGlobal.ERROR,
-        statusCode: 404,
-        error: null,
-      };
-    }
+    if (!user?.id && !user?.created_at)
+      throw new Error("Unexpected: Data is not valid");
 
     return {
       data: {
