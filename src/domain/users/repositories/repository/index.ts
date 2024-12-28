@@ -1,7 +1,7 @@
 import { AdapterPrisma } from "@/domain/adapters/repository/prisma";
 import { IRepositoryUser, IRequestCreateUser } from "../interface";
 
-export class RepositoryUser implements IRepositoryUser {
+export class RepositoryUsers implements IRepositoryUser {
   constructor(private readonly adapter = new AdapterPrisma()) {}
 
   async getUserById(id: string) {

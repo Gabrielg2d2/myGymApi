@@ -1,6 +1,6 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { IDataRequest, IDataResponse } from "../../repositories/interface";
-import { RepositoryUser } from "../../repositories/repository";
+import { RepositoryUsers } from "../../repositories/repository";
 import { ErrorsAuthenticateUser } from "./returns/errors";
 import { SuccessAuthenticateUser } from "./returns/success";
 import { ServiceValidationEmailPassword } from "./services/validating-email-password";
@@ -22,7 +22,7 @@ interface IAuthenticateUserUseCase {
   >;
 }
 export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
-  constructor(private readonly repository = new RepositoryUser()) {}
+  constructor(private readonly repository = new RepositoryUsers()) {}
 
   async execute(body: IDataRequest) {
     try {
