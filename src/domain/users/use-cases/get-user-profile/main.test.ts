@@ -1,15 +1,34 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { describe, expect, test, vitest } from "vitest";
+import { beforeEach, describe, expect, test, vitest } from "vitest";
 import { RepositoryUsers } from "../../repositories/repository";
 import { RepositoryUserTest } from "../../repositories/repository-test";
 import { GetProfileUseCase } from "./main";
 
-describe("GetProfileUseCase", () => {
-  test("should return a profile", async () => {
-    const mockRepository =
-      new RepositoryUserTest() as unknown as RepositoryUsers;
-    const sut = new GetProfileUseCase(mockRepository);
+class makeSutGetProfileUseCase {
+  static execute(isError = false) {
+    if (isError) {
+      const repositoryTest = {
+        execute: vitest
+          .fn()
+          .mockRejectedValueOnce(new Error("Error: unknown error")),
+      } as unknown as RepositoryUsers;
+      return new GetProfileUseCase(repositoryTest);
+    }
 
+    const repositoryTest =
+      new RepositoryUserTest() as unknown as RepositoryUsers;
+    return new GetProfileUseCase(repositoryTest);
+  }
+}
+
+describe("GetProfileUseCase", () => {
+  let sut: GetProfileUseCase;
+
+  beforeEach(() => {
+    sut = makeSutGetProfileUseCase.execute();
+  });
+
+  test("should return a profile", async () => {
     const result = await sut.execute({ userId: "123123123" });
 
     expect(result).toEqual({
@@ -33,10 +52,6 @@ describe("GetProfileUseCase", () => {
   });
 
   test("should return an error if the user is not found", async () => {
-    const mockRepository =
-      new RepositoryUserTest() as unknown as RepositoryUsers;
-    const sut = new GetProfileUseCase(mockRepository);
-
     const result = await sut.execute({ userId: "any_id" });
 
     expect(result).toEqual({
@@ -52,13 +67,9 @@ describe("GetProfileUseCase", () => {
   });
 
   test("should return an error in case of unexpected error", async () => {
-    const mockRepositoryWithErrorService = {
-      execute: vitest.fn().mockRejectedValue(new Error("any_error")),
-    } as unknown as RepositoryUsers;
+    const sutWithError = makeSutGetProfileUseCase.execute(true);
 
-    const sut = new GetProfileUseCase(mockRepositoryWithErrorService);
-
-    const result = await sut.execute({ userId: "any_id" });
+    const result = await sutWithError.execute({ userId: "any_id" });
 
     expect(result).toEqual({
       data: null,
