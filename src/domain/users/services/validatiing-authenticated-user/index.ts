@@ -2,12 +2,12 @@ import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
 import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
 import { IUserGlobal } from "@/domain/global/types/user";
 
-interface IValidatingUserAuthentication {
+interface IServiceValidatingAuthenticatedUser {
   execute(user: IUserGlobal | null, password: string): Promise<void>;
 }
 
 export class ServiceValidatingAuthenticatedUser
-  implements IValidatingUserAuthentication
+  implements IServiceValidatingAuthenticatedUser
 {
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 

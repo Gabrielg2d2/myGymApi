@@ -1,11 +1,11 @@
 import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
 import { env } from "@/env";
 
-interface IAdapterCreateHash {
+interface IServiceCreateHash {
   execute(password: string): Promise<string>;
 }
 
-export class AdapterCreateHash implements IAdapterCreateHash {
+export class ServiceCreateHash implements IServiceCreateHash {
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
   async execute(password: string) {
