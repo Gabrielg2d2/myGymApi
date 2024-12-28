@@ -1,20 +1,20 @@
 import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
+import { IUserGlobal } from "@/domain/global/types/user";
 import { AdapterValidatingUserAuthentication } from "../../adapters/validation/validating-user-authentication";
-import { IUser } from "../../repository/interface";
 
 interface IServiceValidationAuthenticateUser {
-  execute(user: IUser, password: string): Promise<void>;
+  execute(user: IUserGlobal | null, password: string): Promise<void>;
 }
 
 export class ServiceValidationAuthenticateUser
   implements IServiceValidationAuthenticateUser
 {
-  async execute(user: IUser, password: string) {
+  async execute(user: IUserGlobal | null, password: string) {
     const customError = new CustomErrorGlobal({
       message: "Error: Credentials are invalid",
     });
 
-    if (!user?.password_hash || !password) throw customError;
+    if (!user) throw customError;
 
     const isPasswordValid =
       await new AdapterValidatingUserAuthentication().execute(user, password);

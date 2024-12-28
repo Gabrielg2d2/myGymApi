@@ -1,8 +1,8 @@
 import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
-import { IUser } from "../../repository/interface";
+import { IUserGlobal } from "@/domain/global/types/user";
 
 interface IValidatingUserAuthentication {
-  execute(user: IUser, password: string): Promise<boolean>;
+  execute(user: IUserGlobal, password: string): Promise<boolean>;
 }
 
 export class AdapterValidatingUserAuthentication
@@ -10,9 +10,7 @@ export class AdapterValidatingUserAuthentication
 {
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
-  async execute(user: IUser, password: string) {
-    if (!user?.password_hash || !password) return false;
-
+  async execute(user: IUserGlobal, password: string) {
     const isPasswordValid = await this.adapter.bcryptjs.compare(
       password,
       user.password_hash
