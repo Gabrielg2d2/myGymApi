@@ -21,6 +21,25 @@ describe("ErrorsAuthenticateUser", () => {
     });
   });
 
+  test('should handle the error "Error: Invalid content"', async () => {
+    const sut = new ErrorsAuthenticateUser();
+
+    const error = new Error("Error: Invalid content");
+
+    const result = await sut.execute(error);
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "E-mail and password required",
+        pt: "E-mail e senha obrigatórios",
+      },
+      typeMessage: "error",
+      statusCode: 400,
+      error: null,
+    });
+  });
+
   test('should handle the error "unknown"', async () => {
     const sut = new ErrorsAuthenticateUser();
 
