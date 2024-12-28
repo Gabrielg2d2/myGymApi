@@ -1,10 +1,20 @@
+import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { RepositoryGetProfileUseCase } from "./repository";
-import { IDataRequest } from "./repository/interface";
+import { IDataRequest, IDataResponse } from "./repository/interface";
 import { ErrorsGetProfile } from "./returns/errors";
 import { SuccessGetProfile } from "./returns/success";
 import { ServiceUserExists } from "./services/user-exists";
 
-export class GetProfileUseCase {
+type IReturnDefaultGetProfile = Promise<
+  IReturnDefaultDomain<{ user: IDataResponse } | null>
+>;
+
+export type { IDataRequest, IDataResponse, IReturnDefaultGetProfile };
+
+interface IGetProfileUseCase {
+  execute(data: IDataRequest): IReturnDefaultGetProfile;
+}
+export class GetProfileUseCase implements IGetProfileUseCase {
   constructor(
     private readonly repository = new RepositoryGetProfileUseCase()
   ) {}
