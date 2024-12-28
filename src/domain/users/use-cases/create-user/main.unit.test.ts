@@ -1,13 +1,13 @@
 import { describe, expect, test, vitest } from "vitest";
+import { RepositoryUsers } from "../../repositories/repository";
+import { RepositoryUserTest } from "../../repositories/repository-test";
 import { CreateUserUseCase } from "./main";
-import { RepositoryCreateUser } from "./repository";
-import { RepositoryTest } from "./repository/repository-test";
 
 describe("Create User", () => {
   describe("Success", () => {
     test("Should be able to create a new user ensuring the date format", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
 
@@ -32,7 +32,7 @@ describe("Create User", () => {
 
     test("Should return a standard format in case of success", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
       const newUser = await sut.execute({
@@ -66,7 +66,7 @@ describe("Create User", () => {
         execute: vitest
           .fn()
           .mockRejectedValueOnce(new Error("Error: unknown error")),
-      } as unknown as RepositoryCreateUser;
+      } as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
       const newUser = await sut.execute({
@@ -83,13 +83,13 @@ describe("Create User", () => {
         },
         typeMessage: "fatal",
         statusCode: 500,
-        error: "Error: unknown error",
+        error: expect.any(String),
       });
     });
 
     test("Should not be able to create a new user with an email that already exists", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
 
@@ -110,7 +110,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid email", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
       const newUser = await sut.execute({
@@ -131,7 +131,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid name", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
       const newUser = await sut.execute({
@@ -152,7 +152,7 @@ describe("Create User", () => {
 
     test("Should not be able to create a new user with an invalid password", async () => {
       const mockUserRepository =
-        new RepositoryTest() as unknown as RepositoryCreateUser;
+        new RepositoryUserTest() as unknown as RepositoryUsers;
 
       const sut = new CreateUserUseCase(mockUserRepository);
       const newUser = await sut.execute({

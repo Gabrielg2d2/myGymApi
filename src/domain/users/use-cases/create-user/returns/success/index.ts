@@ -1,13 +1,13 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { IDataResponse } from "../../repository";
+import { IUserGlobal } from "@/domain/global/types/user";
 
 interface ISuccessCreateUser {
-  execute(data: IDataResponse): IReturnDefaultDomain<IDataResponse>;
+  execute(data: IUserGlobal): IReturnDefaultDomain<IUserGlobal>;
 }
 
 export class SuccessCreateUser extends Error implements ISuccessCreateUser {
-  execute(data: IDataResponse) {
+  execute(data: IUserGlobal) {
     if (!data) {
       throw new Error("Data is required");
     }

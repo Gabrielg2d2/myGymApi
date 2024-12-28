@@ -1,13 +1,18 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
-import {
-  IDataRequest,
-  IDataResponse,
-  RepositoryCreateUser,
-} from "./repository";
+import { IUserGlobal } from "@/domain/global/types/user";
+import { RepositoryUsers } from "../../repositories/repository";
+import { ServiceCreatePasswordHash } from "../../services/create-password-hash";
+import { ServiceValidationCreateUser } from "../../services/validation-user-creation";
 import { ErrorsCreateUser } from "./returns/errors";
 import { SuccessCreateUser } from "./returns/success";
-import { ServiceCreateHashPassword } from "./services/create-hash-password";
-import { ServiceValidationCreateUser } from "./services/validation-create-user";
+
+type IDataRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+type IDataResponse = IUserGlobal;
 
 type IReturnCreateUserUseCase = Promise<
   IReturnDefaultDomain<IDataResponse | null>
@@ -22,9 +27,7 @@ interface ICreateUserUseCase {
 }
 
 export class CreateUserUseCase implements ICreateUserUseCase {
-  constructor(
-    private readonly repositoryCreateUser = new RepositoryCreateUser()
-  ) {}
+  constructor(private readonly repository = new RepositoryUsers()) {}
 
   async execute(body: IDataRequest) {
     try {
@@ -32,11 +35,11 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
       const { name, email, password } = body;
 
-      const password_hash = await new ServiceCreateHashPassword().execute(
+      const password_hash = await new ServiceCreatePasswordHash().execute(
         password
       );
 
-      const result = await this.repositoryCreateUser.execute({
+      const result = await this.repository.createUser({
         name,
         email,
         password: password_hash,

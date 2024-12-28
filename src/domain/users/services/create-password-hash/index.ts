@@ -5,7 +5,7 @@ interface IServiceCreateHash {
   execute(password: string): Promise<string>;
 }
 
-export class ServiceCreateHash implements IServiceCreateHash {
+export class ServiceCreatePasswordHash implements IServiceCreateHash {
   constructor(private readonly adapter = new AdapterBcryptjs()) {}
 
   async execute(password: string) {
