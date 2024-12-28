@@ -2,6 +2,7 @@ import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domai
 import { IUserGlobal } from "@/domain/global/types/user";
 import { RepositoryUsers } from "../../repositories/repository";
 import { ServiceCreatePasswordHash } from "../../services/create-password-hash";
+import { ServiceValidationUserAlreadyExists } from "../../services/validating-user-alredy-exists";
 import { ServiceValidationCreateUser } from "../../services/validation-user-creation";
 import { ErrorsCreateUser } from "./returns/errors";
 import { SuccessCreateUser } from "./returns/success";
@@ -37,9 +38,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
       const userAlreadyExists = await this.repository.getUserByEmail(email);
 
-      if (userAlreadyExists) {
-        throw new Error("Error: User already exists");
-      }
+      await new ServiceValidationUserAlreadyExists().execute(userAlreadyExists);
 
       const password_hash = await new ServiceCreatePasswordHash().execute(
         password
