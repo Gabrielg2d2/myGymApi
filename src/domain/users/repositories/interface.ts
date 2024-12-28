@@ -6,7 +6,7 @@ export type IRequestCreateUser = {
   password: string;
 };
 
-export interface IRepositoryUser {
+export interface IRepositoryUsers {
   getUserById(id: string): Promise<IUserGlobal | null>;
   getUserByEmail(email: string): Promise<IUserGlobal | null>;
   createUser(data: IRequestCreateUser): Promise<IUserGlobal>;
