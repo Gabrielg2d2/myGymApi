@@ -13,7 +13,7 @@ import {
   IDataRequest as IDataGetProfileRequest,
   IDataResponse as IDataGetProfileResponse,
   IReturnDefaultGetProfile,
-} from "./use-cases/get-profile/main";
+} from "./use-cases/get-user-profile/main";
 
 export type {
   IDataAuthenticateRequest,
