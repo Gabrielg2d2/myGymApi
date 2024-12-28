@@ -1,50 +1,20 @@
 import { RepositoryGetProfileUseCase } from "./repository";
+import { IDataRequest } from "./repository/interface";
+import { ErrorsGetProfile } from "./returns/errors";
+import { SuccessGetProfile } from "./returns/success";
 
 export class GetProfileUseCase {
   constructor(
     private readonly repository = new RepositoryGetProfileUseCase()
   ) {}
 
-  async execute(userId: string) {
+  async execute({ userId }: IDataRequest) {
     try {
-      const user = await this.repository.execute(userId);
+      const user = await this.repository.execute({ userId });
 
-      if (!user) {
-        return {
-          data: null,
-          message: {
-            en: "User not found",
-            pt: "Usuário não encontrado",
-          },
-          typeMessage: "error",
-          statusCode: 404,
-          error: null,
-        };
-      }
-
-      return {
-        data: {
-          user,
-        },
-        message: {
-          en: "User found successfully",
-          pt: "Usuário encontrado com sucesso",
-        },
-        typeMessage: "success",
-        statusCode: 200,
-        error: null,
-      };
+      return await new SuccessGetProfile().execute(user);
     } catch (error) {
-      return {
-        data: null,
-        message: {
-          en: "Service unavailable, try again later",
-          pt: "Serviço indisponível, tente novamente mais tarde",
-        },
-        typeMessage: "fatal",
-        statusCode: 500,
-        error,
-      };
+      return await new ErrorsGetProfile().execute(error);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { AdapterGetProfileRepository } from "../adapter/repository";
-import { IRepositoryGetProfileUseCase } from "./interface";
+import { IDataRequest, IRepositoryGetProfileUseCase } from "./interface";
 
 export class RepositoryGetProfileUseCase
   implements IRepositoryGetProfileUseCase
@@ -8,7 +8,7 @@ export class RepositoryGetProfileUseCase
     private readonly repository = new AdapterGetProfileRepository()
   ) {}
 
-  execute(userId: string) {
+  execute({ userId }: IDataRequest) {
     return this.repository.getUserById(userId);
   }
 }

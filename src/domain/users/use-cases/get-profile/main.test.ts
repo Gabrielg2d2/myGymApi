@@ -1,14 +1,16 @@
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vitest } from "vitest";
 import { GetProfileUseCase } from "./main";
 import { RepositoryGetProfileUseCase } from "./repository";
 import { RepositoryTestGetProfileUseCase } from "./repository/repository-test";
 
 describe("GetProfileUseCase", () => {
   test("should return a profile", async () => {
-    const sut = new GetProfileUseCase();
+    const mockRepository =
+      new RepositoryTestGetProfileUseCase() as unknown as RepositoryGetProfileUseCase;
+    const sut = new GetProfileUseCase(mockRepository);
 
-    const result = await sut.execute("987654321");
+    const result = await sut.execute({ userId: "987654321" });
 
     expect(result).toEqual({
       data: {
@@ -35,7 +37,7 @@ describe("GetProfileUseCase", () => {
       new RepositoryTestGetProfileUseCase() as unknown as RepositoryGetProfileUseCase;
     const sut = new GetProfileUseCase(mockRepository);
 
-    const result = await sut.execute("any_id");
+    const result = await sut.execute({ userId: "any_id" });
 
     expect(result).toEqual({
       data: null,
@@ -45,14 +47,18 @@ describe("GetProfileUseCase", () => {
       },
       typeMessage: ITypeMessageGlobal.ERROR,
       statusCode: 404,
-      error: expect.any(Error),
+      error: null,
     });
   });
 
   test("should return an error in case of unexpected error", async () => {
-    const sut = new GetProfileUseCase();
+    const mockRepositoryWithErrorService = {
+      execute: vitest.fn().mockRejectedValue(new Error("any_error")),
+    } as unknown as RepositoryGetProfileUseCase;
 
-    const result = await sut.execute("any_id");
+    const sut = new GetProfileUseCase(mockRepositoryWithErrorService);
+
+    const result = await sut.execute({ userId: "any_id" });
 
     expect(result).toEqual({
       data: null,
@@ -61,8 +67,8 @@ describe("GetProfileUseCase", () => {
         pt: "Serviço indisponível, tente novamente mais tarde",
       },
       typeMessage: ITypeMessageGlobal.FATAL,
-      statusCode: 501,
-      error: expect.any(Error),
+      statusCode: 500,
+      error: expect.any(String),
     });
   });
 });

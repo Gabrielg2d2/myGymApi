@@ -1,4 +1,4 @@
-import { IRepositoryGetProfileUseCase } from "../interface";
+import { IDataRequest, IRepositoryGetProfileUseCase } from "../interface";
 
 export class RepositoryTestGetProfileUseCase
   implements IRepositoryGetProfileUseCase
@@ -13,7 +13,7 @@ export class RepositoryTestGetProfileUseCase
     },
   ];
 
-  async execute(userId: string) {
+  async execute({ userId }: IDataRequest) {
     const user = this.users.find((user) => user.id === userId);
 
     if (!user) {
