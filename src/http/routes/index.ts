@@ -6,5 +6,5 @@ import { getProfileController } from "../controllers/users/get-profile";
 export async function appRoutes(app: FastifyInstance): Promise<void> {
   app.post("/users", createUserController);
   app.post("/session", authenticateUserController);
-  app.get("/profile/:id", getProfileController);
+  app.get("/profile/:userId", getProfileController);
 }
