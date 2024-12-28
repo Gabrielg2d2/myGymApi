@@ -1,10 +1,10 @@
 import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { ServiceValidatingAuthenticatedUser } from "@/domain/users/services/validatiing-authenticated-user";
+import { ServiceValidationEmailPassword } from "@/domain/users/services/validating-email-password";
 import { IDataRequest, IDataResponse } from "../../repositories/interface";
 import { RepositoryUsers } from "../../repositories/repository";
 import { ErrorsAuthenticateUser } from "./returns/errors";
 import { SuccessAuthenticateUser } from "./returns/success";
-import { ServiceValidationEmailPassword } from "./services/validating-email-password";
-import { ServiceValidationAuthenticateUser } from "./services/validating-user-authentication";
 
 type IReturnAuthenticateUser = Promise<
   IReturnDefaultDomain<{
@@ -32,7 +32,7 @@ export class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
 
       const user = await this.repository.getUserByEmail(email);
 
-      await new ServiceValidationAuthenticateUser().execute(user, password);
+      await new ServiceValidatingAuthenticatedUser().execute(user, password);
 
       return await new SuccessAuthenticateUser().execute({ user });
     } catch (error) {
