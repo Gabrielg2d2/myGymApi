@@ -40,18 +40,14 @@ describe("SuccessAuthenticateUser", () => {
   });
 
   describe("Error", () => {
-    test("Should return error when data is not provided", () => {
+    test("Should return error when data is not provided", async () => {
       const sut = new SuccessAuthenticateUser();
 
       const data: IDataSuccess = {} as IDataSuccess;
 
-      try {
-        sut.execute(data);
-      } catch (error) {
-        if (error instanceof Error) {
-          expect(error.message).toBe("Unexpected: Data is required");
-        }
-      }
+      await expect(sut.execute(data)).rejects.toThrow(
+        "Unexpected: Data is required"
+      );
     });
   });
 });

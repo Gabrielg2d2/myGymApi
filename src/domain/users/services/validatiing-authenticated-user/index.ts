@@ -16,7 +16,7 @@ export class ServiceValidatingAuthenticatedUser
       message: "Error: Credentials are invalid",
     });
 
-    if (!user) throw customError;
+    if (!user?.id) throw customError;
 
     const isPasswordValid = await this.adapter.bcryptjs.compare(
       password,

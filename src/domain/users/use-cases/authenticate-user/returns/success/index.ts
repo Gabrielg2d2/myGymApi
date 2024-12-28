@@ -3,7 +3,7 @@ import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IUserGlobal } from "@/domain/global/types/user";
 
 export type IDataSuccess = {
-  user: IUserGlobal;
+  user: IUserGlobal | null;
 };
 interface ISuccessAuthenticateUser {
   execute(data: IDataSuccess): Promise<
@@ -13,13 +13,10 @@ interface ISuccessAuthenticateUser {
   >;
 }
 
-export class SuccessAuthenticateUser
-  extends Error
-  implements ISuccessAuthenticateUser
-{
+export class SuccessAuthenticateUser implements ISuccessAuthenticateUser {
   async execute({ user }: IDataSuccess) {
-    if (!user.id) {
-      new Error("Unexpected: Data is required");
+    if (!user?.id) {
+      throw new Error("Unexpected: Data is required");
     }
 
     return {
