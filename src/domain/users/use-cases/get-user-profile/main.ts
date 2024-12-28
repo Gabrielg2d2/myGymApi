@@ -7,9 +7,11 @@ import { SuccessGetProfile } from "./returns/success";
 
 type IDataRequest = { userId: string };
 
-type IDataResponse = { user: IUserGlobal } | null;
+type IDataResponse = { user: IUserGlobal | null };
 
-type IReturnDefaultGetProfile = Promise<IReturnDefaultDomain<IDataResponse>>;
+type IReturnDefaultGetProfile = Promise<
+  IReturnDefaultDomain<IDataResponse | null>
+>;
 
 export type { IDataRequest, IDataResponse, IReturnDefaultGetProfile };
 
