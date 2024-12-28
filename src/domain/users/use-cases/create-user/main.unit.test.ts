@@ -3,7 +3,7 @@ import { RepositoryUsers } from "../../repositories/repository";
 import { RepositoryUserTest } from "../../repositories/repository-test";
 import { CreateUserUseCase } from "./main";
 
-class makeSut {
+class makeSutCreateUserUseCase {
   static execute(isError = false) {
     if (isError) {
       const repositoryTest = {
@@ -24,7 +24,7 @@ describe("Create User", () => {
   let sut: CreateUserUseCase;
 
   beforeEach(() => {
-    sut = makeSut.execute();
+    sut = makeSutCreateUserUseCase.execute();
   });
 
   test("Should return a standard format in case of success", async () => {
@@ -53,7 +53,7 @@ describe("Create User", () => {
   });
 
   test("Should return a standard format in case of error", async () => {
-    const sutWithError = makeSut.execute(true);
+    const sutWithError = makeSutCreateUserUseCase.execute(true);
 
     const newUser = await sutWithError.execute({
       name: "John Doe",

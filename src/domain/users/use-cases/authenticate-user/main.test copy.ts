@@ -1,33 +1,14 @@
 import { RepositoryUserTest } from "@/domain/users/repositories/repository-test";
-import { beforeEach, describe, expect, test, vitest } from "vitest";
+import { describe, expect, test } from "vitest";
 import { RepositoryUsers } from "../../repositories/repository";
 import { AuthenticateUserUseCase } from "./main";
 
-class makeSutAuthenticateUserUseCase {
-  static execute(isError = false) {
-    if (isError) {
-      const repositoryTest = {
-        execute: vitest
-          .fn()
-          .mockRejectedValueOnce(new Error("Error: unknown error")),
-      } as unknown as RepositoryUsers;
-      return new AuthenticateUserUseCase(repositoryTest);
-    }
-
-    const repositoryTest =
-      new RepositoryUserTest() as unknown as RepositoryUsers;
-    return new AuthenticateUserUseCase(repositoryTest);
-  }
-}
-
 describe("AuthenticateUserUseCase", () => {
-  let sut: AuthenticateUserUseCase;
-
-  beforeEach(() => {
-    sut = makeSutAuthenticateUserUseCase.execute();
-  });
-
   test("should authenticate user", async () => {
+    const mockRepository =
+      new RepositoryUserTest() as unknown as RepositoryUsers;
+    const sut = new AuthenticateUserUseCase(mockRepository);
+
     const result = await sut.execute({
       email: "test@gmail.com",
       password: "123456",
@@ -54,6 +35,10 @@ describe("AuthenticateUserUseCase", () => {
   });
 
   test("should return error if credentials are invalid", async () => {
+    const mockRepository =
+      new RepositoryUserTest() as unknown as RepositoryUsers;
+    const sut = new AuthenticateUserUseCase(mockRepository);
+
     const result = await sut.execute({
       email: "invalid@gmail.com",
       password: "invalidpassword",
@@ -72,9 +57,14 @@ describe("AuthenticateUserUseCase", () => {
   });
 
   test("should return error if repository throws", async () => {
-    const sutWithError = makeSutAuthenticateUserUseCase.execute(true);
+    const mockRepository = {
+      getUserByEmail: async () => {
+        throw new Error("Server error");
+      },
+    } as unknown as RepositoryUsers;
+    const sut = new AuthenticateUserUseCase(mockRepository);
 
-    const result = await sutWithError.execute({
+    const result = await sut.execute({
       email: "invalid@gmail.com",
       password: "invalidpassword",
     });
