@@ -3,16 +3,31 @@ import { RepositoryUsers } from "../../repositories/repository";
 import { RepositoryUserTest } from "../../repositories/repository-test";
 import { CreateUserUseCase } from "./main";
 
-describe("Create User", () => {
-  let mockUserRepository: RepositoryUserTest;
+class makeSut {
+  static execute(isError = false) {
+    if (isError) {
+      const repositoryTest = {
+        execute: vitest
+          .fn()
+          .mockRejectedValueOnce(new Error("Error: unknown error")),
+      } as unknown as RepositoryUsers;
+      return new CreateUserUseCase(repositoryTest);
+    }
 
-  beforeEach(async () => {
-    mockUserRepository = new RepositoryUserTest();
-    await mockUserRepository.clearUsers();
+    const repositoryTest =
+      new RepositoryUserTest() as unknown as RepositoryUsers;
+    return new CreateUserUseCase(repositoryTest);
+  }
+}
+
+describe("Create User", () => {
+  let sut: CreateUserUseCase;
+
+  beforeEach(() => {
+    sut = makeSut.execute();
   });
 
   test("Should return a standard format in case of success", async () => {
-    const sut = new CreateUserUseCase(mockUserRepository);
     const newUser = await sut.execute({
       name: "John Doe",
       email: "john@gmail.com",
@@ -38,13 +53,8 @@ describe("Create User", () => {
   });
 
   test("Should return a standard format in case of error", async () => {
-    const mockUserRepository = {
-      execute: vitest
-        .fn()
-        .mockRejectedValueOnce(new Error("Error: unknown error")),
-    } as unknown as RepositoryUsers;
+    const sut = makeSut.execute(true);
 
-    const sut = new CreateUserUseCase(mockUserRepository);
     const newUser = await sut.execute({
       name: "John Doe",
       email: "john@gmail.com",
@@ -64,8 +74,6 @@ describe("Create User", () => {
   });
 
   test("Should not be able to create a new user with an email that already exists", async () => {
-    const sut = new CreateUserUseCase(mockUserRepository);
-
     await sut.execute({
       name: "John Doe",
       email: "john@gmail.com",
@@ -82,7 +90,6 @@ describe("Create User", () => {
   });
 
   test("Should not be able to create a new user with an invalid email", async () => {
-    const sut = new CreateUserUseCase(mockUserRepository);
     const newUser = await sut.execute({
       name: "John Doe",
       email: "john",
@@ -100,7 +107,6 @@ describe("Create User", () => {
   });
 
   test("Should not be able to create a new user with an invalid name", async () => {
-    const sut = new CreateUserUseCase(mockUserRepository);
     const newUser = await sut.execute({
       name: "",
       email: "john@gmail.com",
@@ -118,9 +124,6 @@ describe("Create User", () => {
   });
 
   test("Should not be able to create a new user with an invalid password", async () => {
-    mockUserRepository = new RepositoryUserTest() as unknown as RepositoryUsers;
-
-    const sut = new CreateUserUseCase(mockUserRepository);
     const newUser = await sut.execute({
       name: "John",
       email: "john@gmail.com",
