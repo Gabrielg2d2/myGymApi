@@ -1,4 +1,4 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from "@/domain/global/types/return-default-domain";
 import { IUserGlobal } from "@/domain/global/types/user";
 import { RepositoryUsers } from "../../repositories/repository";
 import { ServiceUserValidation } from "../../services/user-validation";
@@ -10,7 +10,7 @@ type IDataRequest = { userId: string };
 type IDataResponse = { user: IUserGlobal | null };
 
 type IReturnDefaultGetProfile = Promise<
-  IReturnDefaultDomain<IDataResponse | null>
+  IReturnDefaultDomainGlobal<IDataResponse | null>
 >;
 
 export type { IDataRequest, IDataResponse, IReturnDefaultGetProfile };

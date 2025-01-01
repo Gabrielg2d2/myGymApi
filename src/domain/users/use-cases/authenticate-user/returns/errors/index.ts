@@ -1,9 +1,9 @@
 import { CustomErrorService } from "@/domain/global/class/errors/service";
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 
 interface IErrorsAuthenticateUser {
-  execute(error: Error | unknown): Promise<IReturnDefaultDomain<null>>;
+  execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;
 }
 
 export class ErrorsAuthenticateUser

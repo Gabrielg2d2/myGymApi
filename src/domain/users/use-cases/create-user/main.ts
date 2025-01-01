@@ -1,4 +1,4 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from "@/domain/global/types/return-default-domain";
 import { IUserGlobal } from "@/domain/global/types/user";
 import { RepositoryUsers } from "../../repositories/repository";
 import { ServiceCreatePasswordHash } from "../../services/create-password-hash";
@@ -16,7 +16,7 @@ type IDataRequest = {
 type IDataResponse = IUserGlobal;
 
 type IReturnCreateUserUseCase = Promise<
-  IReturnDefaultDomain<IDataResponse | null>
+  IReturnDefaultDomainGlobal<IDataResponse | null>
 >;
 
 export type { IDataRequest, IDataResponse, IReturnCreateUserUseCase };
@@ -24,7 +24,7 @@ export type { IDataRequest, IDataResponse, IReturnCreateUserUseCase };
 interface ICreateUserUseCase {
   execute(
     body: IDataRequest
-  ): Promise<IReturnDefaultDomain<IDataResponse | null>>;
+  ): Promise<IReturnDefaultDomainGlobal<IDataResponse | null>>;
 }
 
 export class CreateUserUseCase implements ICreateUserUseCase {

@@ -1,11 +1,11 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IUserGlobal } from "@/domain/global/types/user";
 
 interface ISuccessCreateUser {
   execute(
     newUser: IUserGlobal | null
-  ): Promise<IReturnDefaultDomain<IUserGlobal>>;
+  ): Promise<IReturnDefaultDomainGlobal<IUserGlobal>>;
 }
 
 export class SuccessCreateUser implements ISuccessCreateUser {

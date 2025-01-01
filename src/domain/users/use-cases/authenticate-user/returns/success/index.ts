@@ -1,4 +1,4 @@
-import { IReturnDefaultDomain } from "@/domain/global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from "@/domain/global/types/return-default-domain";
 import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IUserGlobal } from "@/domain/global/types/user";
 
@@ -7,7 +7,7 @@ export type IDataSuccess = {
 };
 interface ISuccessAuthenticateUser {
   execute(data: IDataSuccess): Promise<
-    IReturnDefaultDomain<{
+    IReturnDefaultDomainGlobal<{
       user: IUserGlobal;
     }>
   >;

@@ -1,6 +1,6 @@
 import { ITypeMessageGlobal } from "./type-message";
 
-export type IReturnDefaultDomain<D> = {
+export type IReturnDefaultDomainGlobal<D> = {
   data: D;
   message: {
     en: string;
