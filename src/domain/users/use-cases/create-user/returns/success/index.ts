@@ -3,17 +3,17 @@ import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
 import { IUserGlobal } from "@/domain/global/types/user";
 
 interface ISuccessCreateUser {
-  execute(data: IUserGlobal): IReturnDefaultDomain<IUserGlobal>;
+  execute(
+    newUser: IUserGlobal | null
+  ): Promise<IReturnDefaultDomain<IUserGlobal>>;
 }
 
-export class SuccessCreateUser extends Error implements ISuccessCreateUser {
-  execute(data: IUserGlobal) {
-    if (!data) {
-      throw new Error("Data is required");
-    }
+export class SuccessCreateUser implements ISuccessCreateUser {
+  async execute(newUser: IUserGlobal | null) {
+    if (!newUser) throw new Error("Unexpect: Data is required");
 
     return {
-      data,
+      data: newUser,
       message: {
         en: "User created successfully",
         pt: "Usuário criado com sucesso",

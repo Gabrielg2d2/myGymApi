@@ -9,5 +9,5 @@ export type IRequestCreateUser = {
 export interface IRepositoryUsers {
   getUserById(id: string): Promise<IUserGlobal | null>;
   getUserByEmail(email: string): Promise<IUserGlobal | null>;
-  createUser(data: IRequestCreateUser): Promise<IUserGlobal>;
+  createUser(data: IRequestCreateUser): Promise<IUserGlobal | null>;
 }

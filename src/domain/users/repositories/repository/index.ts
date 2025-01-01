@@ -10,6 +10,10 @@ export class RepositoryUsers implements IRepositoryUsers {
         where: { id },
       });
       return result;
+    } catch (error) {
+      // TODO: Implementar log
+      console.log(error);
+      return null;
     } finally {
       await this.adapter.prisma.$disconnect();
     }
@@ -21,6 +25,10 @@ export class RepositoryUsers implements IRepositoryUsers {
         where: { email },
       });
       return result;
+    } catch (error) {
+      // TODO: Implementar log
+      console.log(error);
+      return null;
     } finally {
       await this.adapter.prisma.$disconnect();
     }
@@ -36,6 +44,10 @@ export class RepositoryUsers implements IRepositoryUsers {
         },
       });
       return result;
+    } catch (error) {
+      // TODO: Implementar log
+      console.log(error);
+      return null;
     } finally {
       await this.adapter.prisma.$disconnect();
     }

@@ -44,13 +44,13 @@ export class CreateUserUseCase implements ICreateUserUseCase {
         password
       );
 
-      const result = await this.repository.createUser({
+      const newUser = await this.repository.createUser({
         name,
         email,
         password: password_hash,
       });
 
-      return new SuccessCreateUser().execute(result);
+      return await new SuccessCreateUser().execute(newUser);
     } catch (error) {
       return await new ErrorsCreateUser().execute(error);
     }
