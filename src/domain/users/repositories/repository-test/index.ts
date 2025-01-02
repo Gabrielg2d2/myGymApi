@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IUserGlobal } from "@/domain/global/types/user";
+import { IUserGlobal } from "@/domain/@global/types/user";
 import { IRepositoryUsers, IRequestCreateUser } from "../interface";
 
 export class RepositoryUserTest implements IRepositoryUsers {

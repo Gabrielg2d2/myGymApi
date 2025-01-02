@@ -1,4 +1,4 @@
-import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
+import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
 
 /**
  *

@@ -1,4 +1,4 @@
-import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
+import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
 
 interface IServiceValidationEmailPassword {
   execute(email: string, password: string): Promise<void>;

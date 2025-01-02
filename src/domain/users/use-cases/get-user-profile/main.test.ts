@@ -1,4 +1,4 @@
-import { ITypeMessageGlobal } from "@/domain/global/types/type-message";
+import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
 import { beforeEach, describe, expect, test, vitest } from "vitest";
 import { RepositoryUsers } from "../../repositories/repository";
 import { RepositoryUserTest } from "../../repositories/repository-test";

@@ -1,5 +1,5 @@
-import { AdapterZod } from "@/domain/adapters/validation/zod";
-import { CustomErrorGlobal } from "@/domain/global/class/errors/custom";
+import { AdapterZod } from "@/domain/@adapters/validation/zod";
+import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
 
 type IDataRequest = {
   name: string;

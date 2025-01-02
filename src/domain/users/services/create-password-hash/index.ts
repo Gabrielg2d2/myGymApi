@@ -1,4 +1,4 @@
-import { AdapterBcryptjs } from "@/domain/adapters/hash/bcryptjs";
+import { AdapterBcryptjs } from "@/domain/@adapters/hash/bcryptjs";
 import { env } from "@/env";
 
 interface IServiceCreateHash {
