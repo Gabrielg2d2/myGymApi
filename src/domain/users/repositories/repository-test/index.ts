@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IUserGlobal } from "@/domain/global/types/user";
 import { IRepositoryUsers, IRequestCreateUser } from "../interface";
 
@@ -27,38 +28,54 @@ export class RepositoryUserTest implements IRepositoryUsers {
   }
 
   async getAllUsers() {
-    return this.users;
+    try {
+      return this.users;
+    } catch (error) {
+      throw new Error("RepositoryUserTest: Error to get users");
+    }
   }
 
   async getUserById(id: string) {
-    const result = this.users.find((user) => user.id === id);
-    if (!result) {
-      return null;
-    }
+    try {
+      const result = this.users.find((user) => user.id === id);
+      if (!result) {
+        return null;
+      }
 
-    return result;
+      return result;
+    } catch (error) {
+      throw new Error("RepositoryUserTest: Error to get user by id");
+    }
   }
 
   async getUserByEmail(email: string) {
-    const result = this.users.find((user) => user.email === email);
-    if (!result) {
-      return null;
-    }
+    try {
+      const result = this.users.find((user) => user.email === email);
+      if (!result) {
+        return null;
+      }
 
-    return result;
+      return result;
+    } catch (error) {
+      throw new Error("RepositoryUserTest: Error to get user by email");
+    }
   }
 
   async createUser(data: IRequestCreateUser) {
-    const user: IUserGlobal = {
-      id: new Date().getTime().toString(),
-      name: data.name,
-      email: data.email,
-      password_hash: data.password,
-      created_at: new Date(),
-    };
+    try {
+      const user: IUserGlobal = {
+        id: new Date().getTime().toString(),
+        name: data.name,
+        email: data.email,
+        password_hash: data.password,
+        created_at: new Date(),
+      };
 
-    this.users.push(user);
+      this.users.push(user);
 
-    return user;
+      return user;
+    } catch (error) {
+      throw new Error("RepositoryUserTest: Error to create user");
+    }
   }
 }
