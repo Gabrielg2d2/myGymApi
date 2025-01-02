@@ -36,9 +36,9 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
       const { name, email, password } = body;
 
-      const userAlreadyExists = await this.repository.getUserByEmail(email);
+      const user = await this.repository.getUserByEmail(email);
 
-      await new ServiceValidationUserAlreadyExists().execute(userAlreadyExists);
+      await new ServiceValidationUserAlreadyExists().execute(user);
 
       const password_hash = await new ServiceCreatePasswordHash().execute(
         password
