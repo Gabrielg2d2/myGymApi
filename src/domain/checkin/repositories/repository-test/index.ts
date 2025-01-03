@@ -7,10 +7,10 @@ export class RepositoryCheckInTest implements IRepositoryCheckIn {
   async create(data: IDataRequest) {
     const checkIn: ICheckIn = {
       id: randomUUID(),
-      validated_at: null,
       created_at: new Date(),
       user_id: data.userId,
       gym_id: data.gymId,
+      validated_at: data.validatedAt ? new Date(data.validatedAt) : null,
     };
 
     this.checkIns.push(checkIn);
