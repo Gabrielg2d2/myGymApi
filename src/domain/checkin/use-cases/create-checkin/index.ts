@@ -10,6 +10,7 @@ import { SuccessCreateCheckIn } from "./returns/success";
 type IReturnCheckInCreate = IReturnDefaultDomainGlobal<{
   checkIn: ICheckIn;
 } | null>;
+
 interface ICreateCheckInUseCase {
   execute(data: IDataRequest): Promise<IReturnCheckInCreate>;
 }
