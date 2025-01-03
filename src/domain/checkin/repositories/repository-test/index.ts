@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { ICheckIn, IDataRequest, IRepositoryCheckIn } from "../interface";
 
 export class RepositoryCheckInTest implements IRepositoryCheckIn {
@@ -5,7 +6,7 @@ export class RepositoryCheckInTest implements IRepositoryCheckIn {
 
   async create(data: IDataRequest) {
     const checkIn: ICheckIn = {
-      id: Math.random().toString(36).substring(7),
+      id: randomUUID(),
       validated_at: null,
       created_at: new Date(),
       user_id: data.userId,
