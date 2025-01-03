@@ -9,7 +9,8 @@ export type ICheckIn = {
 export type IDataRequest = {
   gymId: string;
   userId: string;
-  validatedAt?: Date | null;
+  userLatitude: number;
+  userLongitude: number;
 };
 
 export interface IRepositoryCheckIn {
