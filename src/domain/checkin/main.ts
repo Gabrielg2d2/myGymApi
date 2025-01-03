@@ -2,7 +2,7 @@ import {
   CreateCheckInUseCase,
   IDataRequest,
   IReturnCheckInCreate,
-} from "./use-cases/create-checkin";
+} from "./use-cases/create-checkin/main";
 
 interface ICheckInDomain {
   create(data: IDataRequest): Promise<IReturnCheckInCreate>;
