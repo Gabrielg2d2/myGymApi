@@ -7,6 +7,7 @@ interface IErrorsCreateCheckIn {
 
 export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
   async execute(error: Error | unknown) {
+    // TODO: Implementar a verificação de erro
     // if (error instanceof Error) {
     //   if (error.message === "Error: Credentials are invalid") {
     //     return {
