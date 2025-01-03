@@ -1,7 +1,7 @@
 import {
   CheckInDomain,
   IDataRequest as IDataCreateCheckInRequest,
-} from "@/domain/checkin/main";
+} from "@/domain/checkins/main";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function checkInCreateController(
