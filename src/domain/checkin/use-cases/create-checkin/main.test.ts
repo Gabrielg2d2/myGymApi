@@ -102,4 +102,33 @@ describe("CreateCheckInUseCase", () => {
       error: null,
     });
   });
+
+  test("should be able to check in twice but in different days", async () => {
+    vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
+
+    await sut.execute({ gymId: "123", userId: "123" });
+
+    vi.setSystemTime(new Date("2025-01-10T12:00:00Z"));
+
+    const result = await sut.execute({ gymId: "123", userId: "123" });
+
+    expect(result).toEqual({
+      data: {
+        checkIn: {
+          id: expect.any(String),
+          validated_at: null,
+          created_at: new Date(),
+          user_id: "123",
+          gym_id: "123",
+        },
+      },
+      message: {
+        en: "Check-in created successfully",
+        pt: "Check-in criado com sucesso",
+      },
+      typeMessage: "success",
+      statusCode: 201,
+      error: null,
+    });
+  });
 });
