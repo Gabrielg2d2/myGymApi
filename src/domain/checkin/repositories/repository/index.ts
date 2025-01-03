@@ -1,5 +1,7 @@
 import { AdapterPrisma } from "@/domain/@adapters/repository/prisma";
-import { IDataRequest, IRepositoryCheckIn } from "../interface";
+import { ICheckIn, IDataRequest, IRepositoryCheckIn } from "../interface";
+
+export type { ICheckIn, IDataRequest };
 
 export class RepositoryCheckIn implements IRepositoryCheckIn {
   constructor(private readonly db = new AdapterPrisma()) {}
