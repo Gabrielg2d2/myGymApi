@@ -45,8 +45,8 @@ describe("CreateCheckInUseCase", () => {
         pt: "Check-in criado com sucesso",
       },
       typeMessage: "success",
-      error: null,
       statusCode: 201,
+      error: null,
     });
   });
 
