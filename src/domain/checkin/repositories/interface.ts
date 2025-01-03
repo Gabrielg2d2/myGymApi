@@ -1,4 +1,4 @@
-type ICheckIn = {
+export type ICheckIn = {
   id: string;
   validated_at: Date | null;
   created_at: Date;
@@ -6,6 +6,11 @@ type ICheckIn = {
   gym_id: string;
 };
 
+export type IDataRequest = {
+  gymId: string;
+  userId: string;
+};
+
 export interface IRepositoryCheckIn {
-  create(userId: string, gymId: string): Promise<ICheckIn>;
+  create(data: IDataRequest): Promise<ICheckIn>;
 }
