@@ -1,4 +1,12 @@
-import { beforeEach, describe, expect, test, vitest } from "vitest";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+  vitest,
+} from "vitest";
 import { RepositoryCheckIn } from "../../repositories/repository";
 import { RepositoryCheckInTest } from "../../repositories/repository-test";
 import { CreateCheckInUseCase } from "./main";
@@ -25,6 +33,12 @@ describe("CreateCheckInUseCase", () => {
 
   beforeEach(() => {
     sut = makeSutCreateCheckInUseCase.execute();
+
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   test("should create a check-in", async () => {
@@ -67,6 +81,25 @@ describe("CreateCheckInUseCase", () => {
       typeMessage: "fatal",
       error: expect.any(String),
       statusCode: 500,
+    });
+  });
+
+  test("should not be able to check in twice in the same day", async () => {
+    vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
+
+    await sut.execute({ gymId: "123", userId: "123" });
+
+    const result = await sut.execute({ gymId: "123", userId: "123" });
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "You have already checked in today",
+        pt: "Você já fez check-in hoje",
+      },
+      typeMessage: "warning",
+      statusCode: 400,
+      error: null,
     });
   });
 });

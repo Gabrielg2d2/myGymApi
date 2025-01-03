@@ -4,6 +4,7 @@ import {
   IDataRequest,
   RepositoryCheckIn,
 } from "../../repositories/repository";
+import { ServiceCheckInAlreadyExistsToday } from "../../services/check-in-already-exists-today";
 import { ErrorsCreateCheckIn } from "./returns/errors";
 import { SuccessCreateCheckIn } from "./returns/success";
 
@@ -22,6 +23,13 @@ export class CreateCheckInUseCase implements ICreateCheckInUseCase {
 
   async execute(data: IDataRequest) {
     try {
+      const checkInOnSomeDate = await this.repository.findByUserIdOnDate(
+        data.userId,
+        new Date()
+      );
+
+      await new ServiceCheckInAlreadyExistsToday().execute(checkInOnSomeDate);
+
       const checkIn = await this.repository.create(data);
 
       return await new SuccessCreateCheckIn().execute(checkIn);

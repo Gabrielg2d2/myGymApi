@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { ICheckIn, IDataRequest, IRepositoryCheckIn } from "../interface";
 
 export class RepositoryCheckInTest implements IRepositoryCheckIn {
-  private checkIns: ICheckIn[] = [];
+  private listCheckIn: ICheckIn[] = [];
 
   async create(data: IDataRequest) {
     const checkIn: ICheckIn = {
@@ -13,8 +13,18 @@ export class RepositoryCheckInTest implements IRepositoryCheckIn {
       validated_at: data.validatedAt ? new Date(data.validatedAt) : null,
     };
 
-    this.checkIns.push(checkIn);
+    this.listCheckIn.push(checkIn);
 
     return checkIn;
+  }
+
+  async findByUserIdOnDate(userId: string, date: Date) {
+    const checkInOnSomeDate = this.listCheckIn.find(
+      (checkIn) => checkIn.user_id === userId
+    );
+
+    if (!checkInOnSomeDate) return null;
+
+    return checkInOnSomeDate;
   }
 }

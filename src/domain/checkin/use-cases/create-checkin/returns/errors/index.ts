@@ -1,5 +1,6 @@
 import { CustomErrorService } from "@/domain/@global/class/errors/service";
 import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
+import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
 
 interface IErrorsCreateCheckIn {
   execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;
@@ -7,21 +8,20 @@ interface IErrorsCreateCheckIn {
 
 export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
   async execute(error: Error | unknown) {
-    // TODO: Implementar a verificação de erro
-    // if (error instanceof Error) {
-    //   if (error.message === "Error: Credentials are invalid") {
-    //     return {
-    //       data: null,
-    //       message: {
-    //         en: "Credentials are invalid",
-    //         pt: "Credenciais inválidas",
-    //       },
-    //       typeMessage: ITypeMessageGlobal.ERROR,
-    //       statusCode: 401,
-    //       error: null,
-    //     };
-    //   }
-    // }
+    if (error instanceof Error) {
+      if (error.message === "Error: Check in already done today") {
+        return {
+          data: null,
+          message: {
+            en: "You have already checked in today",
+            pt: "Você já fez check-in hoje",
+          },
+          typeMessage: ITypeMessageGlobal.WARNING,
+          statusCode: 400,
+          error: null,
+        };
+      }
+    }
 
     return new CustomErrorService().execute(error);
   }

@@ -16,4 +16,17 @@ export class RepositoryCheckIn implements IRepositoryCheckIn {
 
     return checkIn;
   }
+
+  async findByUserIdOnDate(userId: string, date: Date) {
+    const checkInOnSomeDate = await this.db.prisma.checkIn.findFirst({
+      where: {
+        user_id: userId,
+        created_at: date,
+      },
+    });
+
+    if (!checkInOnSomeDate) return null;
+
+    return checkInOnSomeDate;
+  }
 }
