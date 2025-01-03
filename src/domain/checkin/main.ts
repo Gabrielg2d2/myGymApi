@@ -8,7 +8,7 @@ interface ICheckInDomain {
   create(data: IDataRequest): Promise<IReturnCheckInCreate>;
 }
 
-export type { IReturnCheckInCreate };
+export type { IDataRequest, IReturnCheckInCreate };
 
 export class CheckInDomain implements ICheckInDomain {
   async create(data: IDataRequest) {
