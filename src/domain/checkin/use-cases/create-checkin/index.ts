@@ -7,11 +7,14 @@ import {
 import { ErrorsCreateCheckIn } from "./returns/errors";
 import { SuccessCreateCheckIn } from "./returns/success";
 
+type IReturnCheckInCreate = IReturnDefaultDomainGlobal<{
+  checkIn: ICheckIn;
+} | null>;
 interface ICreateCheckInUseCase {
-  execute(
-    data: IDataRequest
-  ): Promise<IReturnDefaultDomainGlobal<{ checkIn: ICheckIn } | null>>;
+  execute(data: IDataRequest): Promise<IReturnCheckInCreate>;
 }
+
+export type { IDataRequest, IReturnCheckInCreate };
 
 export class CreateCheckInUseCase implements ICreateCheckInUseCase {
   constructor(private readonly repository = new RepositoryCheckIn()) {}

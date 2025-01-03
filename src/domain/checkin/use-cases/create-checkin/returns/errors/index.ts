@@ -22,6 +22,6 @@ export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
     //   }
     // }
 
-    return new CustomErrorService().execute(null);
+    return new CustomErrorService().execute(error);
   }
 }

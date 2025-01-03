@@ -1,17 +1,15 @@
 import {
-  ICheckIn,
+  CreateCheckInUseCase,
   IDataRequest,
-  RepositoryCheckIn,
-} from "./repositories/repository";
+  IReturnCheckInCreate,
+} from "./use-cases/create-checkin";
 
-interface ICheckInDomain {}
+interface ICheckInDomain {
+  create(data: IDataRequest): Promise<IReturnCheckInCreate>;
+}
 
 export class CheckInDomain implements ICheckInDomain {
-  constructor(private readonly repository = new RepositoryCheckIn()) {}
-
-  async create(data: IDataRequest): Promise<ICheckIn> {
-    const newCheckIn = await this.repository.create(data);
-
-    return newCheckIn;
+  async create(data: IDataRequest) {
+    return await new CreateCheckInUseCase().execute(data);
   }
 }
