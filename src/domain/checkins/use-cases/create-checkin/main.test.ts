@@ -24,8 +24,8 @@ class makeSutCreateCheckInUseCase {
             id: "123",
             title: "Gym Test",
             phone: "123456789",
-            latitude: -23.554,
-            longitude: -46.663,
+            latitude: -23.553091,
+            longitude: -46.662091,
             description: "Description Test",
           },
         },
@@ -73,8 +73,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     expect(result).toEqual({
@@ -103,8 +103,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sutWithError.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     expect(result).toEqual({
@@ -125,15 +125,15 @@ describe("CreateCheckInUseCase", () => {
     await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     expect(result).toEqual({
@@ -154,8 +154,8 @@ describe("CreateCheckInUseCase", () => {
     await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     vi.setSystemTime(new Date("2025-01-10T12:00:00Z"));
@@ -163,8 +163,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 123,
-      userLongitude: 123,
+      userLatitude: -23.553091,
+      userLongitude: -46.662091,
     });
 
     expect(result).toEqual({
@@ -194,8 +194,8 @@ describe("CreateCheckInUseCase", () => {
 
     // TODO: 101 meters from the gym
     const userLocation = {
-      latitude: -23.553091,
-      longitude: -46.662091,
+      latitude: -23.554,
+      longitude: -46.663,
     };
 
     const result = await sut.execute({
