@@ -47,9 +47,9 @@ export class ServiceCheckUserWithinAllowedSpace
 
     console.log("Distance: ", distance);
 
-    const MAX_DISTANCE = 0.1; // 0.1 kilometers = 100 meters
+    const MAX_DISTANCE_IN_KILOMETERS = 0.1;
 
-    if (distance > MAX_DISTANCE) {
+    if (distance > MAX_DISTANCE_IN_KILOMETERS) {
       throw new CustomErrorGlobal({
         message: "Error: You are not close to the gym",
       });
