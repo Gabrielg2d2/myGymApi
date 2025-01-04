@@ -13,8 +13,11 @@ import { RepositoryCheckInTest } from "../../repositories/repository-test";
 import { CreateCheckInUseCase } from "./main";
 
 class makeSutCreateCheckInUseCase {
-  static execute(isError = false) {
-    const GymDomainTest = {
+  static execute(isErrorRepository = false, isErrorGymDomain = false) {
+    const repositoryTestSuccess =
+      new RepositoryCheckInTest() as unknown as RepositoryCheckIn;
+
+    const gymDomainTestSuccess = {
       findGym: vitest.fn().mockResolvedValue({
         data: {
           gym: {
@@ -24,18 +27,27 @@ class makeSutCreateCheckInUseCase {
       }),
     } as unknown as GymsDomain;
 
-    if (isError) {
-      const repositoryTest = {
-        execute: vitest
-          .fn()
-          .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
-      } as unknown as RepositoryCheckIn;
-      return new CreateCheckInUseCase(repositoryTest, GymDomainTest);
-    }
+    const repositoryTestError = {
+      execute: vitest
+        .fn()
+        .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
+    } as unknown as RepositoryCheckIn;
 
-    const repositoryTest =
-      new RepositoryCheckInTest() as unknown as RepositoryCheckIn;
-    return new CreateCheckInUseCase(repositoryTest, GymDomainTest);
+    const gymDomainTestError = {
+      findGym: vitest
+        .fn()
+        .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
+    } as unknown as GymsDomain;
+
+    const repository = isErrorRepository
+      ? repositoryTestError
+      : repositoryTestSuccess;
+
+    const gymDomain = isErrorGymDomain
+      ? gymDomainTestError
+      : gymDomainTestSuccess;
+
+    return new CreateCheckInUseCase(repository, gymDomain);
   }
 }
 
