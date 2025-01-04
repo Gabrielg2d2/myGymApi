@@ -189,8 +189,8 @@ describe("CreateCheckInUseCase", () => {
 
   test("should not be able to check in on distant gym", async () => {
     // TODO: Mock GymDomain
-    //   latitude: -23.554,
-    //   longitude: -46.663,
+    //  latitude: -23.553091,
+    //  longitude: -46.662091,
 
     // TODO: 101 meters from the gym
     const userLocation = {
