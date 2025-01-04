@@ -21,8 +21,8 @@ export type { IDataRequest, IReturnCheckInCreate };
 
 export class CreateCheckInUseCase implements ICreateCheckInUseCase {
   constructor(
-    private readonly repository = new RepositoryCheckIn(),
-    private readonly domainGyms = new GymsDomain()
+    private readonly repository: RepositoryCheckIn,
+    private readonly domainGyms: GymsDomain
   ) {}
 
   async execute(data: IDataRequest) {

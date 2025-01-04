@@ -1,3 +1,4 @@
+import { GymsDomain } from "@/domain/gyms/main";
 import {
   afterEach,
   beforeEach,
@@ -13,18 +14,28 @@ import { CreateCheckInUseCase } from "./main";
 
 class makeSutCreateCheckInUseCase {
   static execute(isError = false) {
+    const GymDomainTest = {
+      findGym: vitest.fn().mockResolvedValue({
+        data: {
+          gym: {
+            id: "123",
+          },
+        },
+      }),
+    } as unknown as GymsDomain;
+
     if (isError) {
       const repositoryTest = {
         execute: vitest
           .fn()
           .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
       } as unknown as RepositoryCheckIn;
-      return new CreateCheckInUseCase(repositoryTest);
+      return new CreateCheckInUseCase(repositoryTest, GymDomainTest);
     }
 
     const repositoryTest =
       new RepositoryCheckInTest() as unknown as RepositoryCheckIn;
-    return new CreateCheckInUseCase(repositoryTest);
+    return new CreateCheckInUseCase(repositoryTest, GymDomainTest);
   }
 }
 
@@ -42,7 +53,12 @@ describe("CreateCheckInUseCase", () => {
   });
 
   test("should create a check-in", async () => {
-    const result = await sut.execute({ gymId: "123", userId: "123" });
+    const result = await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
+    });
 
     expect(result).toEqual({
       data: {
@@ -70,6 +86,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sutWithError.execute({
       gymId: "123",
       userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
     });
 
     expect(result).toEqual({
@@ -87,9 +105,19 @@ describe("CreateCheckInUseCase", () => {
   test("should not be able to check in twice in the same day", async () => {
     vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
 
-    await sut.execute({ gymId: "123", userId: "123" });
+    await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
+    });
 
-    const result = await sut.execute({ gymId: "123", userId: "123" });
+    const result = await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
+    });
 
     expect(result).toEqual({
       data: null,
@@ -106,11 +134,21 @@ describe("CreateCheckInUseCase", () => {
   test("should be able to check in twice but in different days", async () => {
     vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
 
-    await sut.execute({ gymId: "123", userId: "123" });
+    await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
+    });
 
     vi.setSystemTime(new Date("2025-01-10T12:00:00Z"));
 
-    const result = await sut.execute({ gymId: "123", userId: "123" });
+    const result = await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 0,
+      userLongitude: 0,
+    });
 
     expect(result).toEqual({
       data: {

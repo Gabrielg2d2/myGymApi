@@ -1,3 +1,5 @@
+import { GymsDomain } from "../gyms/main";
+import { RepositoryCheckIn } from "./repositories/repository";
 import {
   CreateCheckInUseCase,
   IDataRequest,
@@ -11,7 +13,15 @@ interface ICheckInDomain {
 export type { IDataRequest, IReturnCheckInCreate };
 
 export class CheckInDomain implements ICheckInDomain {
+  constructor(
+    private readonly repository = new RepositoryCheckIn(),
+    private readonly domainGyms = new GymsDomain()
+  ) {}
+
   async create(data: IDataRequest) {
-    return await new CreateCheckInUseCase().execute(data);
+    return await new CreateCheckInUseCase(
+      this.repository,
+      this.domainGyms
+    ).execute(data);
   }
 }
