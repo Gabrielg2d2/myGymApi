@@ -21,6 +21,19 @@ export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
           error: null,
         };
       }
+
+      if (error.message === "Error: You are not close to the gym") {
+        return {
+          data: null,
+          message: {
+            en: "You are not close to the gym",
+            pt: "Você não está próximo a academia",
+          },
+          typeMessage: "warning",
+          statusCode: 400,
+          error: null,
+        };
+      }
     }
 
     return new CustomErrorService().execute(error);

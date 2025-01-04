@@ -6,7 +6,8 @@ import {
   RepositoryCheckIn,
 } from "../../repositories/repository";
 import { ServiceCheckInAlreadyExistsToday } from "../../services/check-in-already-exists-today";
-import { ServiceGetDistanceBetweenCoordinationUseCase } from "../../services/Is-user-within-allowed-space";
+
+import { ServiceCheckUserWithinAllowedSpace } from "../../services/check-user-within-allowed-space";
 import { ErrorsCreateCheckIn } from "./returns/errors";
 import { SuccessCreateCheckIn } from "./returns/success";
 
@@ -40,7 +41,7 @@ export class CreateCheckInUseCase implements ICreateCheckInUseCase {
         throw new Error("Gym not found");
       }
 
-      await new ServiceGetDistanceBetweenCoordinationUseCase().execute(
+      await new ServiceCheckUserWithinAllowedSpace().execute(
         {
           latitude: gym.data.gym.latitude,
           longitude: gym.data.gym.longitude,

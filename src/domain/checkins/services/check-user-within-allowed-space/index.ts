@@ -1,3 +1,5 @@
+import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
+
 export type ICoordinate = {
   latitude: number;
   longitude: number;
@@ -44,7 +46,9 @@ export class ServiceCheckUserWithinAllowedSpace
     const result = getDistanceBetweenCoordinates(from, to);
 
     if (result > 100) {
-      throw new Error("Distance between coordinates is greater than 5km");
+      throw new CustomErrorGlobal({
+        message: "Error: You are not close to the gym",
+      });
     }
   }
 }
