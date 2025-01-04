@@ -1,4 +1,5 @@
 import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
+import { IFindGym } from "@/domain/gyms/main";
 import {
   ICheckIn,
   IDataRequest,
@@ -13,7 +14,7 @@ type IReturnCheckInCreate = IReturnDefaultDomainGlobal<{
 } | null>;
 
 interface ICreateCheckInUseCase {
-  execute(data: IDataRequest): Promise<IReturnCheckInCreate>;
+  execute(findGym: IFindGym, data: IDataRequest): Promise<IReturnCheckInCreate>;
 }
 
 export type { IDataRequest, IReturnCheckInCreate };
@@ -21,12 +22,19 @@ export type { IDataRequest, IReturnCheckInCreate };
 export class CreateCheckInUseCase implements ICreateCheckInUseCase {
   constructor(private readonly repository = new RepositoryCheckIn()) {}
 
-  async execute(data: IDataRequest) {
+  async execute(findGym: IFindGym, data: IDataRequest) {
     try {
       const checkInOnSomeDate = await this.repository.findByUserIdOnDate(
         data.userId,
         new Date()
       );
+
+      const gym = await findGym(data.gymId);
+
+      if (!gym.data?.gym.id) {
+        // TODO: Implementar ServiceErrorGymNotFound
+        throw new Error("Gym not found");
+      }
 
       await new ServiceCheckInAlreadyExistsToday().execute(checkInOnSomeDate);
 

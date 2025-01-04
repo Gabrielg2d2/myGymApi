@@ -5,12 +5,14 @@ import {
 } from "./use-cases/create-gym/main";
 import { FindGymUseCase, IReturnFindGym } from "./use-cases/find-gym/main";
 
+type IFindGym = (gymId: string) => Promise<IReturnFindGym>;
+
 interface IGymsDomain {
   create(data: IDataRequest): Promise<IReturnCheckInCreate>;
-  findGym(gymId: string): Promise<IReturnFindGym>;
+  findGym: IFindGym;
 }
 
-export type { IDataRequest, IReturnCheckInCreate };
+export type { IDataRequest, IFindGym, IReturnCheckInCreate };
 
 export class GymsDomain implements IGymsDomain {
   async create(data: IDataRequest) {
