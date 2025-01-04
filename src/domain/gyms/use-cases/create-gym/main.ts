@@ -5,8 +5,8 @@ import {
   IGymGlobal,
   RepositoryGyms,
 } from "../../repositories/repository";
-import { ErrorsCreateCheckIn } from "./returns/errors";
-import { SuccessCreateCheckIn } from "./returns/success";
+import { ErrorsCreateGym } from "./returns/errors";
+import { SuccessCreateGym } from "./returns/success";
 
 type IReturnCheckInCreate = IReturnDefaultDomainGlobal<{
   gym: IGymGlobal;
@@ -25,9 +25,9 @@ export class CreateGymUseCase implements ICreateGymUseCase {
     try {
       const newGym = await this.repository.create(data);
 
-      return await new SuccessCreateCheckIn().execute(newGym);
+      return await new SuccessCreateGym().execute(newGym);
     } catch (error) {
-      return await new ErrorsCreateCheckIn().execute(error);
+      return await new ErrorsCreateGym().execute(error);
     }
   }
 }
