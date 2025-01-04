@@ -3,11 +3,11 @@ import {
   IDataRequest,
   IReturnCheckInCreate,
 } from "./use-cases/create-gym/main";
-import { FindGymUseCase } from "./use-cases/find-gym/main";
+import { FindGymUseCase, IReturnFindGym } from "./use-cases/find-gym/main";
 
 interface IGymsDomain {
   create(data: IDataRequest): Promise<IReturnCheckInCreate>;
-  findGym(gymId: string): Promise<any>;
+  findGym(gymId: string): Promise<IReturnFindGym>;
 }
 
 export type { IDataRequest, IReturnCheckInCreate };
