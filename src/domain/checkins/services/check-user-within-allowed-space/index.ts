@@ -43,9 +43,13 @@ export class ServiceCheckUserWithinAllowedSpace
   implements IServiceCheckUserWithinAllowedSpace
 {
   async execute(from: ICoordinate, to: ICoordinate) {
-    const result = getDistanceBetweenCoordinates(from, to);
+    const distance = getDistanceBetweenCoordinates(from, to);
 
-    if (result > 100) {
+    console.log("Distance: ", distance);
+
+    const MAX_DISTANCE = 0.1; // 0.1 kilometers = 100 meters
+
+    if (distance > MAX_DISTANCE) {
       throw new CustomErrorGlobal({
         message: "Error: You are not close to the gym",
       });

@@ -8,8 +8,8 @@ export class RepositoryGymsTest implements IRepositoryGyms {
       id: "123",
       title: "Gym Test",
       phone: "123456789",
-      latitude: 123,
-      longitude: 123,
+      latitude: 100,
+      longitude: 100,
       description: "Description Test",
     },
   ];

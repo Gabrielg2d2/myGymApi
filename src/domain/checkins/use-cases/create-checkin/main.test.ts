@@ -24,8 +24,8 @@ class makeSutCreateCheckInUseCase {
             id: "123",
             title: "Gym Test",
             phone: "123456789",
-            latitude: 123,
-            longitude: 123,
+            latitude: -23.554,
+            longitude: -46.663,
             description: "Description Test",
           },
         },
@@ -188,11 +188,21 @@ describe("CreateCheckInUseCase", () => {
   });
 
   test("should not be able to check in on distant gym", async () => {
+    // TODO: Mock GymDomain
+    //   latitude: -23.554,
+    //   longitude: -46.663,
+
+    // TODO: 101 meters from the gym
+    const userLocation = {
+      latitude: -23.553091,
+      longitude: -46.662091,
+    };
+
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 300,
-      userLongitude: 300,
+      userLatitude: userLocation.latitude,
+      userLongitude: userLocation.longitude,
     });
 
     expect(result).toEqual({
