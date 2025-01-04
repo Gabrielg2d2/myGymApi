@@ -43,13 +43,10 @@ export class CreateCheckInUseCase implements ICreateCheckInUseCase {
 
       await new ServiceCheckUserWithinAllowedSpace().execute(
         {
-          latitude: gym.data.gym.latitude,
-          longitude: gym.data.gym.longitude,
-        },
-        {
           latitude: data.userLatitude,
           longitude: data.userLongitude,
-        }
+        },
+        { latitude: gym.data.gym.latitude, longitude: gym.data.gym.longitude }
       );
 
       await new ServiceCheckInAlreadyExistsToday().execute(checkInOnSomeDate);

@@ -73,8 +73,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     expect(result).toEqual({
@@ -103,8 +103,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sutWithError.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     expect(result).toEqual({
@@ -125,15 +125,15 @@ describe("CreateCheckInUseCase", () => {
     await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     expect(result).toEqual({
@@ -154,8 +154,8 @@ describe("CreateCheckInUseCase", () => {
     await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     vi.setSystemTime(new Date("2025-01-10T12:00:00Z"));
@@ -163,8 +163,8 @@ describe("CreateCheckInUseCase", () => {
     const result = await sut.execute({
       gymId: "123",
       userId: "123",
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: 123,
+      userLongitude: 123,
     });
 
     expect(result).toEqual({
