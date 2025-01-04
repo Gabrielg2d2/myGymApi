@@ -13,7 +13,7 @@ export class RepositoryCheckInTest implements IRepositoryCheckIn {
       created_at: new Date(),
       user_id: data.userId,
       gym_id: data.gymId,
-      validated_at: data.validatedAt ? new Date(data.validatedAt) : null,
+      validated_at: null,
     };
 
     this.listCheckIn.push(checkIn);
