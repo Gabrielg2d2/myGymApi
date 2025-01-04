@@ -3,7 +3,16 @@ import { randomUUID } from "node:crypto";
 import { IDataRequest, IRepositoryGyms } from "../interface";
 
 export class RepositoryGymsTest implements IRepositoryGyms {
-  private listGyms: IGymGlobal[] = [];
+  private listGyms: IGymGlobal[] = [
+    {
+      id: "123",
+      title: "Gym Test",
+      phone: "123456789",
+      latitude: 123,
+      longitude: 123,
+      description: "Description Test",
+    },
+  ];
 
   async create(data: IDataRequest) {
     const newGym = {
