@@ -22,6 +22,11 @@ class makeSutCreateCheckInUseCase {
         data: {
           gym: {
             id: "123",
+            title: "Gym Test",
+            phone: "123456789",
+            latitude: 123,
+            longitude: 123,
+            description: "Description Test",
           },
         },
       }),
@@ -178,6 +183,26 @@ describe("CreateCheckInUseCase", () => {
       },
       typeMessage: "success",
       statusCode: 201,
+      error: null,
+    });
+  });
+
+  test("should not be able to check in on distant gym", async () => {
+    const result = await sut.execute({
+      gymId: "123",
+      userId: "123",
+      userLatitude: 300,
+      userLongitude: 300,
+    });
+
+    expect(result).toEqual({
+      data: null,
+      message: {
+        en: "You are not close to the gym",
+        pt: "Você não está próximo a academia",
+      },
+      typeMessage: "warning",
+      statusCode: 400,
       error: null,
     });
   });
