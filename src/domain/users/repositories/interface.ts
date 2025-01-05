@@ -1,4 +1,4 @@
-import { IUserGlobal } from "@/domain/@global/types/user";
+import { IUserGlobal } from '@/domain/@global/types/user';
 
 export type IRequestCreateUser = {
   name: string;

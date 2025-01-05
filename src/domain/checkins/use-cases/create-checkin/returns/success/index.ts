@@ -1,6 +1,6 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
-import { ICheckIn } from "../../../../repositories/repository";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
+import { ICheckIn } from '../../../../repositories/repository';
 
 interface ISuccessCreateCheckIn {
   execute(data: ICheckIn | null): Promise<
@@ -13,7 +13,7 @@ interface ISuccessCreateCheckIn {
 export class SuccessCreateCheckIn implements ISuccessCreateCheckIn {
   async execute(data: ICheckIn | null) {
     if (!data?.id) {
-      throw new Error("Unexpected: Data is required");
+      throw new Error('Unexpected: Data is required');
     }
 
     return {
@@ -21,8 +21,8 @@ export class SuccessCreateCheckIn implements ISuccessCreateCheckIn {
         checkIn: data,
       },
       message: {
-        en: "Check-in created successfully",
-        pt: "Check-in criado com sucesso",
+        en: 'Check-in created successfully',
+        pt: 'Check-in criado com sucesso',
       },
       typeMessage: ITypeMessageGlobal.SUCCESS,
       statusCode: 201,

@@ -1,10 +1,10 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { IUserGlobal } from "@/domain/@global/types/user";
-import { ServiceValidatingAuthenticatedUser } from "@/domain/users/services/validatiing-authenticated-user";
-import { ServiceValidationEmailPassword } from "@/domain/users/services/validating-email-password";
-import { RepositoryUsers } from "../../repositories/repository";
-import { ErrorsAuthenticateUser } from "./returns/errors";
-import { SuccessAuthenticateUser } from "./returns/success";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { IUserGlobal } from '@/domain/@global/types/user';
+import { ServiceValidatingAuthenticatedUser } from '@/domain/users/services/validatiing-authenticated-user';
+import { ServiceValidationEmailPassword } from '@/domain/users/services/validating-email-password';
+import { RepositoryUsers } from '../../repositories/repository';
+import { ErrorsAuthenticateUser } from './returns/errors';
+import { SuccessAuthenticateUser } from './returns/success';
 
 type IDataRequest = {
   email: string;

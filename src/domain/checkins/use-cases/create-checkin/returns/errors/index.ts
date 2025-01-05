@@ -1,6 +1,6 @@
-import { CustomErrorService } from "@/domain/@global/class/errors/service";
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
+import { CustomErrorService } from '@/domain/@global/class/errors/service';
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
 
 interface IErrorsCreateCheckIn {
   execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;
@@ -9,12 +9,12 @@ interface IErrorsCreateCheckIn {
 export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
   async execute(error: Error | unknown) {
     if (error instanceof Error) {
-      if (error.message === "Error: Check in already done today") {
+      if (error.message === 'Error: Check in already done today') {
         return {
           data: null,
           message: {
-            en: "You have already checked in today",
-            pt: "Você já fez check-in hoje",
+            en: 'You have already checked in today',
+            pt: 'Você já fez check-in hoje',
           },
           typeMessage: ITypeMessageGlobal.WARNING,
           statusCode: 400,
@@ -22,14 +22,14 @@ export class ErrorsCreateCheckIn extends Error implements IErrorsCreateCheckIn {
         };
       }
 
-      if (error.message === "Error: You are not close to the gym") {
+      if (error.message === 'Error: You are not close to the gym') {
         return {
           data: null,
           message: {
-            en: "You are not close to the gym",
-            pt: "Você não está próximo a academia",
+            en: 'You are not close to the gym',
+            pt: 'Você não está próximo a academia',
           },
-          typeMessage: "warning",
+          typeMessage: ITypeMessageGlobal.WARNING,
           statusCode: 400,
           error: null,
         };

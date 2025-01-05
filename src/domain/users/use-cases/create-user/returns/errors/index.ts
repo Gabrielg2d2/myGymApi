@@ -1,6 +1,6 @@
-import { CustomErrorService } from "@/domain/@global/class/errors/service";
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
+import { CustomErrorService } from '@/domain/@global/class/errors/service';
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
 
 interface IErrorsCreateUser {
   execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;
@@ -9,12 +9,12 @@ interface IErrorsCreateUser {
 export class ErrorsCreateUser extends Error implements IErrorsCreateUser {
   async execute(error: Error | unknown) {
     if (error instanceof Error) {
-      if (error.message === "Error: Invalid content") {
+      if (error.message === 'Error: Invalid content') {
         return {
           data: null,
           message: {
-            en: "Invalid content",
-            pt: "Conteúdo inválido",
+            en: 'Invalid content',
+            pt: 'Conteúdo inválido',
           },
           typeMessage: ITypeMessageGlobal.ERROR,
           statusCode: 400,
@@ -22,12 +22,12 @@ export class ErrorsCreateUser extends Error implements IErrorsCreateUser {
         };
       }
 
-      if (error.message === "Error: User already exists") {
+      if (error.message === 'Error: User already exists') {
         return {
           data: null,
           message: {
-            en: "User already exists",
-            pt: "Usuário já existe",
+            en: 'User already exists',
+            pt: 'Usuário já existe',
           },
           typeMessage: ITypeMessageGlobal.ERROR,
           statusCode: 409,

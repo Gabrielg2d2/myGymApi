@@ -1,5 +1,5 @@
-import { AdapterPrisma } from "@/domain/@adapters/repository/prisma";
-import { IRepositoryUsers, IRequestCreateUser } from "../interface";
+import { AdapterPrisma } from '@/domain/@adapters/repository/prisma';
+import { IRepositoryUsers, IRequestCreateUser } from '../interface';
 
 export class RepositoryUsers implements IRepositoryUsers {
   constructor(private readonly adapter = new AdapterPrisma()) {}

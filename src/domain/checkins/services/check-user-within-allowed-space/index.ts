@@ -1,4 +1,4 @@
-import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
+import { CustomErrorGlobal } from '@/domain/@global/class/errors/custom';
 
 export type ICoordinate = {
   latitude: number;
@@ -11,7 +11,7 @@ interface IServiceCheckUserWithinAllowedSpace {
 
 export function getDistanceBetweenCoordinates(
   from: ICoordinate,
-  to: ICoordinate
+  to: ICoordinate,
 ) {
   if (from.latitude === to.latitude && from.longitude === to.longitude) {
     return 0;
@@ -49,7 +49,7 @@ export class ServiceCheckUserWithinAllowedSpace
 
     if (distance > MAX_DISTANCE_IN_KILOMETERS) {
       throw new CustomErrorGlobal({
-        message: "Error: You are not close to the gym",
+        message: 'Error: You are not close to the gym',
       });
     }
   }

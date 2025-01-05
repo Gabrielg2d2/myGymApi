@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IUserGlobal } from "@/domain/@global/types/user";
-import { IRepositoryUsers, IRequestCreateUser } from "../interface";
+import { IUserGlobal } from '@/domain/@global/types/user';
+import { IRepositoryUsers, IRequestCreateUser } from '../interface';
 
 export class RepositoryUserTest implements IRepositoryUsers {
   private users: IUserGlobal[] = [
     {
-      id: "123123123",
-      name: "Test User",
-      email: "test@gmail.com",
+      id: '123123123',
+      name: 'Test User',
+      email: 'test@gmail.com',
       password_hash:
-        "$2a$06$NKPokWEEGykqDgrEqVnxge5q8xhKnCI7UfayPjdHZHJnovITMZE1y", // 123456
+        '$2a$06$NKPokWEEGykqDgrEqVnxge5q8xhKnCI7UfayPjdHZHJnovITMZE1y', // 123456
       created_at: new Date(),
     },
   ];
@@ -17,11 +17,11 @@ export class RepositoryUserTest implements IRepositoryUsers {
   async clearUsers() {
     this.users = [
       {
-        id: "123123123",
-        name: "Test User",
-        email: "test@gmail.com",
+        id: '123123123',
+        name: 'Test User',
+        email: 'test@gmail.com',
         password_hash:
-          "$2a$06$NKPokWEEGykqDgrEqVnxge5q8xhKnCI7UfayPjdHZHJnovITMZE1y", // 123456
+          '$2a$06$NKPokWEEGykqDgrEqVnxge5q8xhKnCI7UfayPjdHZHJnovITMZE1y', // 123456
         created_at: new Date(),
       },
     ];
@@ -31,7 +31,7 @@ export class RepositoryUserTest implements IRepositoryUsers {
     try {
       return this.users;
     } catch (error) {
-      throw new Error("RepositoryUserTest: Error to get users");
+      throw new Error('RepositoryUserTest: Error to get users');
     }
   }
 
@@ -44,7 +44,7 @@ export class RepositoryUserTest implements IRepositoryUsers {
 
       return result;
     } catch (error) {
-      throw new Error("RepositoryUserTest: Error to get user by id");
+      throw new Error('RepositoryUserTest: Error to get user by id');
     }
   }
 
@@ -57,7 +57,7 @@ export class RepositoryUserTest implements IRepositoryUsers {
 
       return result;
     } catch (error) {
-      throw new Error("RepositoryUserTest: Error to get user by email");
+      throw new Error('RepositoryUserTest: Error to get user by email');
     }
   }
 
@@ -75,7 +75,7 @@ export class RepositoryUserTest implements IRepositoryUsers {
 
       return user;
     } catch (error) {
-      throw new Error("RepositoryUserTest: Error to create user");
+      throw new Error('RepositoryUserTest: Error to create user');
     }
   }
 }

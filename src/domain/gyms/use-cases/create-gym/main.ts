@@ -1,12 +1,12 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
 
 import {
   IDataRequest,
   IGymGlobal,
   RepositoryGyms,
-} from "../../repositories/repository";
-import { ErrorsCreateGym } from "./returns/errors";
-import { SuccessCreateGym } from "./returns/success";
+} from '../../repositories/repository';
+import { ErrorsCreateGym } from './returns/errors';
+import { SuccessCreateGym } from './returns/success';
 
 type IReturnCheckInCreate = IReturnDefaultDomainGlobal<{
   gym: IGymGlobal;

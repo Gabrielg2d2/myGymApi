@@ -1,6 +1,6 @@
-import { CustomErrorService } from "@/domain/@global/class/errors/service";
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
+import { CustomErrorService } from '@/domain/@global/class/errors/service';
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
 
 interface IErrorsAuthenticateUser {
   execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;
@@ -12,12 +12,12 @@ export class ErrorsAuthenticateUser
 {
   async execute(error: Error | unknown) {
     if (error instanceof Error) {
-      if (error.message === "Error: Credentials are invalid") {
+      if (error.message === 'Error: Credentials are invalid') {
         return {
           data: null,
           message: {
-            en: "Credentials are invalid",
-            pt: "Credenciais inválidas",
+            en: 'Credentials are invalid',
+            pt: 'Credenciais inválidas',
           },
           typeMessage: ITypeMessageGlobal.ERROR,
           statusCode: 401,
@@ -27,12 +27,12 @@ export class ErrorsAuthenticateUser
     }
 
     if (error instanceof Error) {
-      if (error.message === "Error: Invalid content") {
+      if (error.message === 'Error: Invalid content') {
         return {
           data: null,
           message: {
-            en: "E-mail and password required",
-            pt: "E-mail e senha obrigatórios",
+            en: 'E-mail and password required',
+            pt: 'E-mail e senha obrigatórios',
           },
           typeMessage: ITypeMessageGlobal.ERROR,
           statusCode: 400,

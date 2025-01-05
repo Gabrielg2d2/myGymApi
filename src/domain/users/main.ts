@@ -2,18 +2,18 @@ import {
   AuthenticateUserUseCase,
   IDataRequest as IDataAuthenticateRequest,
   IReturnAuthenticateUser,
-} from "./use-cases/authenticate-user/main";
+} from './use-cases/authenticate-user/main';
 import {
   CreateUserUseCase,
   IDataRequest as IDataCreateUserRequest,
   IReturnCreateUserUseCase,
-} from "./use-cases/create-user/main";
+} from './use-cases/create-user/main';
 import {
   GetProfileUseCase,
   IDataRequest as IDataGetProfileRequest,
   IDataResponse as IDataGetProfileResponse,
   IReturnDefaultGetProfile,
-} from "./use-cases/get-user-profile/main";
+} from './use-cases/get-user-profile/main';
 
 export type {
   IDataAuthenticateRequest,

@@ -1,6 +1,6 @@
-import { AdapterDayjs } from "@/domain/@adapters/date/dayjs";
-import { randomUUID } from "node:crypto";
-import { ICheckIn, IDataRequest, IRepositoryCheckIn } from "../interface";
+import { AdapterDayjs } from '@/domain/@adapters/date/dayjs';
+import { randomUUID } from 'node:crypto';
+import { ICheckIn, IDataRequest, IRepositoryCheckIn } from '../interface';
 
 export class RepositoryCheckInTest implements IRepositoryCheckIn {
   private listCheckIn: ICheckIn[] = [];
@@ -22,8 +22,8 @@ export class RepositoryCheckInTest implements IRepositoryCheckIn {
   }
 
   async findByUserIdOnDate(userId: string, date: Date) {
-    const startOfTheDay = this.adapterDate.dayjs(date).startOf("date");
-    const endOfTheDay = this.adapterDate.dayjs(date).endOf("date");
+    const startOfTheDay = this.adapterDate.dayjs(date).startOf('date');
+    const endOfTheDay = this.adapterDate.dayjs(date).endOf('date');
 
     const checkInOnSomeDate = this.listCheckIn.find((checkIn) => {
       const checkInDate = this.adapterDate.dayjs(checkIn.created_at);

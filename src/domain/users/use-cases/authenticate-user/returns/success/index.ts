@@ -1,6 +1,6 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
-import { IUserGlobal } from "@/domain/@global/types/user";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
+import { IUserGlobal } from '@/domain/@global/types/user';
 
 export type IDataSuccess = {
   user: IUserGlobal | null;
@@ -16,7 +16,7 @@ interface ISuccessAuthenticateUser {
 export class SuccessAuthenticateUser implements ISuccessAuthenticateUser {
   async execute({ user }: IDataSuccess) {
     if (!user?.id) {
-      throw new Error("Unexpected: Data is required");
+      throw new Error('Unexpected: Data is required');
     }
 
     return {
@@ -24,8 +24,8 @@ export class SuccessAuthenticateUser implements ISuccessAuthenticateUser {
         user,
       },
       message: {
-        en: "User authenticated successfully",
-        pt: "Usuário autenticado com sucesso",
+        en: 'User authenticated successfully',
+        pt: 'Usuário autenticado com sucesso',
       },
       typeMessage: ITypeMessageGlobal.SUCCESS,
       statusCode: 200,

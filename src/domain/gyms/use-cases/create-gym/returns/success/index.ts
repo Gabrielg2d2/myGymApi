@@ -1,6 +1,6 @@
-import { IGymGlobal } from "@/domain/@global/types/gym";
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { ITypeMessageGlobal } from "@/domain/@global/types/type-message";
+import { IGymGlobal } from '@/domain/@global/types/gym';
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { ITypeMessageGlobal } from '@/domain/@global/types/type-message';
 
 interface ISuccessCreateGym {
   execute(data: IGymGlobal | null): Promise<
@@ -13,7 +13,7 @@ interface ISuccessCreateGym {
 export class SuccessCreateGym implements ISuccessCreateGym {
   async execute(data: IGymGlobal | null) {
     if (!data?.id) {
-      throw new Error("Unexpected: Data is required");
+      throw new Error('Unexpected: Data is required');
     }
 
     return {
@@ -21,8 +21,8 @@ export class SuccessCreateGym implements ISuccessCreateGym {
         gym: data,
       },
       message: {
-        en: "Gym created successfully",
-        pt: "Academia criada com sucesso",
+        en: 'Gym created successfully',
+        pt: 'Academia criada com sucesso',
       },
       typeMessage: ITypeMessageGlobal.SUCCESS,
       statusCode: 201,

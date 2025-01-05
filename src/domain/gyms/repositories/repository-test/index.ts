@@ -1,16 +1,16 @@
-import { IGymGlobal } from "@/domain/@global/types/gym";
-import { randomUUID } from "node:crypto";
-import { IDataRequest, IRepositoryGyms } from "../interface";
+import { IGymGlobal } from '@/domain/@global/types/gym';
+import { randomUUID } from 'node:crypto';
+import { IDataRequest, IRepositoryGyms } from '../interface';
 
 export class RepositoryGymsTest implements IRepositoryGyms {
   private listGyms: IGymGlobal[] = [
     {
-      id: "123",
-      title: "Gym Test",
-      phone: "123456789",
+      id: '123',
+      title: 'Gym Test',
+      phone: '123456789',
       latitude: 100,
       longitude: 100,
-      description: "Description Test",
+      description: 'Description Test',
     },
   ];
 

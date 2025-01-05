@@ -1,4 +1,4 @@
-import { IGymGlobal } from "@/domain/@global/types/gym";
+import { IGymGlobal } from '@/domain/@global/types/gym';
 
 export type IDataRequest = {
   title: string;

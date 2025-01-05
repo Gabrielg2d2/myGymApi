@@ -1,4 +1,4 @@
-import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
+import { CustomErrorGlobal } from '@/domain/@global/class/errors/custom';
 
 interface IServiceValidationEmailPassword {
   execute(email: string, password: string): Promise<void>;
@@ -10,7 +10,7 @@ export class ServiceValidationEmailPassword
   async execute(email: string, password: string) {
     if (!email || !password)
       throw new CustomErrorGlobal({
-        message: "Error: Invalid content",
+        message: 'Error: Invalid content',
       });
   }
 }

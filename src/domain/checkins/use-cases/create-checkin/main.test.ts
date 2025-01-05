@@ -1,4 +1,4 @@
-import { GymsDomain } from "@/domain/gyms/main";
+import { GymsDomain } from '@/domain/gyms/main';
 import {
   afterEach,
   beforeEach,
@@ -7,10 +7,10 @@ import {
   test,
   vi,
   vitest,
-} from "vitest";
-import { RepositoryCheckIn } from "../../repositories/repository";
-import { RepositoryCheckInTest } from "../../repositories/repository-test";
-import { CreateCheckInUseCase } from "./main";
+} from 'vitest';
+import { RepositoryCheckIn } from '../../repositories/repository';
+import { RepositoryCheckInTest } from '../../repositories/repository-test';
+import { CreateCheckInUseCase } from './main';
 
 class makeSutCreateCheckInUseCase {
   static execute(isErrorRepository = false, isErrorGymDomain = false) {
@@ -21,12 +21,12 @@ class makeSutCreateCheckInUseCase {
       findGym: vitest.fn().mockResolvedValue({
         data: {
           gym: {
-            id: "123",
-            title: "Gym Test",
-            phone: "123456789",
+            id: '123',
+            title: 'Gym Test',
+            phone: '123456789',
             latitude: -23.553091,
             longitude: -46.662091,
-            description: "Description Test",
+            description: 'Description Test',
           },
         },
       }),
@@ -35,13 +35,13 @@ class makeSutCreateCheckInUseCase {
     const repositoryTestError = {
       execute: vitest
         .fn()
-        .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
+        .mockRejectedValueOnce(new Error('Unexpect: unknown error')),
     } as unknown as RepositoryCheckIn;
 
     const gymDomainTestError = {
       findGym: vitest
         .fn()
-        .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
+        .mockRejectedValueOnce(new Error('Unexpect: unknown error')),
     } as unknown as GymsDomain;
 
     const repository = isErrorRepository
@@ -56,7 +56,7 @@ class makeSutCreateCheckInUseCase {
   }
 }
 
-describe("CreateCheckInUseCase", () => {
+describe('CreateCheckInUseCase', () => {
   let sut: CreateCheckInUseCase;
 
   beforeEach(() => {
@@ -69,10 +69,10 @@ describe("CreateCheckInUseCase", () => {
     vi.useRealTimers();
   });
 
-  test("should create a check-in", async () => {
+  test('should create a check-in', async () => {
     const result = await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
@@ -83,26 +83,26 @@ describe("CreateCheckInUseCase", () => {
           id: expect.any(String),
           validated_at: null,
           created_at: new Date(),
-          user_id: "123",
-          gym_id: "123",
+          user_id: '123',
+          gym_id: '123',
         },
       },
       message: {
-        en: "Check-in created successfully",
-        pt: "Check-in criado com sucesso",
+        en: 'Check-in created successfully',
+        pt: 'Check-in criado com sucesso',
       },
-      typeMessage: "success",
+      typeMessage: 'success',
       statusCode: 201,
       error: null,
     });
   });
 
-  test("should return an unknown error", async () => {
+  test('should return an unknown error', async () => {
     const sutWithError = makeSutCreateCheckInUseCase.execute(true);
 
     const result = await sutWithError.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
@@ -110,28 +110,28 @@ describe("CreateCheckInUseCase", () => {
     expect(result).toEqual({
       data: null,
       message: {
-        en: "Service unavailable, try again later",
-        pt: "Serviço indisponível, tente novamente mais tarde",
+        en: 'Service unavailable, try again later',
+        pt: 'Serviço indisponível, tente novamente mais tarde',
       },
-      typeMessage: "fatal",
+      typeMessage: 'fatal',
       error: expect.any(String),
       statusCode: 500,
     });
   });
 
-  test("should not be able to check in twice in the same day", async () => {
-    vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
+  test('should not be able to check in twice in the same day', async () => {
+    vi.setSystemTime(new Date('2025-01-09T12:00:00Z'));
 
     await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
 
     const result = await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
@@ -139,30 +139,30 @@ describe("CreateCheckInUseCase", () => {
     expect(result).toEqual({
       data: null,
       message: {
-        en: "You have already checked in today",
-        pt: "Você já fez check-in hoje",
+        en: 'You have already checked in today',
+        pt: 'Você já fez check-in hoje',
       },
-      typeMessage: "warning",
+      typeMessage: 'warning',
       statusCode: 400,
       error: null,
     });
   });
 
-  test("should be able to check in twice but in different days", async () => {
-    vi.setSystemTime(new Date("2025-01-09T12:00:00Z"));
+  test('should be able to check in twice but in different days', async () => {
+    vi.setSystemTime(new Date('2025-01-09T12:00:00Z'));
 
     await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
 
-    vi.setSystemTime(new Date("2025-01-10T12:00:00Z"));
+    vi.setSystemTime(new Date('2025-01-10T12:00:00Z'));
 
     const result = await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: -23.553091,
       userLongitude: -46.662091,
     });
@@ -173,21 +173,21 @@ describe("CreateCheckInUseCase", () => {
           id: expect.any(String),
           validated_at: null,
           created_at: new Date(),
-          user_id: "123",
-          gym_id: "123",
+          user_id: '123',
+          gym_id: '123',
         },
       },
       message: {
-        en: "Check-in created successfully",
-        pt: "Check-in criado com sucesso",
+        en: 'Check-in created successfully',
+        pt: 'Check-in criado com sucesso',
       },
-      typeMessage: "success",
+      typeMessage: 'success',
       statusCode: 201,
       error: null,
     });
   });
 
-  test("should not be able to check in on distant gym", async () => {
+  test('should not be able to check in on distant gym', async () => {
     // TODO: Mock GymDomain
     //  latitude: -23.553091,
     //  longitude: -46.662091,
@@ -199,8 +199,8 @@ describe("CreateCheckInUseCase", () => {
     };
 
     const result = await sut.execute({
-      gymId: "123",
-      userId: "123",
+      gymId: '123',
+      userId: '123',
       userLatitude: userLocation.latitude,
       userLongitude: userLocation.longitude,
     });
@@ -208,10 +208,10 @@ describe("CreateCheckInUseCase", () => {
     expect(result).toEqual({
       data: null,
       message: {
-        en: "You are not close to the gym",
-        pt: "Você não está próximo a academia",
+        en: 'You are not close to the gym',
+        pt: 'Você não está próximo a academia',
       },
-      typeMessage: "warning",
+      typeMessage: 'warning',
       statusCode: 400,
       error: null,
     });

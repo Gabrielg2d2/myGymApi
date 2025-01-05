@@ -1,5 +1,5 @@
-import { CustomErrorService } from "@/domain/@global/class/errors/service";
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
+import { CustomErrorService } from '@/domain/@global/class/errors/service';
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
 
 interface IErrorsCreateGym {
   execute(error: Error | unknown): Promise<IReturnDefaultDomainGlobal<null>>;

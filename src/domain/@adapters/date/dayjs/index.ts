@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export class AdapterDayjs {
   constructor(private readonly _dayjs = dayjs) {}

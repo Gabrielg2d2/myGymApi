@@ -6,10 +6,10 @@ import {
   test,
   vi,
   vitest,
-} from "vitest";
-import { RepositoryGyms } from "../../repositories/repository";
-import { RepositoryGymsTest } from "../../repositories/repository-test";
-import { CreateGymUseCase } from "./main";
+} from 'vitest';
+import { RepositoryGyms } from '../../repositories/repository';
+import { RepositoryGymsTest } from '../../repositories/repository-test';
+import { CreateGymUseCase } from './main';
 
 class makeSutCreateGymUseCase {
   static execute(isError = false) {
@@ -17,7 +17,7 @@ class makeSutCreateGymUseCase {
       const repositoryTest = {
         execute: vitest
           .fn()
-          .mockRejectedValueOnce(new Error("Unexpect: unknown error")),
+          .mockRejectedValueOnce(new Error('Unexpect: unknown error')),
       } as unknown as RepositoryGyms;
       return new CreateGymUseCase(repositoryTest);
     }
@@ -28,7 +28,7 @@ class makeSutCreateGymUseCase {
   }
 }
 
-describe("CreateGymUseCase", () => {
+describe('CreateGymUseCase', () => {
   let sut: CreateGymUseCase;
 
   beforeEach(() => {
@@ -41,57 +41,57 @@ describe("CreateGymUseCase", () => {
     vi.useRealTimers();
   });
 
-  test("should create new gym", async () => {
+  test('should create new gym', async () => {
     const result = await sut.execute({
-      title: "Academia Teste",
-      description: "Academia Teste",
+      title: 'Academia Teste',
+      description: 'Academia Teste',
       latitude: -23.5505199,
       longitude: -46.6333094,
-      phone: "11999999999",
+      phone: '11999999999',
     });
 
     expect(result).toEqual({
       data: {
         gym: {
           id: expect.any(String),
-          title: "Academia Teste",
+          title: 'Academia Teste',
           latitude: -23.5505199,
           longitude: -46.6333094,
-          phone: "11999999999",
-          description: "Academia Teste",
+          phone: '11999999999',
+          description: 'Academia Teste',
           created_at: expect.any(Date),
         },
       },
       message: {
-        en: "Gym created successfully",
-        pt: "Academia criada com sucesso",
+        en: 'Gym created successfully',
+        pt: 'Academia criada com sucesso',
       },
-      typeMessage: "success",
+      typeMessage: 'success',
       statusCode: 201,
       error: null,
     });
   });
 
-  test("should return error when try create new gym", async () => {
+  test('should return error when try create new gym', async () => {
     sut = makeSutCreateGymUseCase.execute(true);
 
     const result = await sut.execute({
-      title: "Academia Teste",
-      description: "Academia Teste",
+      title: 'Academia Teste',
+      description: 'Academia Teste',
       latitude: -23.5505199,
       longitude: -46.6333094,
-      phone: "11999999999",
+      phone: '11999999999',
     });
 
     expect(result).toEqual({
       data: null,
       message: {
-        en: "Service unavailable, try again later",
-        pt: "Serviço indisponível, tente novamente mais tarde",
+        en: 'Service unavailable, try again later',
+        pt: 'Serviço indisponível, tente novamente mais tarde',
       },
-      typeMessage: "fatal",
+      typeMessage: 'fatal',
       statusCode: 500,
-      error: "this.repository.create is not a function",
+      error: 'this.repository.create is not a function',
     });
   });
 });

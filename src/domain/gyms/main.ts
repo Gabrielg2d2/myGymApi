@@ -2,8 +2,8 @@ import {
   CreateGymUseCase,
   IDataRequest,
   IReturnCheckInCreate,
-} from "./use-cases/create-gym/main";
-import { FindGymUseCase, IReturnFindGym } from "./use-cases/find-gym/main";
+} from './use-cases/create-gym/main';
+import { FindGymUseCase, IReturnFindGym } from './use-cases/find-gym/main';
 
 type IFindGym = (gymId: string) => Promise<IReturnFindGym>;
 

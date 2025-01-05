@@ -1,11 +1,11 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { IUserGlobal } from "@/domain/@global/types/user";
-import { RepositoryUsers } from "../../repositories/repository";
-import { ServiceCreatePasswordHash } from "../../services/create-password-hash";
-import { ServiceValidationUserAlreadyExists } from "../../services/validating-user-alredy-exists";
-import { ServiceValidationCreateUser } from "../../services/validation-user-creation";
-import { ErrorsCreateUser } from "./returns/errors";
-import { SuccessCreateUser } from "./returns/success";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { IUserGlobal } from '@/domain/@global/types/user';
+import { RepositoryUsers } from '../../repositories/repository';
+import { ServiceCreatePasswordHash } from '../../services/create-password-hash';
+import { ServiceValidationUserAlreadyExists } from '../../services/validating-user-alredy-exists';
+import { ServiceValidationCreateUser } from '../../services/validation-user-creation';
+import { ErrorsCreateUser } from './returns/errors';
+import { SuccessCreateUser } from './returns/success';
 
 type IDataRequest = {
   name: string;
@@ -23,7 +23,7 @@ export type { IDataRequest, IDataResponse, IReturnCreateUserUseCase };
 
 interface ICreateUserUseCase {
   execute(
-    body: IDataRequest
+    body: IDataRequest,
   ): Promise<IReturnDefaultDomainGlobal<IDataResponse | null>>;
 }
 
@@ -41,7 +41,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       await new ServiceValidationUserAlreadyExists().execute(user);
 
       const password_hash = await new ServiceCreatePasswordHash().execute(
-        password
+        password,
       );
 
       const newUser = await this.repository.createUser({

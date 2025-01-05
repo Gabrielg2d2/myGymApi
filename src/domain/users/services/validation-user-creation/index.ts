@@ -1,5 +1,5 @@
-import { AdapterZod } from "@/domain/@adapters/validation/zod";
-import { CustomErrorGlobal } from "@/domain/@global/class/errors/custom";
+import { AdapterZod } from '@/domain/@adapters/validation/zod';
+import { CustomErrorGlobal } from '@/domain/@global/class/errors/custom';
 
 type IDataRequest = {
   name: string;
@@ -27,7 +27,7 @@ export class ServiceValidationCreateUser
 
     if (!isBodyValid.success) {
       throw new CustomErrorGlobal({
-        message: "Error: Invalid content",
+        message: 'Error: Invalid content',
         details: isBodyValid.error.formErrors.fieldErrors,
       });
     }

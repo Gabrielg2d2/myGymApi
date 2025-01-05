@@ -1,9 +1,9 @@
-import { IReturnDefaultDomainGlobal } from "@/domain/@global/types/return-default-domain";
-import { IUserGlobal } from "@/domain/@global/types/user";
-import { RepositoryUsers } from "../../repositories/repository";
-import { ServiceUserValidation } from "../../services/user-validation";
-import { ErrorsGetProfile } from "./returns/errors";
-import { SuccessGetProfile } from "./returns/success";
+import { IReturnDefaultDomainGlobal } from '@/domain/@global/types/return-default-domain';
+import { IUserGlobal } from '@/domain/@global/types/user';
+import { RepositoryUsers } from '../../repositories/repository';
+import { ServiceUserValidation } from '../../services/user-validation';
+import { ErrorsGetProfile } from './returns/errors';
+import { SuccessGetProfile } from './returns/success';
 
 type IDataRequest = { userId: string };
 
