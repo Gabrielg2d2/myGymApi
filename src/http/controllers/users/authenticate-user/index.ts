@@ -1,8 +1,8 @@
-import { IDataCreateUserRequest, UsersDomain } from "@/domain/users/main";
+import { IDataAuthenticateRequest, UsersDomain } from "@/domain/users/main";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function authenticateUserController(
-  request: FastifyRequest<{ Body: IDataCreateUserRequest }>,
+  request: FastifyRequest<{ Body: IDataAuthenticateRequest }>,
   reply: FastifyReply
 ) {
   const domain = new UsersDomain();
