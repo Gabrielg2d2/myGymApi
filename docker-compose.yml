@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api-mygym-pg:
     image: bitnami/postgresql:latest
-    container_name: api-mygym-pg
+    container_name: api-mygym-pg-1
     environment:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
